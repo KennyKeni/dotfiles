@@ -19,8 +19,6 @@ Examples that should stay out of this repo:
 - `.claude/projects/`
 - `.config/zed/prompts/`
 - `.config/opencode/node_modules/`
-- `.agents/skills/`
-- `.claude/skills/`
 
 If a tool needs a token or local identity file, document how to recreate it
 instead of committing the file.

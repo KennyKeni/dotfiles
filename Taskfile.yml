@@ -1,0 +1,208 @@
+version: "3"
+
+silent: true
+
+vars:
+  STOW_DIR: "{{.TASKFILE_DIR}}/stow"
+  SKILL_SNAPSHOT_DIR: "{{.TASKFILE_DIR}}/snapshots/skills"
+
+tasks:
+  default:
+    desc: List available tasks.
+    cmds:
+      - task --list
+
+  bootstrap:
+    desc: Install Homebrew packages, mise tools, Stow links, and pnpm globals.
+    cmds:
+      - |
+        /usr/bin/env bash <<'BASH'
+        set -euo pipefail
+
+        if ! command -v brew >/dev/null 2>&1; then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          if [ -x /opt/homebrew/bin/brew ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+          fi
+        fi
+
+        brew bundle --file "{{.TASKFILE_DIR}}/Brewfile"
+
+        if ! command -v mise >/dev/null 2>&1; then
+          echo "mise is not on PATH after brew bundle." >&2
+          exit 1
+        fi
+
+        mise install
+        task link
+        task pnpm:globals
+        BASH
+
+  link:
+    desc: Back up conflicting files and link Stow packages. Pass package names after --.
+    cmds:
+      - task: _stow
+        vars:
+          DRY_RUN: "0"
+          STOW_ARGS: "{{.CLI_ARGS}}"
+
+  link:dry-run:
+    desc: Preview Stow linking and backups. Pass package names after --.
+    cmds:
+      - task: _stow
+        vars:
+          DRY_RUN: "1"
+          STOW_ARGS: "{{.CLI_ARGS}}"
+
+  pnpm:globals:
+    desc: Install packages listed in packages/pnpm-globals.txt with pnpm.
+    cmds:
+      - |
+        /usr/bin/env bash <<'BASH'
+        set -euo pipefail
+
+        package_file="{{.TASKFILE_DIR}}/packages/pnpm-globals.txt"
+
+        if ! command -v pnpm >/dev/null 2>&1; then
+          echo "pnpm is not on PATH. Install pnpm before installing global packages." >&2
+          exit 1
+        fi
+
+        while IFS= read -r package || [ -n "$package" ]; do
+          case "$package" in
+            ""|\#*) continue ;;
+          esac
+
+          pnpm add -g "$package"
+        done < "$package_file"
+        BASH
+
+  snapshot:skills:
+    desc: One-way copy app-managed agent and Claude skills into snapshots/skills.
+    cmds:
+      - |
+        /usr/bin/env bash <<'BASH'
+        set -euo pipefail
+
+        snapshot_dir="{{.SKILL_SNAPSHOT_DIR}}"
+        mkdir -p "$snapshot_dir"
+
+        if ! command -v rsync >/dev/null 2>&1; then
+          echo "rsync is required for skill snapshots." >&2
+          exit 1
+        fi
+
+        rsync -a --delete --copy-links --exclude ".DS_Store" "$HOME/.agents/skills/" "$snapshot_dir/agents/"
+        rsync -a --delete --copy-links --exclude ".DS_Store" "$HOME/.claude/skills/" "$snapshot_dir/claude/"
+
+        echo "Snapshot updated: $snapshot_dir"
+        BASH
+
+  _stow:
+    internal: true
+    cmds:
+      - |
+        /usr/bin/env bash <<'BASH'
+        set -euo pipefail
+
+        stow_dir="{{.STOW_DIR}}"
+        dry_run="{{.DRY_RUN}}"
+        cli_args=( {{.STOW_ARGS}} )
+        package_args=()
+        packages=()
+
+        resolve_existing() {
+          if command -v realpath >/dev/null 2>&1; then
+            realpath "$1" 2>/dev/null && return 0
+          fi
+
+          /usr/bin/perl -MCwd=abs_path -e 'my $p = abs_path($ARGV[0]); print $p if defined $p' "$1"
+        }
+
+        for arg in ${cli_args[@]+"${cli_args[@]}"}; do
+          case "$arg" in
+            -n|--dry-run)
+              dry_run=1
+              ;;
+            --)
+              ;;
+            -*)
+              echo "Unknown option: $arg" >&2
+              exit 2
+              ;;
+            *)
+              package_args+=("$arg")
+              ;;
+          esac
+        done
+
+        if ! command -v stow >/dev/null 2>&1; then
+          echo "GNU Stow is required. Install it with: brew install stow" >&2
+          exit 1
+        fi
+
+        if [ "${#package_args[@]}" -eq 0 ]; then
+          while IFS= read -r package_dir; do
+            [ -d "$package_dir" ] || continue
+            packages+=("$(basename "$package_dir")")
+          done < <(find "$stow_dir" -mindepth 1 -maxdepth 1 -type d | sort)
+        else
+          packages=("${package_args[@]}")
+        fi
+
+        timestamp="$(date +%Y%m%d-%H%M%S)"
+        backup_root="$HOME/.dotfiles-backup/$timestamp"
+        conflict_count=0
+
+        for package in "${packages[@]}"; do
+          package_dir="$stow_dir/$package"
+          if [ ! -d "$package_dir" ]; then
+            echo "Unknown package: $package" >&2
+            exit 1
+          fi
+
+          while IFS= read -r -d '' source_path; do
+            rel_path="${source_path#$package_dir/}"
+            target_path="$HOME/$rel_path"
+
+            if [ ! -e "$target_path" ] && [ ! -L "$target_path" ]; then
+              continue
+            fi
+
+            if [ -L "$target_path" ]; then
+              resolved_target="$(resolve_existing "$target_path" || true)"
+              case "$resolved_target" in
+                "$stow_dir"/*)
+                  continue
+                  ;;
+              esac
+            fi
+
+            conflict_count=$((conflict_count + 1))
+            backup_path="$backup_root/$rel_path"
+
+            if [ "$dry_run" -eq 1 ]; then
+              echo "would back up: $target_path -> $backup_path"
+            else
+              mkdir -p "$(dirname "$backup_path")"
+              mv "$target_path" "$backup_path"
+              echo "backed up: $target_path -> $backup_path"
+            fi
+          done < <(find "$package_dir" -type f -print0)
+        done
+
+        if [ "$dry_run" -eq 1 ]; then
+          if [ "$conflict_count" -gt 0 ]; then
+            echo "dry run found $conflict_count conflicting file(s). Live mode backs these up before running Stow."
+            exit 0
+          fi
+
+          exec stow --no-folding -n -v -d "$stow_dir" -t "$HOME" "${packages[@]}"
+        fi
+
+        stow --no-folding -d "$stow_dir" -t "$HOME" "${packages[@]}"
+
+        if [ "$conflict_count" -gt 0 ]; then
+          echo "Backups saved under: $backup_root"
+        fi
+        BASH

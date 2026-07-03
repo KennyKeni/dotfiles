@@ -9,10 +9,10 @@ their real home-relative paths preserved, then Stow symlinks them into
 ## Layout
 
 - `stow/`: symlinked config packages.
+- `snapshots/skills/`: one-way copies of app-managed skill folders.
 - `Brewfile`: Homebrew formulae and casks for restore.
 - `packages/pnpm-globals.txt`: globally installed pnpm tools.
-- `scripts/bootstrap.sh`: restore Homebrew packages, link config, install tools.
-- `scripts/link.sh`: back up conflicting files and run Stow.
+- `Taskfile.yml`: restore packages, link config, install tools, and snapshot skills.
 - `docs/secrets.md`: what must stay out of Git.
 - `docs/apps.md`: app restore notes for non-Brew-managed apps.
 
@@ -28,19 +28,25 @@ register in the app.
 Preview links and conflicts:
 
 ```sh
-./scripts/link.sh --dry-run
+task link:dry-run
 ```
 
 Link all packages:
 
 ```sh
-./scripts/link.sh
+task link
 ```
 
 Link a subset:
 
 ```sh
-./scripts/link.sh shell git zed
+task link -- shell git zed
+```
+
+Snapshot app-managed skills:
+
+```sh
+task snapshot:skills
 ```
 
 Restore packages:
@@ -48,13 +54,13 @@ Restore packages:
 ```sh
 brew bundle --file Brewfile
 mise install
-./scripts/install-pnpm-globals.sh
+task pnpm:globals
 ```
 
 Full restore:
 
 ```sh
-./scripts/bootstrap.sh
+task bootstrap
 ```
 
 ## Updating
