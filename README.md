@@ -9,19 +9,22 @@ their real home-relative paths preserved, then Stow symlinks them into
 ## Layout
 
 - `stow/`: symlinked config packages.
-- `snapshots/skills/`: one-way copies of app-managed skill folders.
+- `packages/agent-skills/`: edited skills installed through `npx skills`.
 - `Brewfile`: Homebrew formulae and casks for restore.
 - `packages/pnpm-globals.txt`: globally installed pnpm tools.
-- `Taskfile.yml`: restore packages, link config, install tools, and snapshot skills.
+- `Taskfile.yml`: restore packages, link config, install tools, and restore global skills.
 - `docs/secrets.md`: what must stay out of Git.
 - `docs/apps.md`: app restore notes for non-Brew-managed apps.
 
 ## Not Stowed
 
-Codex/agent skill folders, such as `~/.agents/skills` and `~/.claude/skills`,
-are intentionally not managed by Stow here. Codex expects skill files to be
-normal files in their app-managed locations; symlinked `SKILL.md` files may not
-register in the app.
+Codex/agent skill folders, such as `~/.agents/skills`, `~/.claude/skills`, and
+`~/.config/opencode/skills`, are intentionally not managed by Stow here. Skill
+files should be installed with `npx skills` so each app sees normal files in its
+own app-managed location.
+
+The native global skills lock, `~/.agents/.skill-lock.json`, is shared through
+dotfiles. Restore global skills from that lock with `task skills:restore-global`.
 
 ## Common Commands
 
@@ -43,10 +46,10 @@ Link a subset:
 task link -- shell git zed
 ```
 
-Snapshot app-managed skills:
+Restore global skills from the native global lock:
 
 ```sh
-task snapshot:skills
+task skills:restore-global
 ```
 
 Restore packages:
@@ -69,5 +72,11 @@ Edit config through the usual path, such as `~/.zshrc` or
 `~/.config/zed/settings.json`. Once linked, those paths point back into this
 repo, so `git diff` shows the real changes here.
 
-For app-managed skill folders, update them through their installer or copy
-workflow rather than through this dotfiles repo.
+Edited skills live in `packages/agent-skills/`. Push changes to this GitHub
+repo, then install them with `npx skills` from:
+
+```sh
+https://github.com/KennyKeni/dotfiles/tree/main/packages/agent-skills
+```
+
+After changing global skill installs, commit the updated native global lock.
