@@ -18,7 +18,6 @@ Examples that should stay out of this repo:
 - `.codex/ambient-suggestions/`
 - `.claude/projects/`
 - `.config/zed/prompts/`
-- `.config/opencode/node_modules/`
 
 If a tool needs a token or local identity file, document how to recreate it
 instead of committing the file.

@@ -77,7 +77,7 @@ tasks:
         BASH
 
   skills:restore-global:
-    desc: Restore global skills from the native global skills lock to Codex, OpenCode, Zed, and Claude Code.
+    desc: Restore global skills from the native global skills lock to Codex, Zed, and Claude Code.
     cmds:
       - |
         /usr/bin/env bash <<'BASH'
@@ -109,7 +109,7 @@ tasks:
           process.exit(0);
         }
 
-        const agents = ["codex", "opencode", "zed", "claude-code"];
+        const agents = ["codex", "zed", "claude-code"];
         const bySource = new Map();
 
         for (const [skillName, entry] of skills) {

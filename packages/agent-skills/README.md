@@ -8,7 +8,7 @@ Install them from GitHub, not from a local path:
 ```sh
 npx -y skills@latest add https://github.com/KennyKeni/dotfiles/tree/main/packages/agent-skills \
   -g --copy --full-depth \
-  -a codex opencode zed claude-code \
+  -a codex zed claude-code \
   -y
 ```
 

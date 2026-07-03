@@ -2,8 +2,6 @@
 	email = hello@kennykeni.com
 	name = Kenny Lin
 	useConfigOnly = true
-[url "ssh://git@github.com/KennyKeni/infra.git"]
-	insteadOf = https://github.com/KennyKeni/infra.git
 [core]
 	excludesfile = /Users/keni/.config/git/ignore
 [credential "https://github.com"]

@@ -18,10 +18,9 @@ their real home-relative paths preserved, then Stow symlinks them into
 
 ## Not Stowed
 
-Codex/agent skill folders, such as `~/.agents/skills`, `~/.claude/skills`, and
-`~/.config/opencode/skills`, are intentionally not managed by Stow here. Skill
-files should be installed with `npx skills` so each app sees normal files in its
-own app-managed location.
+Codex/agent skill folders, such as `~/.agents/skills` and `~/.claude/skills`,
+are intentionally not managed by Stow here. Skill files should be installed with
+`npx skills` so each app sees normal files in its own app-managed location.
 
 The native global skills lock, `~/.agents/.skill-lock.json`, is shared through
 dotfiles. Restore global skills from that lock with `task skills:restore-global`.
