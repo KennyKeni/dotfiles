@@ -11,6 +11,8 @@ How the engineering skills should consume this repo's domain documentation when 
 
 If any of these files don't exist, **proceed silently**. Don't flag their absence; don't suggest creating them upfront. The producer skill (`/grill-with-docs`) creates them lazily when terms or decisions actually get resolved.
 
+Do not fall back to committed docs such as `docs/agents/`, `docs/adr/`, root `CONTEXT.md`, root `CONTEXT-MAP.md`, or root `UBIQUITOUS_LANGUAGE.md` as active agent memory. Those are legacy/manual-cleanup candidates only.
+
 ## File structure
 
 Single-context repo (most repos):

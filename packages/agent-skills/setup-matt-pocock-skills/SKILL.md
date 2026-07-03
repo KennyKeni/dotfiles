@@ -1,6 +1,6 @@
 ---
 name: setup-matt-pocock-skills
-description: Sets up a root `AGENTS.md` block and gitignored `.local/agents/` files so the engineering skills know this repo's GitHub issue tracker, triage label vocabulary, and local-only domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about GitHub issues, triage labels, or `.local/` domain docs.
+description: Sets up committed agent pointers plus gitignored `.local/agents/` files so the engineering skills know this repo's GitHub/GitLab issue tracker, triage label vocabulary, and local-only domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about issue tracking, triage labels, or `.local/` domain docs.
 disable-model-invocation: true
 ---
 
@@ -8,11 +8,11 @@ disable-model-invocation: true
 
 Scaffold the per-repo configuration that the engineering skills assume:
 
-- **Issue tracker** — GitHub Issues for PRDs, implementation issues, QA reports, refactor plans, and triage state
+- **Issue tracker** — GitHub Issues or GitLab Issues for PRDs, implementation issues, QA reports, refactor plans, and triage state
 - **Triage labels** — the strings used for the five canonical triage roles
 - **Domain docs** — where local-only context docs and ADRs live, and the consumer rules for reading them
 
-This is a prompt-driven skill, not a deterministic script. Explore, present what you found, then write the local setup. Ask only if the repo cannot be identified as a GitHub repo or the user wants non-default label names.
+This is a prompt-driven skill, not a deterministic script. Explore, present what you found, then write the local setup. Ask only if the repo cannot be identified as a GitHub or GitLab repo, or the user wants non-default label names.
 
 ## Process
 
@@ -20,27 +20,27 @@ This is a prompt-driven skill, not a deterministic script. Explore, present what
 
 Look at the current repo to understand its starting state. Read whatever exists; don't assume:
 
-- `git remote -v` and `.git/config` — is this a GitHub repo? Which one?
+- `git remote -v` and `.git/config` — is this a GitHub or GitLab repo? Which one?
 - `.gitignore` — is `.local/` already ignored?
-- `AGENTS.md` at the repo root — does it exist, and is there already an `## Agent skills` section?
+- `AGENTS.md` and `CLAUDE.md` at the repo root — do they exist, and is there already an `## Agent skills` section?
 - `.local/agents/` — does this skill's output already exist?
 - `.local/context/` and `.local/adr/` — do local-only domain docs already exist?
 - Legacy locations, for reporting only: `docs/agents/`, root `CONTEXT.md`, root `CONTEXT-MAP.md`, `docs/adr/`, `.scratch/`, `.out-of-scope/`, and root `UBIQUITOUS_LANGUAGE.md`
-- `gh auth status` and `gh label list` when available — are GitHub auth and expected labels present?
+- `gh auth status` / `gh label list` for GitHub, or `glab auth status` / `glab label list` for GitLab, when available — are auth and expected labels present?
 
 ### 2. Present findings and defaults
 
 Summarise what's present and what's missing. Then state the defaults this skill will apply:
 
-- GitHub Issues is the canonical issue tracker.
-- `AGENTS.md` is the only committed setup pointer this skill edits or creates.
-- `.local/` is gitignored and holds all generated agent-owned config and domain docs.
+- GitHub Issues or GitLab Issues, matching the repo manager, is the canonical issue tracker.
+- `AGENTS.md` and, only when the repo already uses it or the user asks, `CLAUDE.md` are the only committed setup pointers this skill edits or creates.
+- `.local/` is gitignored and holds all other generated agent-owned config, domain docs, ADRs, reports, handoffs, scratch notes, and rejected-feature memory.
 - `.local/agents/` holds setup files consumed by the skills.
 - `.local/context/` holds local-only domain context docs.
 - `.local/adr/` holds local-only Architecture Decision Records.
 - `.local/out-of-scope/` holds local rejected-feature memory for triage.
 
-Do not offer non-GitHub tracker choices. If there is no GitHub remote, ask for the GitHub repository or remote to use before doing GitHub operations; do not fall back to local issue files.
+Do not offer tracker choices beyond GitHub Issues and GitLab Issues. If there is no GitHub or GitLab remote, ask for the repository or remote to use before doing issue-tracker operations; do not fall back to local issue files.
 
 ### 3. Triage label vocabulary
 
@@ -54,7 +54,7 @@ The five canonical roles:
 - `ready-for-human` — needs human implementation
 - `wontfix` — will not be actioned
 
-Default: each role's string equals its name. If the GitHub repo has no existing labels, the defaults are fine. If labels are missing and the user wants them created, use `gh label create` rather than editing local files only.
+Default: each role's string equals its name. If the repo has no existing issue labels, the defaults are fine. If labels are missing and the user wants them created, use the issue manager's CLI (`gh label create` for GitHub, `glab label create` for GitLab) rather than editing local files only.
 
 ### 4. Domain docs
 
@@ -70,7 +70,7 @@ Use this layout:
 
 Show the user a draft of:
 
-- The `## Agent skills` block to add to root `AGENTS.md`
+- The `## Agent skills` block to add to root `AGENTS.md`, and to `CLAUDE.md` only if the repo already uses it or the user asks
 - The contents of `.local/agents/issue-tracker.md`, `.local/agents/triage-labels.md`, and `.local/agents/domain.md`
 
 Let them edit before writing.
@@ -79,7 +79,7 @@ Let them edit before writing.
 
 **Edit root `AGENTS.md`:**
 
-Create it if it doesn't exist. If an `## Agent skills` block already exists, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections. Do not edit other agent-instruction files.
+Create it if it doesn't exist. If an `## Agent skills` block already exists, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections. Edit `CLAUDE.md` only if it already contains repo agent instructions or the user asks for Claude-specific setup. Do not edit other agent-instruction files.
 
 The block:
 
@@ -90,11 +90,11 @@ This repo keeps agent-owned support files in `.local/`, which is intentionally g
 
 ### Issue tracker
 
-Issues, PRDs, triage, QA reports, and refactor plans live in GitHub Issues. See `.local/agents/issue-tracker.md`.
+Issues, PRDs, triage, QA reports, and refactor plans live in the configured issue tracker (GitHub Issues or GitLab Issues). See `.local/agents/issue-tracker.md`.
 
 ### Triage labels
 
-Use the repo's configured GitHub labels. See `.local/agents/triage-labels.md`.
+Use the repo's configured issue-tracker labels. See `.local/agents/triage-labels.md`.
 
 ### Domain docs
 
@@ -105,7 +105,7 @@ Also ensure `.gitignore` contains `.local/` as a standalone ignored path.
 
 Then write the three setup files using the seed templates in this skill folder as a starting point:
 
-- [issue-tracker-github.md](./issue-tracker-github.md) — GitHub issue tracker
+- [issue-tracker-github.md](./issue-tracker-github.md) or [issue-tracker-gitlab.md](./issue-tracker-gitlab.md) — choose the template matching the repo manager
 - [triage-labels.md](./triage-labels.md) — label mapping
 - [domain.md](./domain.md) — domain doc consumer rules + layout
 

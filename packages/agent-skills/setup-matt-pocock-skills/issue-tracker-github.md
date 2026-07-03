@@ -1,6 +1,6 @@
-# Issue tracker: GitHub
+# Issue tracker
 
-Issues, PRDs, QA reports, refactor plans, and triage state for this repo live in GitHub Issues. Use the `gh` CLI for all issue operations.
+This repo uses GitHub Issues as the canonical tracker. Use the `gh` CLI for all issue operations.
 
 ## Conventions
 
@@ -17,7 +17,7 @@ Use `.local/agents/triage-labels.md` for the actual GitHub label strings to appl
 
 ## When a skill says "publish to the issue tracker"
 
-Create a GitHub issue.
+Create a GitHub issue. Do not create local issue files as a substitute.
 
 ## When a skill says "fetch the relevant ticket"
 

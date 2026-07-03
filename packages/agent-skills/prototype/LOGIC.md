@@ -68,7 +68,7 @@ Give the user the run command. They'll drive it themselves; the interesting mome
 
 ### 7. Capture the answer
 
-When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them. If not, leave a local note under `.local/prototypes/<slug>.md` so the answer can be filled in (or filled in by you, if you've watched the session) before the prototype gets deleted.
+When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them. If the prototype belongs to an issue, record the answer in the configured issue tracker. Otherwise leave a local note under `.local/prototypes/<slug>.md` so the answer can be filled in (or filled in by you, if you've watched the session) before the prototype gets deleted.
 
 ## Anti-patterns
 

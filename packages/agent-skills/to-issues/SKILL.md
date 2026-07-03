@@ -7,7 +7,7 @@ description: Break a plan, spec, or PRD into independently-grabbable issues on t
 
 Break a plan into independently-grabbable issues using vertical slices (tracer bullets).
 
-The GitHub issue tracker and triage label vocabulary should be configured in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not.
+The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Publish issues only to the configured GitHub/GitLab tracker; do not create local issue files.
 
 ## Process
 
@@ -17,7 +17,7 @@ Work from whatever is already in the conversation context. If the user passes an
 
 ### 2. Explore the codebase (optional)
 
-If you have not already explored the codebase, do so to understand the current state of the code. Read `.local/agents/domain.md` when present; issue titles and descriptions should use the configured local domain vocabulary and respect ADRs in the area you're touching.
+If you have not already explored the codebase, do so to understand the current state of the code. Check `.local/agents/domain.md`; when it exists, issue titles and descriptions should use the configured local domain vocabulary and respect ADRs in the area you're touching. Do not fall back to committed domain docs as agent memory.
 
 ### 3. Draft vertical slices
 

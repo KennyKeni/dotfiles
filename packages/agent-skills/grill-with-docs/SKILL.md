@@ -27,6 +27,8 @@ During codebase exploration, also look for the local agent setup:
 
 Create files lazily — only when you have something to write. If no local context file exists, create `.local/context/CONTEXT.md` when the first term is resolved. If no `.local/adr/` exists, create it when the first ADR is needed.
 
+Do not fall back to committed legacy docs such as `docs/agents/`, `docs/adr/`, root `CONTEXT.md`, root `CONTEXT-MAP.md`, or root `UBIQUITOUS_LANGUAGE.md` as active memory or write targets. Mention them only as cleanup candidates if discovered.
+
 ### File structure
 
 Most repos have a single context:

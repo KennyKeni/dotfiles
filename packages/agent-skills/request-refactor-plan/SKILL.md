@@ -1,11 +1,11 @@
 ---
 name: request-refactor-plan
-description: Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue using `.local/agents/` tracker and label config. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.
+description: Create a detailed refactor plan with tiny commits via user interview, then file it in the configured GitHub/GitLab issue tracker using `.local/agents/` tracker and label config. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.
 ---
 
 This skill will be invoked when the user wants to create a refactor request. You should go through the steps below. You may skip steps if you don't consider them necessary.
 
-Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` if they exist. Run `/setup-matt-pocock-skills` if the local setup is missing.
+Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
 
 1. Ask the user for a long, detailed description of the problem they want to solve and any potential ideas for solutions.
 
@@ -21,7 +21,7 @@ Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-l
 
 7. Break the implementation into a plan of tiny commits. Remember Martin Fowler's advice to "make each refactoring step as small as possible, so that you can always see the program working."
 
-8. Create a GitHub issue with the refactor plan. Use the following template for the issue description:
+8. Create an issue in the configured issue tracker with the refactor plan. Use the following template for the issue description:
 
 <refactor-plan-template>
 

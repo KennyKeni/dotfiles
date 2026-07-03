@@ -12,7 +12,7 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
-The issue tracker should have been provided to you — run `/setup-matt-pocock-skills` if `.local/agents/issue-tracker.md` is missing.
+The issue tracker should have been provided in `.local/agents/issue-tracker.md` — run `/setup-matt-pocock-skills` if it is missing. Issues and PRDs live in the configured issue tracker, not local issue files.
 
 ## Process
 
@@ -26,9 +26,9 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 
 Look for the originating spec, in this order:
 
-1. GitHub issue references in the commit messages (`#123`, `Closes #45`, etc.) — fetch via the workflow in `.local/agents/issue-tracker.md`.
-2. A path the user passed as an argument.
-3. A PRD/spec file under `docs/` or `specs/` matching the branch name or feature.
+1. Issue references in the commit messages (`#123`, `Closes #45`, etc.) — fetch via the workflow in `.local/agents/issue-tracker.md`.
+2. A path the user explicitly passed as an argument.
+3. A relevant `.local/` artifact if the work was captured locally.
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 
 ### 3. Identify the standards sources
@@ -36,6 +36,7 @@ Look for the originating spec, in this order:
 Anything in the repo that documents how code should be written. Common locations:
 
 - `AGENTS.md`
+- `CLAUDE.md`
 - `CONTRIBUTING.md`
 - `.local/agents/domain.md`, `.local/context/`, and `.local/adr/` (local domain language and architectural decisions are standards)
 - `.editorconfig`, `eslint.config.*`, `biome.json`, `prettier.config.*`, `tsconfig.json` (machine-enforced standards — note them but don't re-check what tooling already checks)

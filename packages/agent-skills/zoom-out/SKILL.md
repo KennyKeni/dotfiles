@@ -4,4 +4,4 @@ description: Tell the agent to zoom out and give broader context or a higher-lev
 disable-model-invocation: true
 ---
 
-I don't know this area of code well. Read `.local/agents/domain.md` when present, then go up a layer of abstraction. Give me a map of all the relevant modules and callers, using the configured local domain glossary vocabulary.
+I don't know this area of code well. Check `.local/agents/domain.md`; when it exists, use it before going up a layer of abstraction. Do not fall back to committed legacy docs as agent memory. Give me a map of all the relevant modules and callers, using the configured local domain glossary vocabulary when available.

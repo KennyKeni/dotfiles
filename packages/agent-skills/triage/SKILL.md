@@ -35,7 +35,7 @@ Five **state** roles:
 
 Every triaged issue should carry exactly one category role and one state role. If state roles conflict, flag it and ask the maintainer before doing anything else.
 
-These are canonical role names — the actual GitHub label strings may differ. Read `.local/agents/triage-labels.md` before applying labels; run `/setup-matt-pocock-skills` if it is missing.
+These are canonical role names — the actual issue-tracker label strings may differ. Read `.local/agents/triage-labels.md` before applying labels; run `/setup-matt-pocock-skills` if it is missing. Do not create local issue files as a fallback.
 
 State transitions: an unlabeled issue normally goes to `needs-triage` first; from there it moves to `needs-info`, `ready-for-agent`, `ready-for-human`, or `wontfix`. `needs-info` returns to `needs-triage` once the reporter replies. The maintainer can override at any time — flag transitions that look unusual and ask before proceeding.
 
@@ -60,7 +60,7 @@ Show counts and a one-line summary per issue. Let the maintainer pick.
 
 ## Triage a specific issue
 
-1. **Gather context.** Read the full GitHub issue (body, comments, labels, reporter, dates). Parse any prior triage notes so you don't re-ask resolved questions. Read `.local/agents/domain.md` when present, then explore the codebase using the configured local domain glossary and respecting ADRs in the area. Read `.local/out-of-scope/*.md` and surface any prior rejection that resembles this issue.
+1. **Gather context.** Read the full issue from the configured tracker (body, comments, labels, reporter, dates). Parse any prior triage notes so you don't re-ask resolved questions. Check `.local/agents/domain.md`; when it exists, explore the codebase using the configured local domain glossary and respecting ADRs in the area. Read `.local/out-of-scope/*.md` and surface any prior rejection that resembles this issue. Do not fall back to committed domain docs as agent memory.
 
 2. **Recommend.** Tell the maintainer your category and state recommendation with reasoning, plus a brief codebase summary relevant to the issue. Wait for direction.
 

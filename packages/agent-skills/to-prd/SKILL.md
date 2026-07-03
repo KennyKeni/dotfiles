@@ -5,11 +5,11 @@ description: Turn the current conversation context into a PRD and publish it to 
 
 This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.
 
-The GitHub issue tracker and triage label vocabulary should be configured in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not.
+The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Publish the PRD only to the configured GitHub/GitLab tracker; do not create local PRD files as a substitute.
 
 ## Process
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already. Read `.local/agents/domain.md` when present, use the configured local domain vocabulary throughout the PRD, and respect any ADRs in the area you're touching.
+1. Explore the repo to understand the current state of the codebase, if you haven't already. Check `.local/agents/domain.md`; when it exists, use the configured local domain vocabulary throughout the PRD and respect any ADRs in the area you're touching. Do not fall back to committed domain docs as agent memory.
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can.
 

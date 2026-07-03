@@ -1,8 +1,8 @@
 # Triage Labels
 
-The skills speak in terms of canonical triage roles. This file maps those roles to the actual label strings used in this repo's GitHub issue tracker.
+The skills speak in terms of canonical triage roles. This file maps those roles to the actual label strings used in this repo's configured issue tracker.
 
-| Role in mattpocock/skills | GitHub label       | Meaning                                  |
+| Role in mattpocock/skills | Issue label        | Meaning                                  |
 | ------------------------- | ------------------ | ---------------------------------------- |
 | `bug`                     | `bug`              | Something is broken                      |
 | `enhancement`             | `enhancement`      | New feature or improvement               |
