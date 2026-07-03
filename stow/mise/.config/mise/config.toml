@@ -1,0 +1,7 @@
+[tools]
+aws-cli = { version = "latest", symlink_bins = "true" }
+bun = "1.3.14"
+gh = "2.93.0"
+glab = "latest"
+node = "24.16.0"
+task = "3.50.0"

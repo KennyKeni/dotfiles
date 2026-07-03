@@ -1,0 +1,3 @@
+@dokploy/cli@0.29.4
+cf@0.0.6
+valedictorian-cli@0.1.0-alpha.12

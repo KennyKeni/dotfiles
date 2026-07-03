@@ -1,0 +1,11 @@
+# mise local overrides
+mise.local.toml
+.mise.local.toml
+
+# Personal in-repo scratch space
+.local/
+.scratch/
+
+# Agent instruction files
+AGENTS.md
+CLAUDE.md

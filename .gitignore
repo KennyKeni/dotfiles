@@ -1,0 +1,43 @@
+.DS_Store
+*.bak
+*.backup
+*.tmp
+*.swp
+
+# Dependency and build output.
+node_modules/
+**/node_modules/
+dist/
+build/
+.cache/
+
+# Local package-manager state.
+.bundle/
+.pnpm-store/
+
+# Secrets, credentials, and machine-local auth state.
+**/.npmrc
+**/.ssh/
+**/.aws/
+**/.docker/
+**/.terraform.d/
+**/.zsh_history
+**/.claude.json*
+**/.codex/auth.json
+**/.codex/cache/
+**/.codex/browser/sessions/
+**/.codex/ambient-suggestions/
+**/.claude/projects/
+
+# Generated app state.
+**/.config/zed/prompts/
+**/.config/opencode/node_modules/
+
+# Codex/agent skill folders must remain normal files in their app-managed
+# locations. Symlinked SKILL.md files are not reliably registered by Codex.
+stow/agents/
+stow/claude/
+
+# This machine globally ignores AGENTS.md, but this repo intentionally
+# tracks the global Codex instructions.
+!stow/codex/.codex/AGENTS.md
