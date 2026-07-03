@@ -98,7 +98,8 @@ tasks:
           process.exit(1);
         }
 
-        const lock = JSON.parse(fs.readFileSync(lockPath, "utf8"));
+        const originalLockText = fs.readFileSync(lockPath, "utf8");
+        const lock = JSON.parse(originalLockText);
         const skills = Object.entries(lock.skills || {}).filter(([, entry]) => {
           return entry && entry.source;
         });
@@ -116,6 +117,8 @@ tasks:
           if (!bySource.has(source)) bySource.set(source, []);
           bySource.get(source).push(skillName);
         }
+
+        let exitCode = 0;
 
         for (const [source, skillNames] of bySource.entries()) {
           const sortedSkills = skillNames.sort();
@@ -141,9 +144,17 @@ tasks:
           );
 
           if (result.status !== 0) {
-            process.exit(result.status ?? 1);
+            exitCode = result.status ?? 1;
+            break;
           }
         }
+
+        const currentLockText = fs.readFileSync(lockPath, "utf8");
+        if (currentLockText !== originalLockText) {
+          fs.writeFileSync(lockPath, originalLockText);
+        }
+
+        process.exit(exitCode);
         NODE
         BASH
 
