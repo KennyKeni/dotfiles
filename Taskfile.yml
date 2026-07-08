@@ -77,7 +77,7 @@ tasks:
         BASH
 
   skills:restore-global:
-    desc: Restore global skills from the native global skills lock to Codex, Zed, Claude Code, and OpenCode.
+    desc: Restore global skills from the native global skills lock, respecting local per-skill agent overrides.
     cmds:
       - |
         /usr/bin/env bash <<'BASH'
@@ -109,20 +109,29 @@ tasks:
           process.exit(0);
         }
 
-        const agents = ["codex", "zed", "claude-code", "opencode"];
-        const bySource = new Map();
+        const defaultAgents = ["codex", "zed", "claude-code", "opencode"];
+        const skillAgentOverrides = new Map([
+          ["goal-prompt-template", ["codex"]],
+        ]);
+        const bySourceAndAgents = new Map();
 
         for (const [skillName, entry] of skills) {
           const source = entry.ref ? `${entry.source}#${entry.ref}` : entry.source;
-          if (!bySource.has(source)) bySource.set(source, []);
-          bySource.get(source).push(skillName);
+          const agents = skillAgentOverrides.get(skillName) ?? defaultAgents;
+          const key = JSON.stringify({ source, agents });
+          if (!bySourceAndAgents.has(key)) {
+            bySourceAndAgents.set(key, { source, agents, skillNames: [] });
+          }
+          bySourceAndAgents.get(key).skillNames.push(skillName);
         }
 
         let exitCode = 0;
 
-        for (const [source, skillNames] of bySource.entries()) {
+        for (const { source, agents, skillNames } of bySourceAndAgents.values()) {
           const sortedSkills = skillNames.sort();
-          console.log(`Restoring ${sortedSkills.length} skill(s) from ${source}`);
+          console.log(
+            `Restoring ${sortedSkills.length} skill(s) from ${source} to ${agents.join(", ")}`,
+          );
 
           const result = spawnSync(
             "npx",
