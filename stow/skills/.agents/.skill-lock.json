@@ -387,6 +387,16 @@
       "skillFolderHash": "e9b9a29494bb81ccca33f0c19ecc5e7e02f4e272",
       "installedAt": "2026-07-08T19:42:51.672Z",
       "updatedAt": "2026-07-08T19:42:51.672Z"
+    },
+    "goal-prompt-template": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/ours/goal-prompt-template/SKILL.md",
+      "skillFolderHash": "d57d34b9fdf5437893f34bfe476ea188bcef2fd0",
+      "installedAt": "2026-07-08T20:35:03.254Z",
+      "updatedAt": "2026-07-08T20:35:03.254Z"
     }
   },
   "dismissed": {
