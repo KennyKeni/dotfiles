@@ -384,9 +384,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/codex-opencode-first/SKILL.md",
-      "skillFolderHash": "01b16313fe5d35d67d38386225bc7200c70da31a",
-      "installedAt": "2026-07-08T05:12:49.947Z",
-      "updatedAt": "2026-07-08T05:12:49.947Z"
+      "skillFolderHash": "6bc4fa55f8f8758d5e2642fab38822967bf05142",
+      "installedAt": "2026-07-08T05:18:22.030Z",
+      "updatedAt": "2026-07-08T05:18:22.030Z"
     }
   },
   "dismissed": {
