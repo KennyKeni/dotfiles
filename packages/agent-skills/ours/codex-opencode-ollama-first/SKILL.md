@@ -67,9 +67,11 @@ OpenCode review prompts should ask for concrete findings with file/line referenc
 Mixed task: Codex writes a precise work order first, then delegates. For text-only frontend, use GLM. For visual-reference UI work, Codex should state acceptance criteria and ask Kimi for concrete implementation, then verify visually.
 
 ## OpenCode Agent
-Use `--agent explore` for read-only discovery: repo mapping, large-context research, design exploration, risk finding, implementation reconnaissance, and second-opinion context gathering. Exploration prompts must explicitly say not to edit files and should ask for findings, relevant paths, tradeoffs, and recommended next actions.
+Use `--agent plan` for read-only discovery: repo mapping, large-context research, design exploration, risk finding, implementation reconnaissance, and second-opinion context gathering. Exploration prompts must explicitly say not to edit files and should ask for findings, relevant paths, tradeoffs, and recommended next actions.
 
-Use `--agent build` for implementation, edits, tests, migrations, fixes, and any task expected to modify files. Keep the default invocation on `build`.
+Do not pass `--agent explore` to `opencode run`. In current OpenCode, `explore` is a subagent, not a primary CLI agent, and OpenCode falls back to the default `build` agent. Verify the run header says `> plan` for read-only exploration or `> build` for implementation.
+
+Use `--agent build` for implementation, edits, tests, migrations, fixes, and any task expected to modify files. Keep the default implementation invocation on `build`.
 
 ## Invoke
 Prompt via temp file and attach it; do not inline a large prompt.
@@ -101,7 +103,7 @@ Exploration-only run:
 ```bash
 opencode run --dir <repo> \
   --model ollama-cloud/glm-5.2 \
-  --agent explore \
+  --agent plan \
   --file "$P" \
   --title "glm exploration task" \
   "Read the attached prompt and report findings only. Do not edit files."
