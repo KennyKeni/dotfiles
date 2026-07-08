@@ -54,22 +54,38 @@ Keep in Codex:
 - final review of every OpenCode change: diff, tests, screenshots for UI, and closeout
 
 ## Review Delegation
-Do not route important reviews to OpenCode as the primary reviewer. Codex owns review judgment, severity, and final wording.
+Default to no OpenCode delegation for review work. Codex owns review judgment, severity, final wording, and the user-facing result.
 
-Use OpenCode for review only when at least one is true:
+Use OpenCode for review only as an optional read-only second opinion when at least one is true:
 
-- the review is small and inconsequential
-- the user explicitly wants a second-agent second opinion
-- it runs in parallel with Codex's own review and Codex reconciles the results
+- the user explicitly asks for a second-agent review
+- the review is tiny, low-risk, and inconsequential
+- Codex is already doing the primary review in parallel and will reconcile the results
 
 OpenCode review prompts should ask for concrete findings with file/line references and evidence, not a final verdict. Codex must still inspect the diff, decide whether each finding is real, and write the user-facing review.
+
+If OpenCode is used for review despite the default, use `--agent explore` and ask for candidate findings only. Do not use `--agent build` for review. Use `--agent build` only for follow-up implementation after Codex accepts a finding and decides to delegate the fix.
 
 Mixed task: Codex writes a precise work order first, then delegates. For text-only frontend, use GLM. For visual-reference UI work, Codex should state acceptance criteria and ask Kimi for concrete implementation, then verify visually.
 
 ## OpenCode Agent
-Use `--agent plan` for read-only discovery: repo mapping, large-context research, design exploration, risk finding, implementation reconnaissance, and second-opinion context gathering. Exploration prompts must explicitly say not to edit files and should ask for findings, relevant paths, tradeoffs, and recommended next actions.
+The built-in `explore` agent must be configured as a primary agent before CLI use:
 
-Do not pass `--agent explore` to `opencode run`. In current OpenCode, `explore` is a subagent, not a primary CLI agent, and OpenCode falls back to the default `build` agent. Verify the run header says `> plan` for read-only exploration or `> build` for implementation.
+```jsonc
+{
+  "agent": {
+    "explore": {
+      "mode": "primary"
+    }
+  }
+}
+```
+
+Do not set `default_agent` for this skill. Verify `opencode agent list` shows `explore (primary)` before relying on it.
+
+Use `--agent explore` for read-only discovery: repo mapping, large-context research, design exploration, risk finding, implementation reconnaissance, and second-opinion context gathering. Exploration prompts must explicitly say not to edit files and should ask for findings, relevant paths, tradeoffs, and recommended next actions.
+
+Use `--agent plan` only when the task specifically needs OpenCode's planning mode. Do not use it as the ordinary substitute for read-only exploration.
 
 Use `--agent build` for implementation, edits, tests, migrations, fixes, and any task expected to modify files. Keep the default implementation invocation on `build`.
 
@@ -103,7 +119,7 @@ Exploration-only run:
 ```bash
 opencode run --dir <repo> \
   --model ollama-cloud/glm-5.2 \
-  --agent plan \
+  --agent explore \
   --file "$P" \
   --title "glm exploration task" \
   "Read the attached prompt and report findings only. Do not edit files."
