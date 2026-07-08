@@ -318,16 +318,6 @@
       "installedAt": "2026-07-08T19:22:09.962Z",
       "updatedAt": "2026-07-08T19:22:09.962Z"
     },
-    "write-a-skill": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/forks/write-a-skill/SKILL.md",
-      "skillFolderHash": "dcc3f2e14b1a4d44d7b4b9becbbeff0f780fb132",
-      "installedAt": "2026-07-08T19:22:09.962Z",
-      "updatedAt": "2026-07-08T19:22:09.962Z"
-    },
     "writing-beats": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
@@ -397,6 +387,16 @@
       "skillFolderHash": "d57d34b9fdf5437893f34bfe476ea188bcef2fd0",
       "installedAt": "2026-07-08T20:35:03.254Z",
       "updatedAt": "2026-07-08T20:35:03.254Z"
+    },
+    "writing-great-skills": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/writing-great-skills/SKILL.md",
+      "skillFolderHash": "c84411b360fad91b8756e60fa17fd5b5761422dd",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-08T20:38:38.293Z",
+      "updatedAt": "2026-07-08T20:38:38.293Z"
     }
   },
   "dismissed": {
