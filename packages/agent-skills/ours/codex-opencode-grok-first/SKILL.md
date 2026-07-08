@@ -41,6 +41,8 @@ Keep in Codex:
 ## Review Delegation
 Default to no OpenCode delegation for review work. Codex owns review judgment, severity, final wording, and the user-facing result.
 
+When extra review coverage is useful, prefer Codex subagents instead of OpenCode. Ask Codex subagents for independent candidate findings only; the main Codex session must still inspect the diff, validate each finding, decide severity, and write the user-facing review.
+
 Use OpenCode for review only as an optional read-only second opinion when at least one is true:
 
 - the user explicitly asks for a second-agent review
