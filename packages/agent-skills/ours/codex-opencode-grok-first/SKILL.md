@@ -86,23 +86,15 @@ opencode run --dir <repo> --continue \
 ```
 
 ## Session Cleanup
-Use a unique `--title` for each delegated run. `opencode run` exits without leaving a process, but it leaves a resumable session record.
+Use a unique `--title` for each delegated run. `opencode run` exits without leaving a live process, but it may leave a resumable session record; that record can remain.
 
-Before final closeout, decide whether the session should remain:
-
-- Keep it only when a near-term `--continue` follow-up is expected; report the title/session intent.
-- Otherwise delete the throwaway session after verification:
-
-```bash
-opencode session list --format json -n 20
-opencode session delete <sessionID>
-```
-
-If a run hangs or is interrupted, also confirm no OpenCode process is still active before final response:
+Do not delete sessions just because they are persisted. Only act when a run hangs, is interrupted, or appears to leave a live process. Before final response in those cases, confirm no OpenCode process is still active:
 
 ```bash
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
 ```
+
+If a live OpenCode process from the delegated run remains, stop it or report why it is intentionally still running.
 
 ## Prompt And Verify
 OpenCode starts with little useful session context. Every prompt must include the goal, exact repo/path scope, constraints, non-goals, proof command, and output shape. For UI prompts include target viewport sizes, references/screenshots, states, and what "done" looks like.
