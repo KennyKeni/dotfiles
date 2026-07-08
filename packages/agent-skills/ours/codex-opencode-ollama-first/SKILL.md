@@ -43,14 +43,26 @@ Delegate to OpenCode when the prompt is mostly execution:
 - repo-scale reading, implementation, refactors, migrations, dependency bumps
 - known-repro bug fixes, tests, coverage fills, script/tooling work
 - frontend implementation, UI build-out, visual polish, responsive layout, motion, and design exploration
-- a second-model implementation or review pass would materially reduce risk
+- a second-model implementation pass would materially reduce risk
 
 Keep in Codex:
 
 - ambiguous product/design/architecture decisions before the spec is frozen
 - tiny obvious edits where delegation overhead loses
 - authenticated MCP/app tools, secrets, releases, pushes, destructive ops
+- serious or high-stakes reviews where Codex should be the primary reviewer
 - final review of every OpenCode change: diff, tests, screenshots for UI, and closeout
+
+## Review Delegation
+Do not route important reviews to OpenCode as the primary reviewer. Codex owns review judgment, severity, and final wording.
+
+Use OpenCode for review only when at least one is true:
+
+- the review is small and inconsequential
+- the user explicitly wants a second-agent second opinion
+- it runs in parallel with Codex's own review and Codex reconciles the results
+
+OpenCode review prompts should ask for concrete findings with file/line references and evidence, not a final verdict. Codex must still inspect the diff, decide whether each finding is real, and write the user-facing review.
 
 Mixed task: Codex writes a precise work order first, then delegates. For text-only frontend, use GLM. For visual-reference UI work, Codex should state acceptance criteria and ask Kimi for concrete implementation, then verify visually.
 
@@ -86,6 +98,25 @@ opencode run --dir <repo> --continue \
   --file "$P2" \
   --dangerously-skip-permissions \
   "Read the attached follow-up and revise the existing session output."
+```
+
+## Session Cleanup
+Use a unique `--title` for each delegated run. `opencode run` exits without leaving a process, but it leaves a resumable session record.
+
+Before final closeout, decide whether the session should remain:
+
+- Keep it only when a near-term `--continue` follow-up is expected; report the title/session intent.
+- Otherwise delete the throwaway session after verification:
+
+```bash
+opencode session list --format json -n 20
+opencode session delete <sessionID>
+```
+
+If a run hangs or is interrupted, also confirm no OpenCode process is still active before final response:
+
+```bash
+ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
 ```
 
 ## Prompt And Verify
