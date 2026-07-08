@@ -378,15 +378,25 @@
       "installedAt": "2026-07-08T05:05:08.186Z",
       "updatedAt": "2026-07-08T05:05:08.186Z"
     },
-    "codex-opencode-first": {
+    "codex-opencode-grok-first": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
-      "skillPath": "packages/agent-skills/codex-opencode-first/SKILL.md",
-      "skillFolderHash": "6bc4fa55f8f8758d5e2642fab38822967bf05142",
-      "installedAt": "2026-07-08T05:18:22.030Z",
-      "updatedAt": "2026-07-08T05:18:22.030Z"
+      "skillPath": "packages/agent-skills/codex-opencode-grok-first/SKILL.md",
+      "skillFolderHash": "7906299a6d50b01b6a3e7c15fb4d370b0ca378d0",
+      "installedAt": "2026-07-08T19:04:25.288Z",
+      "updatedAt": "2026-07-08T19:04:25.288Z"
+    },
+    "codex-opencode-ollama-first": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/codex-opencode-ollama-first/SKILL.md",
+      "skillFolderHash": "45eb750d243e0edd40caedbb9d6d27d38736d480",
+      "installedAt": "2026-07-08T19:04:25.289Z",
+      "updatedAt": "2026-07-08T19:04:25.289Z"
     }
   },
   "dismissed": {
