@@ -51,6 +51,11 @@ OpenCode review prompts should ask for concrete findings with file/line referenc
 
 Mixed task: Codex writes a precise work order first, then delegates to Grok 4.5. For visual-reference UI work, Codex should state acceptance criteria, attach the relevant references, and then verify visually.
 
+## OpenCode Agent
+Use `--agent explore` for read-only discovery: repo mapping, large-context research, design exploration, risk finding, implementation reconnaissance, and second-opinion context gathering. Exploration prompts must explicitly say not to edit files and should ask for findings, relevant paths, tradeoffs, and recommended next actions.
+
+Use `--agent build` for implementation, edits, tests, migrations, fixes, and any task expected to modify files. Keep the default invocation on `build`.
+
 ## Invoke
 Prompt via temp file and attach it; do not inline a large prompt.
 
@@ -75,6 +80,17 @@ opencode run --dir <repo> \
 ```
 
 Use `--model xai/grok-4.5` for every delegated task in this variant. Use `--variant max` only if xAI/OpenCode supports it for the selected run and the task justifies slower output.
+
+Exploration-only run:
+
+```bash
+opencode run --dir <repo> \
+  --model xai/grok-4.5 \
+  --agent explore \
+  --file "$P" \
+  --title "grok exploration task" \
+  "Read the attached prompt and report findings only. Do not edit files."
+```
 
 Follow-up fixes:
 
