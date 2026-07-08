@@ -17,7 +17,9 @@ task skills:restore-global
 ```
 
 The restore task preserves local per-skill agent overrides. `goal-prompt-template`
-is Codex-only for now.
+is Codex-only for now; because the current `skills` CLI routes Codex through the
+universal `~/.agents/skills` root, the restore task moves Codex-only skills into
+`~/.codex/skills` after the `npx` install.
 
 For a fresh install of the Codex-only template:
 

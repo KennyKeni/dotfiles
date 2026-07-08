@@ -113,7 +113,24 @@ tasks:
         const skillAgentOverrides = new Map([
           ["goal-prompt-template", ["codex"]],
         ]);
+        const codexOnlySkills = new Set(["goal-prompt-template"]);
         const bySourceAndAgents = new Map();
+
+        function enforceCodexOnlyInstalls(skillNames) {
+          for (const skillName of skillNames) {
+            if (!codexOnlySkills.has(skillName)) continue;
+
+            const universalPath = path.join(os.homedir(), ".agents", "skills", skillName);
+            const codexPath = path.join(os.homedir(), ".codex", "skills", skillName);
+
+            if (!fs.existsSync(universalPath)) continue;
+
+            fs.mkdirSync(path.dirname(codexPath), { recursive: true });
+            fs.rmSync(codexPath, { recursive: true, force: true });
+            fs.renameSync(universalPath, codexPath);
+            console.log(`Moved ${skillName} to ${codexPath}`);
+          }
+        }
 
         for (const [skillName, entry] of skills) {
           const source = entry.ref ? `${entry.source}#${entry.ref}` : entry.source;
@@ -156,6 +173,8 @@ tasks:
             exitCode = result.status ?? 1;
             break;
           }
+
+          enforceCodexOnlyInstalls(sortedSkills);
         }
 
         const currentLockText = fs.readFileSync(lockPath, "utf8");
