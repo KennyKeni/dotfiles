@@ -9,7 +9,7 @@ their real home-relative paths preserved, then Stow symlinks them into
 ## Layout
 
 - `stow/`: symlinked config packages.
-- `packages/agent-skills/`: edited skills installed through `npx skills`.
+- `packages/agent-skills/`: edited/forked and personal skills installed through `npx skills`.
 - `Brewfile`: Homebrew formulae and casks for restore.
 - `packages/pnpm-globals.txt`: globally installed pnpm tools.
 - `Taskfile.yml`: restore packages, link config, install tools, and restore global skills.
@@ -71,8 +71,9 @@ Edit config through the usual path, such as `~/.zshrc` or
 `~/.config/zed/settings.json`. Once linked, those paths point back into this
 repo, so `git diff` shows the real changes here.
 
-Edited skills live in `packages/agent-skills/`. Push changes to this GitHub
-repo, then install them with `npx skills` from:
+Edited and personal skills live in `packages/agent-skills/`, split between
+`forks/` and `ours/`. Push changes to this GitHub repo, then install them with
+`npx skills --full-depth` from:
 
 ```sh
 https://github.com/KennyKeni/dotfiles/tree/main/packages/agent-skills
