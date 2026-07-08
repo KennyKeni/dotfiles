@@ -37,6 +37,8 @@ Follow the project's documented doctrine, ownership rules, and direction decisio
 
 Run work in parallel lanes where useful:
 
+When GitHub issues or remaining scope may contain parallelizable work, consider first spawning a scouting subagent to identify independent issue groups, dependencies, blockers, and recommended agent lanes; use that report to decide which implementation subagents to spawn.
+
 - Discovery: find remaining scope, implementation, validation, proof, parity, or documentation gaps. Each finding must become a new GitHub issue, a duplicate link, or an explicit non-gap note.
 - Implementation: execute shaped, disjoint issues; batch similar changes where possible; keep scope tied to the owning issue.
 - Integration: review, validate, merge, refresh evidence, update context, and clean temporary outputs.
