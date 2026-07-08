@@ -1,9 +1,9 @@
 ---
-name: codex-opencode-first
-description: Route selected Codex work to OpenCode through Ollama Cloud models, with Codex orchestrating and verifying. Use when the user asks to delegate to OpenCode/Ollama, wants a second implementation agent, or needs visual/multimodal UI help from outside Codex.
+name: codex-opencode-ollama-first
+description: Route selected Codex work to OpenCode through Ollama Cloud models, with Codex orchestrating and verifying. Use when the user asks to delegate to OpenCode/Ollama, wants a second implementation agent, or needs GLM/Kimi/Minimax-backed UI, code, or multimodal help from outside Codex.
 ---
 
-# Codex OpenCode First
+# Codex OpenCode Ollama First
 
 Codex sessions only. Current harness is Codex; OpenCode is the subagent. Codex keeps the spec, judgment, final diff review, test verification, and user conversation.
 
