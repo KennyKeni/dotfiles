@@ -109,35 +109,13 @@ tasks:
           process.exit(0);
         }
 
-        const defaultAgents = ["codex", "zed", "claude-code", "opencode"];
+        const defaultAgents = ["codex", "claude-code", "zed"];
         const skillAgentOverrides = new Map([
           ["claude-opencode-grok-first", ["claude-code"]],
           ["codex-opencode-grok-first", ["codex"]],
           ["codex-opencode-ollama-first", ["codex"]],
-          ["goal-prompt-template-inline", ["codex"]],
-          ["goal-prompt-template-progressive", ["codex"]],
-        ]);
-        const codexOnlySkills = new Set([
-          "goal-prompt-template-inline",
-          "goal-prompt-template-progressive",
         ]);
         const bySourceAndAgents = new Map();
-
-        function enforceCodexOnlyInstalls(skillNames) {
-          for (const skillName of skillNames) {
-            if (!codexOnlySkills.has(skillName)) continue;
-
-            const universalPath = path.join(os.homedir(), ".agents", "skills", skillName);
-            const codexPath = path.join(os.homedir(), ".codex", "skills", skillName);
-
-            if (!fs.existsSync(universalPath)) continue;
-
-            fs.mkdirSync(path.dirname(codexPath), { recursive: true });
-            fs.rmSync(codexPath, { recursive: true, force: true });
-            fs.renameSync(universalPath, codexPath);
-            console.log(`Moved ${skillName} to ${codexPath}`);
-          }
-        }
 
         for (const [skillName, entry] of skills) {
           const source = entry.ref ? `${entry.source}#${entry.ref}` : entry.source;
@@ -180,8 +158,6 @@ tasks:
             exitCode = result.status ?? 1;
             break;
           }
-
-          enforceCodexOnlyInstalls(sortedSkills);
         }
 
         const currentLockText = fs.readFileSync(lockPath, "utf8");
