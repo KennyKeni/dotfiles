@@ -358,16 +358,6 @@
       "installedAt": "2026-07-08T19:22:09.963Z",
       "updatedAt": "2026-07-08T19:22:09.963Z"
     },
-    "goal-prompt-template": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/ours/goal-prompt-template/SKILL.md",
-      "skillFolderHash": "e6949f3abcf7ccde1bdde1921b15e42869a9237e",
-      "installedAt": "2026-07-08T20:35:03.254Z",
-      "updatedAt": "2026-07-09T23:40:48.664Z"
-    },
     "writing-great-skills": {
       "source": "mattpocock/skills",
       "sourceType": "github",
