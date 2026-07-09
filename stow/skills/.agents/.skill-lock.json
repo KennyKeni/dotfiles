@@ -364,9 +364,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/ours/goal-prompt-template/SKILL.md",
-      "skillFolderHash": "a7c9c4083f09ea4a51419260c11c9685b9f3caa8",
+      "skillFolderHash": "e6949f3abcf7ccde1bdde1921b15e42869a9237e",
       "installedAt": "2026-07-08T20:35:03.254Z",
-      "updatedAt": "2026-07-09T23:36:11.417Z"
+      "updatedAt": "2026-07-09T23:40:48.664Z"
     },
     "writing-great-skills": {
       "source": "mattpocock/skills",
@@ -414,9 +414,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/ours/goal-prompt-template-inline/SKILL.md",
-      "skillFolderHash": "50b2da4949f027d34efa30d89f846dfd4ef18565",
+      "skillFolderHash": "6290aa8ba36d123ba251de58f4ba8d7be64a73a7",
       "installedAt": "2026-07-09T23:05:44.951Z",
-      "updatedAt": "2026-07-09T23:36:12.417Z"
+      "updatedAt": "2026-07-09T23:40:49.499Z"
     },
     "goal-prompt-template-progressive": {
       "source": "KennyKeni/dotfiles",
@@ -424,9 +424,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/ours/goal-prompt-template-progressive/SKILL.md",
-      "skillFolderHash": "211165f97cdbffe8df1b3df9f1705169a7451875",
+      "skillFolderHash": "11085e847c6828a978f7f6884f85ff1fb56ee677",
       "installedAt": "2026-07-09T23:05:44.953Z",
-      "updatedAt": "2026-07-09T23:36:13.125Z"
+      "updatedAt": "2026-07-09T23:40:50.310Z"
     }
   },
   "dismissed": {
