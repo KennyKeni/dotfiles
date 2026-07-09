@@ -152,6 +152,41 @@ creating agents.
 Keep delegation centralized through the lead. Do not use peer-to-peer agent
 coordination.
 
+## Build Assignment Packets
+
+Before every new scout, worker, or validator, build a concise assignment packet
+and include it directly in the spawn request. Do not rely on the subagent to
+infer mission state from conversation history or discover its assignment from
+the durable state artifact.
+
+Include:
+
+- role and one-sentence objective;
+- bounded deliverable, scope, and non-scope;
+- active stage, feature, issue, PR, and Git reference when relevant;
+- authoritative project sources and repository instructions to inspect;
+- relevant contract assertions, decisions, and ownership constraints;
+- allowed mutations, tools, external actions, and workspace boundary;
+- required checks and evidence;
+- output format;
+- stop condition and escalation triggers.
+
+Add role-specific material:
+
+- **Scout:** blocking questions, read-only boundary, and the required
+  observation-versus-inference evidence format.
+- **Worker:** feature contract, implementation ownership, validation
+  assertions, primary-source pointers, and required tests.
+- **Validator:** full-review or delta scope, coherent change, contract,
+  relevant doctrine sources, existing validation evidence, and the finding
+  admissibility and disposition rubric. Exclude intended findings and the
+  implementation trajectory.
+
+Pass applicable rules in the packet rather than entire orchestration template
+references, raw scout transcripts, or durable-state history. Point to primary
+project artifacts instead. For a focused follow-up, send only changed packet
+fields, new evidence, and the unresolved deliverable.
+
 ## Delegate Exploration Deliberately
 
 Before exploration, state the specific questions blocking implementation.
@@ -206,8 +241,7 @@ Do not spawn an agent merely to decide whether to spawn agents.
 Do not run competing implementations or pass-at-k sampling unless the decision
 is unusually consequential and the additional cost is authorized.
 
-Before spawning an agent, define its deliverable, scope, allowed mutations,
-evidence requirements, output format, and stop condition.
+Before spawning an agent, build and pass the assignment packet above.
 
 At mission setup, record an agent-session budget. Unless the invocation sets
 another budget, allow at most four new agent sessions per milestone and twelve

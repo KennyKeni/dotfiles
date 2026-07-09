@@ -45,6 +45,38 @@ When GitHub issues or remaining scope may contain parallelizable work, consider 
 - Implementation: execute shaped, disjoint issues; batch similar changes where possible; keep scope tied to the owning issue.
 - Integration: review, validate, merge, refresh evidence, update context, and clean temporary outputs.
 
+Before every new scout, implementation agent, or reviewer, build a concise
+assignment packet and include it directly in the spawn request. Do not rely on
+the subagent to infer project state from conversation history.
+
+Include:
+
+- role and one-sentence objective;
+- bounded deliverable, scope, and non-scope;
+- active stage, issue, PR, and Git reference when relevant;
+- authoritative project sources and repository instructions to inspect;
+- relevant acceptance assertions, decisions, and ownership constraints;
+- allowed mutations, tools, external actions, and workspace boundary;
+- required checks and evidence;
+- output format;
+- stop condition and escalation triggers.
+
+Add role-specific material:
+
+- **Scout:** blocking questions, read-only boundary, and the required
+  observation-versus-inference evidence format.
+- **Implementation agent:** issue contract, implementation ownership,
+  validation assertions, primary-source pointers, and required tests.
+- **Reviewer:** full-review or delta scope, coherent change, contract,
+  relevant doctrine sources, existing validation evidence, and the finding
+  admissibility and disposition rubric. Exclude intended findings and the
+  implementation trajectory.
+
+Pass applicable rules in the packet rather than entire orchestration template
+files, raw scout transcripts, or progress history. Point to primary project
+artifacts instead. For a focused follow-up, send only changed packet fields,
+new evidence, and the unresolved deliverable.
+
 Every implementation issue must state its acceptance contract before work begins, including:
 
 - scope and non-scope;
