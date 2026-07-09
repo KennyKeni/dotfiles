@@ -407,6 +407,26 @@
       "skillFolderHash": "b032f051ea21c1bceea96f417349984dc8dd9997",
       "installedAt": "2026-07-09T12:45:41.446Z",
       "updatedAt": "2026-07-09T12:45:41.446Z"
+    },
+    "goal-prompt-template-inline": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/ours/goal-prompt-template-inline/SKILL.md",
+      "skillFolderHash": "835cf2b8a5b528a0a6bc8ec13fc5209b828ec1d3",
+      "installedAt": "2026-07-09T23:05:44.951Z",
+      "updatedAt": "2026-07-09T23:05:44.951Z"
+    },
+    "goal-prompt-template-progressive": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/ours/goal-prompt-template-progressive/SKILL.md",
+      "skillFolderHash": "d237abde4aa8af91f4722c89187ad200085a375b",
+      "installedAt": "2026-07-09T23:05:44.953Z",
+      "updatedAt": "2026-07-09T23:05:44.953Z"
     }
   },
   "dismissed": {
