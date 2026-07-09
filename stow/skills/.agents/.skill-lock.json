@@ -364,9 +364,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/ours/codex-opencode-grok-first/SKILL.md",
-      "skillFolderHash": "06438c089ce24e7b788058ad10147019ed7ac131",
+      "skillFolderHash": "4a7b4d1a93cdeaaf76e5a2ffeebb403a9f5e06b9",
       "installedAt": "2026-07-08T19:42:51.671Z",
-      "updatedAt": "2026-07-08T22:44:15.397Z"
+      "updatedAt": "2026-07-09T00:00:46.937Z"
     },
     "codex-opencode-ollama-first": {
       "source": "KennyKeni/dotfiles",
@@ -374,9 +374,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/ours/codex-opencode-ollama-first/SKILL.md",
-      "skillFolderHash": "0d73966b1d9844ae9ac8c3f881f665e5332f1fd6",
+      "skillFolderHash": "c1b615f4a1af92d9452e1830aa7da489e30d61f3",
       "installedAt": "2026-07-08T19:42:51.672Z",
-      "updatedAt": "2026-07-08T22:44:15.398Z"
+      "updatedAt": "2026-07-09T00:00:46.939Z"
     },
     "goal-prompt-template": {
       "source": "KennyKeni/dotfiles",
