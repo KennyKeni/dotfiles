@@ -9,3 +9,7 @@ mise.local.toml
 # Agent instruction files
 AGENTS.md
 CLAUDE.md
+
+# Agent local state folders
+.claude/
+.codex/
