@@ -358,26 +358,6 @@
       "installedAt": "2026-07-08T19:22:09.963Z",
       "updatedAt": "2026-07-08T19:22:09.963Z"
     },
-    "codex-opencode-grok-first": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/ours/codex-opencode-grok-first/SKILL.md",
-      "skillFolderHash": "46381c430ea5ececf2d7df7a05ffe85e3fe3aed7",
-      "installedAt": "2026-07-08T19:42:51.671Z",
-      "updatedAt": "2026-07-09T10:53:02.388Z"
-    },
-    "codex-opencode-ollama-first": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/ours/codex-opencode-ollama-first/SKILL.md",
-      "skillFolderHash": "b032f051ea21c1bceea96f417349984dc8dd9997",
-      "installedAt": "2026-07-08T19:42:51.672Z",
-      "updatedAt": "2026-07-09T10:53:02.390Z"
-    },
     "goal-prompt-template": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
@@ -407,6 +387,26 @@
       "skillFolderHash": "777145eb7f51b9d4b7ff8e7197515ff448de7bb4",
       "installedAt": "2026-07-09T12:35:26.920Z",
       "updatedAt": "2026-07-09T12:35:26.920Z"
+    },
+    "codex-opencode-grok-first": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/ours/codex-opencode-grok-first/SKILL.md",
+      "skillFolderHash": "46381c430ea5ececf2d7df7a05ffe85e3fe3aed7",
+      "installedAt": "2026-07-09T12:45:41.445Z",
+      "updatedAt": "2026-07-09T12:45:41.445Z"
+    },
+    "codex-opencode-ollama-first": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/ours/codex-opencode-ollama-first/SKILL.md",
+      "skillFolderHash": "b032f051ea21c1bceea96f417349984dc8dd9997",
+      "installedAt": "2026-07-09T12:45:41.446Z",
+      "updatedAt": "2026-07-09T12:45:41.446Z"
     }
   },
   "dismissed": {

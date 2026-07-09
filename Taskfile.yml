@@ -112,6 +112,8 @@ tasks:
         const defaultAgents = ["codex", "zed", "claude-code", "opencode"];
         const skillAgentOverrides = new Map([
           ["claude-opencode-grok-first", ["claude-code"]],
+          ["codex-opencode-grok-first", ["codex"]],
+          ["codex-opencode-ollama-first", ["codex"]],
           ["goal-prompt-template", ["codex"]],
         ]);
         const codexOnlySkills = new Set(["goal-prompt-template"]);
