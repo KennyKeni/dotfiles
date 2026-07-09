@@ -5,7 +5,7 @@ description: Turn the current conversation context into a PRD and publish it to 
 
 This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.
 
-The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Publish the PRD only to the configured GitHub/GitLab tracker; do not create local PRD files as a substitute.
+The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Read and follow the tracker file's command conventions for every operation. Publish the PRD only to the configured GitHub/GitLab tracker; do not create local PRD files as a substitute.
 
 ## Process
 

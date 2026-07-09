@@ -12,7 +12,7 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
-The issue tracker should have been provided in `.local/agents/issue-tracker.md` — run `/setup-matt-pocock-skills` if it is missing. Issues and PRDs live in the configured issue tracker, not local issue files.
+The issue tracker should have been provided in `.local/agents/issue-tracker.md` — run `/setup-matt-pocock-skills` if it is missing. Read and follow that file's command conventions for every operation. Issues and PRDs live in the configured issue tracker, not local issue files.
 
 ## Process
 

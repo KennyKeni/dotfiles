@@ -5,7 +5,7 @@ description: Create a detailed refactor plan with tiny commits via user intervie
 
 This skill will be invoked when the user wants to create a refactor request. You should go through the steps below. You may skip steps if you don't consider them necessary.
 
-Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
+Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`, then follow the tracker file's command conventions for every operation. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
 
 1. Ask the user for a long, detailed description of the problem they want to solve and any potential ideas for solutions.
 
