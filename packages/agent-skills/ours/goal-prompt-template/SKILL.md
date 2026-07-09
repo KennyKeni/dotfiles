@@ -66,6 +66,53 @@ Work via PRs into `main`.
 - Update context or handoff notes on completion, handoff, direction change, or proof supersession.
 - Clean stale branches, worktrees, temporary outputs, and obsolete artifacts when finished.
 
+Use the PR as the normal independent-review unit. Run one fresh full review
+after a non-trivial PR is coherent and its focused checks pass. Do not run a
+full review after every work-in-progress commit.
+
+Before a reviewer finding can block delivery, require it to:
+
+- state an observable impact on the acceptance contract, correctness,
+  security, data integrity, or required proof;
+- cite the specifically affected code path or behavior and supporting
+  evidence;
+- concern behavior introduced or exposed by the current change, unless the
+  contract explicitly includes pre-existing remediation;
+- rely on verified project facts rather than unstated assumptions or
+  speculative reachability;
+- account for documented intent, ownership rules, and project doctrine;
+- be discrete, actionable, and proportionate to the repository's existing
+  rigor.
+
+Have the lead, not the reviewer, classify every finding:
+
+- **Block delivery:** an admissible contract failure, observable correctness
+  or security defect, data loss risk, weakened required hard-fail, missing
+  acceptance criterion, or test that does not prove required behavior.
+- **Fix if cheap, otherwise follow up:** a verified ownership or
+  maintainability problem without an observable contract failure.
+- **Do not block:** style, minor optimization, monolith size, generalized
+  architecture preference, speculative call reachability without observable
+  effect, documented intentional behavior, duplicate findings, or unrelated
+  pre-existing scope.
+
+Dismiss unsupported or non-blocking findings. Require the user or designated
+project owner to waive a validated blocker or material accepted risk. A
+reviewer finding does not amend the contract, create new scope, or
+automatically trigger implementation or another review.
+
+After corrections, revalidate only the changed delta and affected contract
+assertions. Scope the delta review to the requested fixes and their observable
+fallout. Do not launch another full review merely because a correction was
+made. Repeat a full review only when scope, architecture, security boundaries,
+schema, or integration behavior materially changed.
+
+Do not let a reviewer request another reviewer or reopen the complete review
+cycle. A new finding during delta revalidation may block only when the delta
+caused it and it satisfies the blocking criteria above; otherwise disposition
+it separately. Once targeted revalidation and any already-required full gate
+pass, close the review cycle.
+
 At the end of each sprint, report progress from 0-100 for:
 
 - the current sprint or issue;

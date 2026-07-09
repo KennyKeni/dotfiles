@@ -281,17 +281,53 @@ integration validation when the agent-session budget permits it.
 Require validators to distinguish contract failures, probable defects, risks
 requiring investigation, optional improvements, and unsupported preferences.
 
-Have the lead triage findings against the contract and project doctrine. Allow
-the lead to dismiss unsupported, duplicate, stylistic, or out-of-scope
-findings. Require the user or designated project owner to waive a validated
-contract failure or material accepted risk.
+Before a finding can block delivery, require it to satisfy all of these
+conditions:
+
+- state an observable impact on the validation contract, correctness,
+  security, data integrity, or required proof;
+- cite the specifically affected code path or behavior and supporting
+  evidence;
+- concern behavior introduced or exposed by the current change, unless the
+  contract explicitly includes pre-existing remediation;
+- rely on verified project facts rather than unstated assumptions or
+  speculative reachability;
+- account for documented intent, ownership rules, and accepted project
+  doctrine;
+- be discrete, actionable, and proportionate to the repository's existing
+  rigor.
+
+Have the lead, not the validator, classify each finding:
+
+- **Block delivery:** an admissible contract failure, observable correctness
+  or security defect, data loss risk, weakened required hard-fail, missing
+  acceptance criterion, or test that does not prove required behavior.
+- **Fix if cheap, otherwise follow up:** a verified ownership or
+  maintainability problem without an observable contract failure.
+- **Do not block:** style, minor optimization, monolith size, generalized
+  architecture preference, speculative call reachability without observable
+  effect, documented intentional behavior, duplicate findings, or unrelated
+  pre-existing scope.
+
+Allow the lead to dismiss unsupported or non-blocking findings. Require the
+user or designated project owner to waive a validated blocker or material
+accepted risk. A validator finding does not amend the contract, create new
+scope, or automatically trigger implementation or another review.
 
 Assign material fixes to an implementation owner while keeping validators
 independent from the fixes they requested.
 
-After fixes, revalidate the changed delta and affected assertions. Repeat a
-full review only when scope, architecture, or integration behavior materially
-changed.
+After fixes, revalidate only the changed delta and affected assertions. Scope
+the delta validator to the requested fixes and their observable fallout. Do
+not launch another full review merely because a correction was made. Repeat a
+full review only when scope, architecture, security boundaries, schema, or
+integration behavior materially changed.
+
+Do not let a validator request another validator or reopen the complete review
+cycle. A new finding during delta revalidation may block only when the delta
+caused it and it satisfies the blocking criteria above; otherwise disposition
+it separately. Once targeted revalidation passes and any already-required full
+gate passes, close the review cycle.
 
 Do not continue review loops for unsupported findings, stylistic disagreement,
 or accepted behavior.
