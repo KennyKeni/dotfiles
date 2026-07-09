@@ -26,7 +26,7 @@ Current main ID: `xai/grok-4.5`.
 Delegate to OpenCode when the prompt is mostly execution:
 
 - repo-scale reading, implementation, refactors, migrations, dependency bumps
-- known-repro bug fixes, tests, coverage fills, script/tooling work
+- known-repro bug fixes, implementation fixes, script/tooling work
 - frontend implementation, UI build-out, visual polish, responsive layout, motion, and design exploration
 - a second-model implementation pass would materially reduce risk
 
@@ -37,6 +37,11 @@ Keep in Codex:
 - authenticated MCP/app tools, secrets, releases, pushes, destructive ops
 - serious or high-stakes reviews where Codex should be the primary reviewer
 - final review of every OpenCode change: diff, tests, screenshots for UI, and closeout
+
+## Test Authorship
+Codex subagents write new or revised tests by default. The main Codex session owns test intent, acceptance criteria, and final verification; assign test-scoped work to Codex subagents and then inspect the resulting tests before accepting them.
+
+Do not use OpenCode as the default test author. Let OpenCode touch tests only when the tests and production edits are inseparable in a single tightly coupled implementation lane, and Codex must still review those tests before accepting the change.
 
 ## Review Delegation
 Default to no OpenCode delegation for review work. Codex owns review judgment, severity, final wording, and the user-facing result.
@@ -74,7 +79,7 @@ Use `--agent explore` for read-only discovery: repo mapping, large-context resea
 
 Use `--agent plan` only when the task specifically needs OpenCode's planning mode. Do not use it as the ordinary substitute for read-only exploration.
 
-Use `--agent build` for implementation, edits, tests, migrations, fixes, and any task expected to modify files. Keep the default implementation invocation on `build`.
+Use `--agent build` for implementation, edits, migrations, fixes, and any task expected to modify files. Keep the default implementation invocation on `build`. Do not use it as the default test author; assign new or revised tests to Codex subagents per Test Authorship.
 
 ## Invoke
 Prompt via temp file and attach it; do not inline a large prompt.
