@@ -114,12 +114,10 @@ tasks:
           ["claude-opencode-grok-first", ["claude-code"]],
           ["codex-opencode-grok-first", ["codex"]],
           ["codex-opencode-ollama-first", ["codex"]],
-          ["goal-prompt-template", ["codex"]],
           ["goal-prompt-template-inline", ["codex"]],
           ["goal-prompt-template-progressive", ["codex"]],
         ]);
         const codexOnlySkills = new Set([
-          "goal-prompt-template",
           "goal-prompt-template-inline",
           "goal-prompt-template-progressive",
         ]);

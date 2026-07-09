@@ -1,6 +1,0 @@
-interface:
-  display_name: "Goal Prompt Template"
-  short_description: "Stage-based PM/EM execution template"
-  default_prompt: "Use $goal-prompt-template with the following pre-execution context: <paste project-specific context here>."
-policy:
-  allow_implicit_invocation: false
