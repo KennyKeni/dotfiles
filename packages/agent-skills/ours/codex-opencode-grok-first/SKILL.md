@@ -1,143 +1,194 @@
 ---
 name: codex-opencode-grok-first
-description: Route selected Codex work to OpenCode through xAI Grok 4.5 only, with Codex orchestrating and verifying. Use when the user asks to delegate to OpenCode/Grok/xAI, wants Grok 4.5 as a second implementation agent, or asks for the Grok variant of Codex OpenCode delegation.
+description: Route one bounded scout or worker role from Codex to OpenCode through xAI Grok 4.5, while Codex remains lead and supplies every formal validator. Use when the user explicitly requests Grok 4.5 or xAI through OpenCode, invokes $codex-opencode-grok-first, or asks for the Grok variant of Codex-to-OpenCode delegation. Do not use for provider-unspecified OpenCode requests.
 ---
 
 # Codex OpenCode Grok First
 
-Codex sessions only. Current harness is Codex; OpenCode is the subagent. Codex keeps the spec, judgment, final diff review, test verification, and user conversation.
+Use this skill only from the user-facing, goal-owning Codex session. Treat
+OpenCode and Grok 4.5 as a lower-cost execution lane, not as the lead or final
+judge. If a Codex scout, worker, or validator encounters this skill, have it
+remain within its assigned role and return to the lead instead of delegating.
 
-## Default Stance
-Default to `xai/grok-4.5` for all delegated OpenCode work. This variant is intentionally Grok-only: do not substitute GLM, Kimi, Minimax, or other Ollama Cloud lanes from this skill.
+## Preserve The Role Model
 
-Use the same Grok 4.5 lane for repo engineering, frontend implementation, text/code tasks, visual UI work, screenshot/reference-driven implementation, and large-context research. If `xai/grok-4.5` is unavailable, stop and report the model availability issue instead of silently choosing another model.
+Use only the existing software-work roles:
 
-## Model Check
-Names move. Refresh and inspect before delegating:
+- the user-facing, goal-owning Codex session is the `lead`;
+- OpenCode `explore` may fill the `scout` role;
+- OpenCode `build` may fill the `worker` role;
+- a fresh Codex subagent fills every formal `validator` role.
+
+Do not invent reviewer, test-author, integration-agent, or orchestrator roles.
+Treat worker self-check as part of the worker role and final judgment as part of
+the lead role.
+
+When a goal or mission workflow is active, let it decide whether a scout,
+worker, or validator is justified and let it own concurrency, agent-session
+budgets, review cadence, and completion criteria. Count each new OpenCode
+session as the scout or worker session it fills. Do not count a focused
+follow-up to the same session as a new agent session.
+
+Do not ask OpenCode to interpret the full goal template or mission history.
+Pass a compact, verified assignment. Do not let OpenCode create agents.
+
+## Use The Grok Lane
+
+Use `xai/grok-4.5` for every OpenCode session created through this skill. Do
+not silently substitute another provider or model.
+
+Refresh and verify the model once before the first delegation in the current
+skill invocation:
 
 ```bash
 opencode models --refresh >/dev/null
-opencode models | rg -i '^xai/grok-4\.5$'
+opencode models | rg -x 'xai/grok-4\.5'
 ```
 
-Current main ID: `xai/grok-4.5`.
+If the model is unavailable or lacks a capability required by the assignment,
+keep the work in Codex or report the limitation.
 
-## Route
-Delegate to OpenCode when the prompt is mostly execution:
+## Route Deliberately
 
-- repo-scale reading, implementation, refactors, migrations, dependency bumps
-- known-repro bug fixes, implementation fixes, script/tooling work
-- frontend implementation, UI build-out, visual polish, responsive layout, motion, and design exploration
-- a second-model implementation pass would materially reduce risk
+Use an OpenCode scout for lower-cost, objectively checkable retrieval such as
+repository mapping, symbol discovery, dependency tracing, validation-command
+discovery, or implementation reconnaissance.
 
-Keep in Codex:
+Use a Codex subagent as the scout instead when the assigned investigation
+requires accurate synthesis across unfamiliar subsystems, diagnosis of an
+unknown cause, reconciliation of contradictory evidence, or evidence that
+will shape several feature contracts or survive later compactions. The Codex
+scout replaces the OpenCode scout; do not run both by default.
 
-- ambiguous product/design/architecture decisions before the spec is frozen
-- tiny obvious edits where delegation overhead loses
-- authenticated MCP/app tools, secrets, releases, pushes, destructive ops
-- serious or high-stakes reviews where Codex should be the primary reviewer
-- final review of every OpenCode change: diff, tests, screenshots for UI, and closeout
+Skip the scout when the lead already knows the relevant surface or the worker
+can inspect it within a bounded implementation assignment.
 
-## Test Authorship
-Codex subagents write new or revised tests by default. The main Codex session owns test intent, acceptance criteria, and final verification; assign test-scoped work to Codex subagents and then inspect the resulting tests before accepting them.
+Use an OpenCode worker for one bounded implementation lane:
 
-Do not use OpenCode as the default test author. Let OpenCode touch tests only when the tests and production edits are inseparable in a single tightly coupled implementation lane, and Codex must still review those tests before accepting the change.
+- a known-scope feature, refactor, migration, or dependency update;
+- a reproduced bug with defined expected behavior;
+- repository tooling or scripts with explicit proof commands;
+- frontend implementation with specified references, states, and viewports;
+- focused tests coupled to the implementation.
 
-## Review Delegation
-Default to no OpenCode delegation for review work. Codex owns review judgment, severity, final wording, and the user-facing result.
+Keep unresolved product, architecture, security, schema, data-model, public
+interface, and delivery decisions with the lead. Keep authenticated tools,
+secrets, releases, pushes, merges, destructive operations, and final
+completion judgment in Codex.
 
-When extra coverage is useful, prefer Codex subagents instead of OpenCode. Parallelize aggressively when work scopes are independent, but cap active implementation agents unless there are clearly disjoint write sets. Prefer review/scouting agents when no safe implementation lane is available. Do not start a new issue just to keep agents busy. Ask Codex subagents for independent candidate findings only; the main Codex session must still inspect the diff, validate each finding, decide severity, and write the user-facing review.
+Do not run a competing implementation merely to obtain a second answer.
+Default to one active writable OpenCode worker. Use broader parallelism only
+when the active goal workflow explicitly permits independent write scopes.
 
-Use OpenCode for review only as an optional read-only second opinion when at least one is true:
+## Assign The Scout
 
-- the user explicitly asks for a second-agent review
-- the review is tiny, low-risk, and inconsequential
-- Codex is already doing the primary review in parallel and will reconcile the results
+Before assigning a scout, state the questions blocking the next contract or
+implementation decision. Require the scout to return:
 
-OpenCode review prompts should ask for concrete findings with file/line references and evidence, not a final verdict. Codex must still inspect the diff, decide whether each finding is real, and write the user-facing review.
+- observed facts with file, symbol, line, command, log, or source references;
+- relevant patterns, dependency paths, and validation commands;
+- inferences separated from observations;
+- contradictions, uncertainties, and missing evidence;
+- a recommended change surface labeled as a recommendation.
 
-If OpenCode is used for review despite the default, use `--agent explore` and ask for candidate findings only. Do not use `--agent build` for review. Use `--agent build` only for follow-up implementation after Codex accepts a finding and decides to delegate the fix.
+Treat the report as an evidence index. Have the lead verify claims that
+materially determine scope, architecture, ownership, security, migrations, or
+public behavior. Pass the worker a curated contract and primary-source
+pointers, not the raw scout transcript.
 
-Mixed task: Codex writes a precise work order first, then delegates to Grok 4.5. For visual-reference UI work, Codex should state acceptance criteria, attach the relevant references, and then verify visually.
+## Assign The Worker
 
-## OpenCode Agent
-The built-in `explore` agent must be configured as a primary agent before CLI use:
+Give the worker:
 
-```jsonc
-{
-  "agent": {
-    "explore": {
-      "mode": "primary"
-    }
-  }
-}
-```
+- the bounded goal and exact repository scope;
+- allowed paths or expected change surface;
+- acceptance assertions and verified evidence;
+- constraints, non-goals, and relevant repository instructions;
+- required tests, proof commands, and UI evidence when applicable;
+- the authorized commit and external-delivery boundary;
+- stop conditions and the required return format.
 
-Do not set `default_agent` for this skill. Verify `opencode agent list` shows `explore (primary)` before relying on it.
+Let the worker implement production changes and their tightly coupled tests.
+The lead owns test intent and independently verifies behavior. Use a separate
+test-scoped worker only for high-risk behavior, a difficult regression
+reproducer, or an explicit requirement of the active goal workflow; keep it
+within the same worker budget rather than creating a new role.
 
-Use `--agent explore` for read-only discovery: repo mapping, large-context research, design exploration, risk finding, implementation reconnaissance, and second-opinion context gathering. Exploration prompts must explicitly say not to edit files and should ask for findings, relevant paths, tradeoffs, and recommended next actions.
+Require the worker to stop rather than silently changing the contract,
+architecture, public API, schema, migration behavior, or authorized scope.
+Require it to return files changed, assertions addressed, commands actually
+run, observed results, unrun checks, deviations, and remaining risks.
 
-Use `--agent plan` only when the task specifically needs OpenCode's planning mode. Do not use it as the ordinary substitute for read-only exploration.
+## Validate At Coherent Boundaries
 
-Use `--agent build` for implementation, edits, migrations, fixes, and any task expected to modify files. Keep the default implementation invocation on `build`. Do not use it as the default test author; assign new or revised tests to Codex subagents per Test Authorship.
+Do not use OpenCode as a validator or independent reviewer. OpenCode may
+self-check its own implementation, but treat that as worker evidence rather
+than independent review.
 
-## Invoke
-Prompt via temp file and attach it; do not inline a large prompt.
+Have the lead inspect every OpenCode handoff, the complete diff, repository
+state, focused tests, and exact proof output. For UI work, have the lead run the
+application and inspect the required desktop and mobile states.
+
+Follow the active goal workflow's validator requirements and cadence. When no
+active workflow specifies them, assign one fresh Codex validator after a
+coherent non-trivial PR or milestone passes focused gates. Add a second
+validator only for high-risk work when the active workflow and budget permit
+it. Do not run a full validator after every WIP revision. Reuse the same
+validator only for delta revalidation in the current review cycle.
+
+Have validators return findings without implementing fixes. Have the lead
+verify each finding, decide severity and disposition, assign accepted fixes to
+a worker, and own the user-facing result.
+
+## Invoke OpenCode
+
+The built-in `explore` agent must be available as a primary agent for direct
+CLI use. Verify `opencode agent list` shows `explore (primary)`. Use
+`--agent explore` for a scout and `--agent build` for a worker.
+
+Create a prompt file using the environment's approved file-writing mechanism.
+Include the role, goal, repository, exact scope, acceptance assertions,
+constraints, non-goals, proof, delivery boundary, stop conditions, and output
+shape. Attach references or screenshots required by the assignment. Set
+`REPO` and `PROMPT_FILE` to their absolute paths before using the examples.
+
+Worker invocation:
 
 ```bash
-P=$(mktemp); cat >"$P" <<'EOF'
-Goal:
-Repo:
-Key paths:
-Constraints:
-Non-goals:
-Proof expected:
-Output: report files changed, commands run, test output, and remaining risks.
-EOF
-opencode run --dir <repo> \
+opencode run --dir "$REPO" \
   --model xai/grok-4.5 \
   --agent build \
-  --file "$P" \
+  --file "$PROMPT_FILE" \
   --dangerously-skip-permissions \
-  --title "grok delegated task" \
-  "Read the attached prompt and complete it exactly." \
-  | tee /tmp/opencode-last.md
+  --title "grok worker: <bounded-task>" \
+  "Read the attached assignment and complete only that worker scope."
 ```
 
-Use `--model xai/grok-4.5` for every delegated task in this variant. Use `--variant max` only if xAI/OpenCode supports it for the selected run and the task justifies slower output.
-
-Exploration-only run:
+Scout invocation:
 
 ```bash
-opencode run --dir <repo> \
+opencode run --dir "$REPO" \
   --model xai/grok-4.5 \
   --agent explore \
-  --file "$P" \
-  --title "grok exploration task" \
-  "Read the attached prompt and report findings only. Do not edit files."
+  --file "$PROMPT_FILE" \
+  --title "grok scout: <bounded-question>" \
+  "Read the attached assignment and return evidence only. Do not edit files."
 ```
 
-Follow-up fixes:
+Give every run a unique title and record its exact session ID. Resume a worker
+with `--session <session-id>` and a focused follow-up file; do not use bare
+`--continue` when more than one OpenCode session may exist.
 
-```bash
-opencode run --dir <repo> --continue \
-  --file "$P2" \
-  --dangerously-skip-permissions \
-  "Read the attached follow-up and revise the existing session output."
-```
+If two focused follow-up rounds fail to converge, stop delegating and finish
+or re-scope the work in Codex.
 
-## Session Cleanup
-Use a unique `--title` for each delegated run. `opencode run` exits without leaving a live process, but it may leave a resumable session record; that record can remain.
+## Clean Up Interrupted Runs
 
-Do not delete sessions just because they are persisted. Only act when a run hangs, is interrupted, or appears to leave a live process. Before final response in those cases, confirm no OpenCode process is still active:
+Persisted resumable sessions may remain. Only check for a live process when a
+run hangs or is interrupted:
 
 ```bash
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
 ```
 
-If a live OpenCode process from the delegated run remains, stop it or report why it is intentionally still running.
-
-## Prompt And Verify
-OpenCode starts with little useful session context. Every prompt must include the goal, exact repo/path scope, constraints, non-goals, proof command, and output shape. For UI prompts include target viewport sizes, references/screenshots, states, and what "done" looks like.
-
-Codex always verifies `git status -sb`, the full diff, focused tests, and exact proof output. For UI, run the app and inspect desktop and mobile screenshots for text fit, overlap, and generic output. Iterate with `--continue` when close; after two poor rounds, stop delegating and finish in Codex.
+Stop a leftover process created by the delegated run or report why it remains.
