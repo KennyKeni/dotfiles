@@ -7,7 +7,7 @@ description: Interactive QA session where user reports bugs or issues conversati
 
 Run an interactive QA session. The user describes problems they're encountering. You clarify, explore the codebase for context, and file issues in the configured issue tracker that are durable, user-focused, and use the project's domain language.
 
-Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
+Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`, then follow the tracker file's command conventions for every operation. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
 
 ## For each issue the user raises
 
@@ -116,6 +116,8 @@ When creating a breakdown:
 - **Mark blocking relationships honestly** — if issue B genuinely can't be tested until issue A is fixed, say so. If they're independent, mark both as "None — can start immediately"
 - **Create issues in dependency order** so you can reference real issue numbers in "Blocked by"
 - **Maximize parallelism** — the goal is that multiple people (or agents) can grab different issues simultaneously
+- **Use native GitHub sub-issues** — when you create a GitHub tracking issue, attach every child through the native sub-issue operation in `.local/agents/issue-tracker.md`; a parent link in the body is only supplemental
+- **Verify the umbrella** — read back the tracking issue's native sub-issue list and confirm every intended child is present before reporting completion
 
 #### Rules for all issue bodies
 

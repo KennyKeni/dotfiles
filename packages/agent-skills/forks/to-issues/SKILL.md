@@ -7,7 +7,7 @@ description: Break a plan, spec, or PRD into independently-grabbable issues on t
 
 Break a plan into independently-grabbable issues using vertical slices (tracer bullets).
 
-The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Publish issues only to the configured GitHub/GitLab tracker; do not create local issue files.
+The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Read and follow the tracker file's command conventions for every operation. Publish issues only to the configured GitHub/GitLab tracker; do not create local issue files.
 
 ## Process
 
@@ -55,6 +55,8 @@ For each approved slice, publish a new issue to the issue tracker. Use the issue
 
 Publish issues in dependency order (blockers first) so you can reference real issue identifiers in the "Blocked by" field.
 
+When the source is an existing GitHub issue, attach every new slice to it as a native GitHub sub-issue using `.local/agents/issue-tracker.md`. If this run creates a GitHub umbrella or tracking issue, attach every child to that issue the same way. The parent reference in the body is supplemental, not the relationship. Read back the parent's native sub-issue list and confirm that every intended child is present before reporting completion.
+
 <issue-template>
 ## Parent
 
@@ -80,4 +82,4 @@ Or "None - can start immediately" if no blockers.
 
 </issue-template>
 
-Do NOT close or modify any parent issue.
+Do not close or edit the title, body, or labels of an existing parent issue. Adding the required native sub-issue relationships is allowed.
