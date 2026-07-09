@@ -55,7 +55,9 @@ For each approved slice, publish a new issue to the issue tracker. Use the issue
 
 Publish issues in dependency order (blockers first) so you can reference real issue identifiers in the "Blocked by" field.
 
-When the source is an existing GitHub issue, attach every new slice to it as a native GitHub sub-issue using `.local/agents/issue-tracker.md`. If this run creates a GitHub umbrella or tracking issue, attach every child to that issue the same way. The parent reference in the body is supplemental, not the relationship. Read back the parent's native sub-issue list and confirm that every intended child is present before reporting completion.
+When the source is an existing GitHub issue, attach every new slice to it as a native GitHub sub-issue using `.local/agents/issue-tracker.md`. If this run creates a GitHub umbrella or tracking issue, attach every child to that issue the same way. The parent reference in the body is supplemental, not the relationship.
+
+If an older tracker file lacks a native sub-issue command, use only this `gh` CLI sequence: fetch the child's REST database ID with `gh api "repos/{owner}/{repo}/issues/$child_number" --jq '.id'`, then attach it with `gh api --method POST "repos/{owner}/{repo}/issues/$parent_number/sub_issues" -F "sub_issue_id=$child_id"`. Read back `gh api --paginate "repos/{owner}/{repo}/issues/$parent_number/sub_issues" --jq '.[].number'` and confirm that every intended child is present before reporting completion.
 
 <issue-template>
 ## Parent

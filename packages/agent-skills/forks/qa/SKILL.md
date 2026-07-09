@@ -119,6 +119,8 @@ When creating a breakdown:
 - **Use native GitHub sub-issues** — when you create a GitHub tracking issue, attach every child through the native sub-issue operation in `.local/agents/issue-tracker.md`; a parent link in the body is only supplemental
 - **Verify the umbrella** — read back the tracking issue's native sub-issue list and confirm every intended child is present before reporting completion
 
+If an older tracker file lacks the native operation, use only this `gh` CLI sequence: fetch the child's REST database ID with `gh api "repos/{owner}/{repo}/issues/$child_number" --jq '.id'`, attach it with `gh api --method POST "repos/{owner}/{repo}/issues/$parent_number/sub_issues" -F "sub_issue_id=$child_id"`, and verify with `gh api --paginate "repos/{owner}/{repo}/issues/$parent_number/sub_issues" --jq '.[].number'`.
+
 #### Rules for all issue bodies
 
 - **No file paths or line numbers** — these go stale
