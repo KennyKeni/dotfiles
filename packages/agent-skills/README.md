@@ -16,8 +16,9 @@ the native global lock, prefer:
 task skills:restore-global
 ```
 
-The restore task preserves local per-skill agent overrides. `goal-prompt-template`
-is Codex-only for now; because the current `skills` CLI routes Codex through the
+The restore task preserves local per-skill agent overrides.
+`goal-prompt-template` and its `inline` and `progressive` A/B variants are
+Codex-only for now; because the current `skills` CLI routes Codex through the
 universal `~/.agents/skills` root, the restore task moves Codex-only skills into
 `~/.codex/skills` after the `npx` install.
 
@@ -29,6 +30,18 @@ npx -y skills@latest add https://github.com/KennyKeni/dotfiles/tree/main/package
   -a codex \
   -s goal-prompt-template \
   -y
+```
+
+For a fresh install of both A/B variants:
+
+```sh
+npx -y skills@latest add https://github.com/KennyKeni/dotfiles/tree/main/packages/agent-skills \
+  -g --copy --full-depth \
+  -a codex \
+  -s goal-prompt-template-inline goal-prompt-template-progressive \
+  -y
+
+task skills:restore-global
 ```
 
 The broad all-agent install command is only for skills intended for every

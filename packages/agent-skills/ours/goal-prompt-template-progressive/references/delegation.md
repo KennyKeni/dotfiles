@@ -1,0 +1,118 @@
+# Delegation
+
+Read this file before the first agent assignment in the current context. Reuse
+it for later assignments instead of rereading it for every spawn.
+
+## Contents
+
+- Separate roles
+- Delegate exploration deliberately
+- Control cost
+- Execute features
+
+## Separate Roles
+
+Have the lead own requirements, contracts, decomposition, architecture,
+assignment, cost control, integration, durable state, and final completion
+judgment. Allow direct implementation when delegation costs more than it adds.
+
+Have a scout perform bounded, read-only retrieval. Do not let a scout modify
+files, create external state, choose architecture, approve scope, or create
+agents.
+
+Give each worker one bounded feature or PR. Have it implement, test,
+self-review, and return evidence. Do not let it declare mission or stage
+completion or create agents.
+
+Give each validator fresh context and a completed, coherent change. Have it
+report findings without implementing fixes or creating agents.
+
+Keep all delegation centralized through the lead.
+
+## Delegate Exploration Deliberately
+
+State the questions blocking implementation before exploring.
+
+Use a scout when exploration spans unfamiliar subsystems, requires substantial
+retrieval, would pollute the lead context, produces checkable evidence, or will
+be reused.
+
+Explore directly when relevant files are known, the task is small, or
+interpretation cannot be separated from architectural judgment.
+
+When model routing is available, use the least expensive model that can
+reliably follow the evidence format. Do not use a cheap model as the sole
+source of architectural, security, migration, concurrency, or public-interface
+decisions.
+
+Use one scout for the active milestone and send focused follow-ups. Replace it
+only when its context is stale or its surface materially changes.
+
+Require the scout to return:
+
+- observed facts with file, symbol, line, command, log, or source references;
+- relevant patterns, validation commands, and integration paths;
+- inferences separated from observations;
+- contradictions and unresolved questions;
+- a recommended change surface labeled as a recommendation.
+
+Treat scout output as an evidence index. Verify claims that materially
+determine scope, architecture, ownership, security, migrations, or public
+behavior.
+
+Convert verified findings into a feature contract. Pass the contract and
+primary-source pointers to the worker, not the raw scout transcript.
+
+## Control Cost
+
+Unless the invocation sets another budget:
+
+- allow at most two implementation workers concurrently;
+- allow at most one active scout per milestone;
+- allow at most four new agent sessions per milestone and twelve per mission;
+- assign one implementation owner per feature or PR;
+- use one validator for a normal non-trivial PR or milestone;
+- add a second validator only for high-risk work;
+- prohibit nesting and peer-to-peer coordination;
+- require user approval before exceeding these limits.
+
+Count every new scout, worker, validator, and replacement against the milestone
+and mission limits. Do not count focused follow-ups to an existing agent as new
+sessions.
+
+Do not spawn an agent to decide whether to spawn agents. Do not run competing
+implementations or pass-at-k sampling unless the decision is unusually
+consequential and the cost is authorized.
+
+Before assignment, define the deliverable, scope, allowed mutations, evidence,
+output format, and stop condition. Reuse an existing scout or worker when its
+context remains relevant.
+
+Use a new validator for each new PR or milestone. Reuse that validator only for
+delta revalidation in the same review cycle. Define fresh validator context as
+independent of implementation and limited to the coherent change, contract,
+relevant primary sources, and validation evidence rather than the
+implementation trajectory.
+
+Count scouts and validators in the execution budget.
+
+## Execute Features
+
+Give a worker the feature contract, validation assertions, verified evidence,
+primary-source pointers, relevant repository instructions, workspace boundary,
+and return format.
+
+Require it to inspect primary artifacts before editing.
+
+Use a branch or worktree only when the workflow supports it and independence
+justifies isolation. Follow the repository's target branch and conventions.
+
+Require focused validation. Use test-first development when behavior can be
+specified independently and repository practices support it. Do not impose it
+mechanically on every edit.
+
+Require the worker to return changes or a commit reference, commands run,
+results, contract deviations, unresolved risks, and integration notes.
+
+Have the lead integrate worker output. Do not create a separate integration
+agent by default.

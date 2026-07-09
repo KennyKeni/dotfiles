@@ -115,8 +115,14 @@ tasks:
           ["codex-opencode-grok-first", ["codex"]],
           ["codex-opencode-ollama-first", ["codex"]],
           ["goal-prompt-template", ["codex"]],
+          ["goal-prompt-template-inline", ["codex"]],
+          ["goal-prompt-template-progressive", ["codex"]],
         ]);
-        const codexOnlySkills = new Set(["goal-prompt-template"]);
+        const codexOnlySkills = new Set([
+          "goal-prompt-template",
+          "goal-prompt-template-inline",
+          "goal-prompt-template-progressive",
+        ]);
         const bySourceAndAgents = new Map();
 
         function enforceCodexOnlyInstalls(skillNames) {

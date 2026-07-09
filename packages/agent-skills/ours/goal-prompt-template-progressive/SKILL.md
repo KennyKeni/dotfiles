@@ -1,0 +1,117 @@
+---
+name: goal-prompt-template-progressive
+description: Run explicitly invoked long-horizon software projects through a validation-first, compaction-resilient workflow with durable state, bounded scout, worker, and validator delegation, issue and PR boundaries, and evidence-based completion. Use only when the user explicitly invokes $goal-prompt-template-progressive or asks to apply the progressive goal prompt template.
+---
+
+# Goal Prompt Template Progressive
+
+Apply this workflow only when explicitly invoked. Treat invocation text as the
+project goal, scope, constraints, and initial context.
+
+Own delivery of the outcome. Optimize for accepted code quality per unit of
+coordination, not agent activity, branch count, issue count, or apparent
+progress.
+
+Follow repository instructions, project decisions, ownership boundaries, and
+the authorized issue and Git workflow.
+
+## Choose the Execution Mode
+
+Use direct execution for one bounded change with a known implementation
+surface. Keep the lead responsible for implementation and validation, and do
+not create agents whose handoff cost exceeds their value.
+
+For direct execution, inspect the authoritative artifacts needed for the
+change, define a compact acceptance contract, implement, run focused
+validation, and read [validation.md](references/validation.md) before declaring
+the change complete. If direct work escalates to mission execution, read
+[mission-setup.md](references/mission-setup.md) before decomposition or
+delegation.
+
+Use mission execution for work spanning multiple substantial features, PRs,
+completion stages, or broad discovery surfaces.
+
+Start directly when uncertain. Escalate only after concrete independent work
+emerges.
+
+## Mission Loop
+
+For mission execution:
+
+1. Establish authoritative state and durable continuity.
+2. Define correctness before decomposing implementation.
+3. Shape bounded vertical features and dependencies.
+4. Delegate broad exploration when it has concrete value.
+5. Execute sequentially or in bounded parallel.
+6. Validate coherent PR and milestone boundaries.
+7. Update durable state and report evidence-backed progress.
+
+Do not start a blocked, deferred, gated, or unapproved work item. Continue
+independent authorized work when safe.
+
+Treat the current agent as the lead and never delegate the lead role. Keep
+delegation centralized through the lead. Prohibit nested delegation and
+peer-to-peer agent coordination.
+
+Unless the invocation sets another budget, allow at most two implementation
+workers concurrently, one active scout, four new agent sessions per milestone,
+and twelve new agent sessions per mission. Count every scout, worker,
+validator, and replacement. Do not count focused follow-ups to an existing
+agent as new sessions. Require user approval before exceeding a limit.
+
+## Load Phase Instructions
+
+Use progressive disclosure. Do not load every reference at session start.
+
+- When mission execution is selected, read
+  [mission-setup.md](references/mission-setup.md) before defining the
+  validation contract or decomposing work.
+- When first considering whether to use a scout, worker, or validator in the
+  current context, read [delegation.md](references/delegation.md) before
+  deciding or assigning. Retain and reuse those rules for later assignments;
+  do not reread the file for every spawn.
+- When a PR or milestone becomes ready for validation, or before declaring
+  completion, read [validation.md](references/validation.md). Retain and reuse
+  it through the current validation cycle.
+- Also read [validation.md](references/validation.md) before a hard-to-reverse
+  architecture, API, schema, security, or migration decision; before repeating
+  a first vertical slice broadly; when implementation uncertainty is material;
+  or when integration assumptions materially change.
+
+After compaction, reload only the reference required for the recorded next
+action. Do not reload a reference merely because another agent is spawned.
+
+## Preserve Continuity Across Compaction
+
+After compaction or resumption:
+
+1. Read the canonical durable state artifact.
+2. Verify the active Git reference, issue or PR state, and relevant CI state.
+3. Inspect only the primary artifacts required for the recorded next action.
+4. Reuse still-valid scout evidence and feature contracts.
+5. Refresh stale facts before acting.
+
+Do not re-explore the entire repository merely because compaction occurred.
+Do not delegate solely to avoid compaction.
+
+If repeated continuation cycles reconstruct context without producing a
+verified artifact, checkpoint state and split the run at the next semantic
+stage or PR boundary.
+
+## Manage Git and External State Safely
+
+Follow the repository's branch, worktree, commit, PR, merge, and issue
+workflow. Keep authorized issues, PR descriptions, validation evidence, and
+handoff notes current.
+
+Record the authorized delivery boundary in the contract. Treat commit, push,
+PR creation, merge, and issue mutations as separate actions requiring explicit
+user authorization or an already-authorized project workflow. Do not infer
+them from a general instruction to deliver.
+
+Do not delete or clean pre-existing branches, worktrees, files, or artifacts
+without confirmation. Clean only temporary resources created by this
+execution after verifying they are no longer needed.
+
+Do not merge until required CI, review, deployment, ownership, and human gates
+have passed.
