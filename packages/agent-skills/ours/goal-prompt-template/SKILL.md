@@ -1,9 +1,9 @@
 ---
-name: goal-prompt-template-progressive
-description: Run explicitly invoked long-horizon software projects through a validation-first, compaction-resilient workflow with durable state, bounded scout, worker, and validator delegation, issue and PR boundaries, and evidence-based completion. Use only when the user explicitly invokes $goal-prompt-template-progressive or asks to apply the progressive goal prompt template.
+name: goal-prompt-template
+description: Run explicitly invoked long-horizon software projects through a validation-first, compaction-resilient workflow with durable state, bounded scout, worker, and validator delegation, issue and PR boundaries, and evidence-based completion. Use only when the user explicitly invokes $goal-prompt-template or asks to apply the goal prompt template.
 ---
 
-# Goal Prompt Template Progressive
+# Goal Prompt Template
 
 Apply this workflow only when explicitly invoked. Treat invocation text as the
 project goal, scope, constraints, and initial context.

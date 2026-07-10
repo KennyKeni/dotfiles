@@ -1,6 +1,0 @@
-interface:
-  display_name: "Goal Prompt Template — Progressive"
-  short_description: "Progressive long-horizon project execution"
-  default_prompt: "Use $goal-prompt-template-progressive to execute this long-running software project: <paste project context>."
-policy:
-  allow_implicit_invocation: false

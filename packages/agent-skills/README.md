@@ -19,13 +19,13 @@ task skills:restore-global
 The restore task installs skills for Codex, Claude Code, and Zed by default and
 preserves local per-skill agent overrides for harness-specific skills.
 
-For a fresh install of both goal-prompt A/B variants:
+For a fresh install of the goal-prompt template:
 
 ```sh
 npx -y skills@latest add https://github.com/KennyKeni/dotfiles/tree/main/packages/agent-skills \
   -g --copy --full-depth \
   -a codex claude-code zed \
-  -s goal-prompt-template-inline goal-prompt-template-progressive \
+  -s goal-prompt-template \
   -y
 
 task skills:restore-global
