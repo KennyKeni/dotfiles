@@ -16,6 +16,14 @@ This machine uses `mise` for runtime/tool version management. Prefer `mise`-mana
 All skills must be installed and tracked through `npx skills`. Never install
 skills manually.
 
+# Subagents
+
+Always specify `fork_turns: "none"` when spawning a subagent. Never omit
+`fork_turns`, because MultiAgent V2 defaults an omitted value to `"all"` and
+copies the parent's full conversation history. Use a small positive turn count
+only when essential recent context cannot be restated compactly, and explain
+the exception before spawning. Never use `fork_turns: "all"`.
+
 # Git-Excluded Instruction Files
 
 `AGENTS.md` and `CLAUDE.md` are globally git-excluded on this machine. If a repository should track one of these files, unexclude it on a per-repository basis.

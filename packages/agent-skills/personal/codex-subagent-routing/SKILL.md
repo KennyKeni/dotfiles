@@ -60,13 +60,10 @@ justified and let it own available concurrency, validation cadence, and
 completion criteria. Pass compact assignments rather than the full goal
 template, mission history, adapter, or lane reference.
 
-Start every new native assignment with `fork_turns: "none"` by default and
-supply its task-local context in the assignment. For a scout or worker only,
-use a small positive `fork_turns` value when essential recent nuance cannot be
-safely or efficiently captured in the compact packet; state that reason before
-spawning. Never use `fork_turns: "all"`. Keep every formal validator fresh with
-`fork_turns: "none"` and no exception. Resume an existing scout or worker for
-bounded follow-ups instead of spawning another session with lead history.
+Follow the global subagent context-forking policy. Keep every formal validator
+fresh with `fork_turns: "none"` and no exception. Resume an existing scout or
+worker for bounded follow-ups instead of spawning another session with lead
+history.
 
 ## Route Deliberately
 

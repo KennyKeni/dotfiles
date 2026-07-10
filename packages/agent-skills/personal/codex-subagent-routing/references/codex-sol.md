@@ -29,12 +29,9 @@ limitation.
 Use the current native subagent controls. Keep model and effort selection in
 the spawn assignment rather than persistent custom-agent configuration.
 
-Pass a compact assignment and the minimum useful context. Set `fork_turns` to
-`"none"` for every new native assignment by default. For a scout or worker
-only, use a small positive value when essential recent nuance cannot be safely
-or efficiently captured in the compact assignment, and state that reason
-before spawning. Never set `fork_turns` to `"all"`. Record the task name or
-identifier used to steer, wait for, or stop the subagent.
+Pass a compact assignment and the minimum useful context. Follow the global
+subagent context-forking policy. Record the task name or identifier used to
+steer, wait for, or stop the subagent.
 
 For every validator, set `fork_turns: "none"` or use the native equivalent that
 excludes implementation history. Supply the contract, coherent change,
