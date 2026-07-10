@@ -383,9 +383,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "skillPath": "packages/agent-skills/personal/goal-prompt-template/SKILL.md",
-      "skillFolderHash": "c9272861d3aecaea335c053618eb859102008d08",
+      "skillFolderHash": "5260bdde9042e7ce8e32b2f66df7f01b7ac757ab",
       "installedAt": "2026-07-10T00:15:12.019Z",
-      "updatedAt": "2026-07-10T07:50:13.359Z"
+      "updatedAt": "2026-07-10T07:56:44.306Z"
     },
     "codex-subagent-routing": {
       "source": "KennyKeni/dotfiles",
