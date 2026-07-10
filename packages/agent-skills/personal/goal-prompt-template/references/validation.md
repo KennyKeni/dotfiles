@@ -39,8 +39,8 @@ public API or schema compatibility, concurrency, irreversible operations, and
 large cross-cutting diffs as high-risk.
 
 For every high-risk change, including direct execution, run a fresh validator
-after implementation and focused gates pass. When the agent-session budget
-permits it, separate implementation scrutiny from black-box or integration
+after implementation and focused gates pass. When the risk surface warrants
+distinct proof, separate implementation scrutiny from black-box or integration
 validation.
 
 Require validators to distinguish contract failures, probable defects, risks

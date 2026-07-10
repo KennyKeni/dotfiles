@@ -109,23 +109,16 @@ primary-source pointers to the worker, not the raw scout transcript.
 
 ## Control Cost
 
-Unless the invocation sets another budget:
+Use the active-agent capacity exposed by the runtime. Do not maintain
+per-milestone or per-mission session counters, and do not require approval
+solely because a cumulative number of agents has been created.
 
-- allow at most two workers concurrently;
-- allow at most one active scout per milestone;
-- allow at most four new agent sessions per milestone and twelve per mission;
-- assign one implementation owner per feature or PR;
-- use one validator for a normal non-trivial PR or milestone;
-- add a second validator only for high-risk work;
-- prohibit nesting and peer-to-peer coordination;
-- require user approval before exceeding these limits.
+Assign one implementation owner per feature or PR. Use one validator for a
+normal non-trivial PR or milestone and add a second only for high-risk work.
+Prohibit nesting and peer-to-peer coordination.
 
 Never run concurrent mutating workers in the same workspace. Require isolated
 worktrees or workspaces for them; otherwise serialize their assignments.
-
-Count every new scout, worker, validator, and replacement against the milestone
-and mission limits. Do not count focused follow-ups to an existing agent as new
-sessions.
 
 Do not spawn an agent to decide whether to spawn agents. Do not run competing
 implementations or pass-at-k sampling unless the decision is unusually
@@ -139,8 +132,6 @@ delta revalidation in the same review cycle. Define fresh validator context as
 independent of implementation and limited to the coherent change, contract,
 relevant primary sources, and validation evidence rather than the
 implementation trajectory.
-
-Count scouts and validators in the execution budget.
 
 ## Execute Features
 

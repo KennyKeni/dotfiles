@@ -51,13 +51,9 @@ independent authorized work when safe.
 
 Treat the current agent as the lead and never delegate the lead role. Keep
 delegation centralized through the lead. Prohibit nested delegation and
-peer-to-peer agent coordination.
-
-Unless the invocation sets another budget, allow at most two implementation
-workers concurrently, one active scout, four new agent sessions per milestone,
-and twelve new agent sessions per mission. Count every scout, worker,
-validator, and replacement. Do not count focused follow-ups to an existing
-agent as new sessions. Require user approval before exceeding a limit.
+peer-to-peer agent coordination. Use the active-agent capacity exposed by the
+runtime; do not add per-milestone or per-mission session budgets. Reuse a scout
+or worker while its context remains relevant.
 
 ## Load Phase Instructions
 

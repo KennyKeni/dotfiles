@@ -50,7 +50,6 @@ Keep a current-state snapshot rather than an activity diary. Record:
 - constraining decisions;
 - completed work with accepted evidence;
 - agent ownership and integration boundaries;
-- current and remaining agent-session budget;
 - blockers, risks, unresolved questions, and exact next action.
 
 Update it after contract approval, a material decision, feature or PR

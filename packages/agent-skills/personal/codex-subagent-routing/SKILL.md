@@ -56,7 +56,7 @@ Include an explicit no-delegation boundary in every assignment: remain within
 the assigned role and do not create agents or delegate work.
 
 When a goal or mission workflow is active, let it decide whether delegation is
-justified and let it own concurrency, session budgets, validation cadence, and
+justified and let it own available concurrency, validation cadence, and
 completion criteria. Pass compact assignments rather than the full goal
 template, mission history, adapter, or lane reference.
 
