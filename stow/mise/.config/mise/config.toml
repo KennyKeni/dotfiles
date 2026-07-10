@@ -1,7 +1,7 @@
 [tools]
 aws-cli = { version = "latest", symlink_bins = "true" }
 bun = "1.3.14"
-gh = "2.96.0"
+gh = "latest"
 glab = "latest"
-node = "24.16.0"
+node = "lts"
 task = "3.50.0"
