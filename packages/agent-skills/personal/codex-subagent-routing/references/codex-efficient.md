@@ -47,17 +47,23 @@ Record a hard worker when any condition is true:
 - failure has broad blast radius or rollback is difficult;
 - concrete coupling requires coordinated state, ordering, cross-service calls,
   shared contract consumers, or concurrency-sensitive behavior;
-- the assignment materially affects authentication, authorization, security,
-  externally consumed contracts, production-data semantics, destructive or
-  irreversible migrations, or rollout-sensitive infrastructure;
+- implementation changes a trust boundary or security-relevant behavior,
+  including authentication, authorization, session or token lifecycle,
+  credential or secret handling, permissions, tenant isolation, cryptography,
+  or validation at an exposed boundary;
+- the assignment materially affects externally consumed contracts,
+  production-data semantics, destructive or irreversible migrations, or
+  rollout-sensitive infrastructure;
 - correctness depends on production-only state, consequential concurrency or
   performance behavior, or evidence that cannot be reproduced reliably within
   the assignment; or
 - the acceptance assertions do not have clear, checkable proof.
 
 Small net-new features, routine integration work, visual changes, and changes
-across multiple independent files may remain easy. Test fixtures, local seed
-data, additive patterned APIs, backward-compatible migrations, and routine
+across multiple independent files may remain easy. Documentation, copy,
+fixtures, and mechanical refactors around security surfaces may remain easy
+when they leave security behavior unchanged. Test fixtures, local seed data,
+additive patterned APIs, backward-compatible migrations, and routine
 automation are not hard by category; classify their ambiguity, coupling,
 impact, recoverability, and proof.
 
