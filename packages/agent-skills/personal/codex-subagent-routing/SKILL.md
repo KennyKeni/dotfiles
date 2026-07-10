@@ -149,10 +149,10 @@ and cleanup. Include the canonical role and selected lane in every assignment.
 Record the native task identifier or OpenCode session ID needed to steer,
 resume, wait for, or stop the assignment.
 
-Use focused follow-ups with the same scout or worker while its scope and
-evidence remain current. Start validation in a fresh native Codex session. If
-two focused follow-up rounds fail to converge, stop delegating and finish or
-re-scope the work in the lead.
+Resume the same scout or worker for bounded corrections while its scope,
+contract, approach, evidence, and tier remain current. Start validation in a
+fresh native Codex session. If two focused follow-up rounds fail to converge,
+stop delegating and finish or re-scope the work in the lead.
 
 For Codex Efficient, apply its evidence-based promotion before this generic
 cutoff. Treat the handoff from an easy Grok assignment to Sol-high as a lane

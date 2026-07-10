@@ -92,6 +92,11 @@ easy worker after two materially different unsuccessful approaches, concrete
 coupling evidence, failure to produce acceptance-aligned proof, or discovery
 of a high-consequence implication.
 
+Treat lead or validator findings as new routing evidence. Return bounded
+corrections to the same easy session only while every correction remains easy;
+when a correction triggers hard classification, apply the escalation boundary
+below.
+
 Stop the easy assignment at that boundary and return its verified evidence.
 Give a fresh Sol-high scout or worker a compact handoff containing the contract,
 observations, attempted proof, changed files when applicable, and unresolved
