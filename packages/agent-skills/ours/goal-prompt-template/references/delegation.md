@@ -13,6 +13,14 @@ it for later assignments instead of rereading it for every spawn.
 
 ## Separate Roles
 
+Use `lead`, `scout`, `worker`, and `validator` as the only canonical delegation
+roles. Treat them as hard boundaries for an assignment, not required
+participants in every run. Do not introduce role aliases such as
+implementation agent, reviewer, test author, integration agent, orchestrator,
+or coordinator. Treat implementation, review, and testing as activities. Treat
+implementation owner as a responsibility that belongs to the lead in direct
+execution or normally to a worker in mission execution.
+
 Have the lead own requirements, contracts, decomposition, architecture,
 assignment, cost control, integration, durable state, and final completion
 judgment. Allow direct implementation when delegation costs more than it adds.
@@ -103,7 +111,7 @@ primary-source pointers to the worker, not the raw scout transcript.
 
 Unless the invocation sets another budget:
 
-- allow at most two implementation workers concurrently;
+- allow at most two workers concurrently;
 - allow at most one active scout per milestone;
 - allow at most four new agent sessions per milestone and twelve per mission;
 - assign one implementation owner per feature or PR;
