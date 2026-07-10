@@ -10,9 +10,10 @@ Reuse loaded references for later assignments in the current context.
 
 ## Classify The Scout
 
-Record an easy scout only when it has one explicit question, a bounded search
-surface, a clear stop condition, and an answer that direct file, line, command,
-log, or authoritative-source evidence can settle.
+Record an easy scout when it has one explicit, bounded question, a clear stop
+condition, and an answer that direct file, line, command, log, or
+authoritative-source evidence can settle. The search may span a large
+repository or source set when the question and stop condition remain bounded.
 
 Record a hard scout when it must reconcile contradictory evidence, diagnose an
 unknown cause across coupled subsystems, trace cross-repository dependencies or
@@ -24,39 +25,41 @@ an existing pattern is not a prerequisite for bounded retrieval.
 
 ## Classify The Worker
 
-Record an easy worker only when every condition is true:
+Record an easy worker when all four gates pass and no hard trigger below
+applies:
 
-- the goal, expected behavior, and acceptance assertions are unambiguous;
-- the change is one bounded, independently deliverable slice following an
-  established pattern, or a mechanical repetition of one proven pattern;
-- dependencies are understood and minimally coupled;
-- impact is incremental and backward-compatible, with straightforward rollback;
-- every acceptance assertion has direct automated proof. Treat build, lint,
-  and typecheck as sufficient alone only when they are the requested outcome;
-- the change avoids authentication, authorization, and security boundaries;
-- the change avoids breaking or otherwise consequential externally consumed
-  contracts, production-data semantics, destructive or irreversible migrations,
-  rollout-sensitive infrastructure or deployment behavior, behaviorally
-  coupled systems, and concurrency-sensitive behavior.
+- the behavior, contract, and acceptance assertions are explicit;
+- the change has bounded ownership and scope, with no unresolved material
+  design decision;
+- failure has contained impact and the change is reasonably recoverable; and
+- correctness has reliable, task-local proof through automated tests,
+  deterministic commands, or clear visual or manual verification.
+
+Treat an established pattern, mechanical repetition, backward compatibility,
+and direct automated tests as strong confidence signals, not prerequisites.
 
 Record a hard worker when any condition is true:
 
 - requirements involve ambiguity, product judgment, architecture, or a choice
   among materially different approaches;
-- work is a net-new multi-surface feature, a large coordinated refactor, or
-  spans several behaviorally coupled subsystems or contracts;
+- work requires coordinated changes across behaviorally coupled subsystems,
+  contracts, or consumers;
 - failure has broad blast radius or rollback is difficult;
 - concrete coupling requires coordinated state, ordering, cross-service calls,
-  shared contract consumers, or multi-surface proof;
-- the assignment touches a high-consequence surface excluded above;
-- correctness depends on integration behavior, production-like state, user
-  testing, concurrency, performance, or evidence across several surfaces;
-- no established pattern or acceptance-aligned deterministic proof exists.
+  shared contract consumers, or concurrency-sensitive behavior;
+- the assignment materially affects authentication, authorization, security,
+  externally consumed contracts, production-data semantics, destructive or
+  irreversible migrations, or rollout-sensitive infrastructure;
+- correctness depends on production-only state, consequential concurrency or
+  performance behavior, or evidence that cannot be reproduced reliably within
+  the assignment; or
+- the acceptance assertions do not have clear, checkable proof.
 
-Multiple independent files or components following one proven mechanical
-pattern may remain easy. Test fixtures, local seed data, additive patterned
-APIs, backward-compatible migrations, and routine automation are not hard by
-category; classify their coupling, reversibility, and proof.
+Small net-new features, routine integration work, visual changes, and changes
+across multiple independent files may remain easy. Test fixtures, local seed
+data, additive patterned APIs, backward-compatible migrations, and routine
+automation are not hard by category; classify their ambiguity, coupling,
+impact, recoverability, and proof.
 
 Default uncertainty to `hard`. Size alone does not determine difficulty.
 
