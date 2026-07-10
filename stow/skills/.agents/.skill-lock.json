@@ -406,6 +406,15 @@
       "skillFolderHash": "80be5d8f2d2aa41995539ae55055b1282cfb6aeb",
       "installedAt": "2026-07-10T00:15:12.019Z",
       "updatedAt": "2026-07-10T00:34:21.607Z"
+    },
+    "codex-native-subagents": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "skillPath": "packages/agent-skills/ours/codex-native-subagents/SKILL.md",
+      "skillFolderHash": "fc9fe0a430e2dbd328129a821ca60e9203c7d827",
+      "installedAt": "2026-07-10T03:14:39.023Z",
+      "updatedAt": "2026-07-10T03:14:39.023Z"
     }
   },
   "dismissed": {
