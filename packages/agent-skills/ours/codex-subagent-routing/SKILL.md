@@ -1,6 +1,6 @@
 ---
 name: codex-subagent-routing
-description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, OpenCode/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation lanes, or combines lane selection with the goal prompt template.
+description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, Codex Efficient, OpenCode/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
 ---
 
 # Codex Subagent Routing
@@ -19,6 +19,9 @@ Select a lane independently for each assignment. Before the first assignment
 to a lane in the current context, read its reference completely:
 
 - native Codex: read [codex-sol.md](references/codex-sol.md);
+- mixed cost-aware routing: read
+  [codex-efficient.md](references/codex-efficient.md), then read the native
+  Codex or Grok execution reference only when that policy selects it;
 - xAI through OpenCode: read
   [opencode-grok.md](references/opencode-grok.md);
 - Ollama Cloud through OpenCode: read
@@ -59,13 +62,20 @@ separated from architectural judgment.
 Route ordinary repository mapping and implementation reconnaissance through
 the selected lane. Route investigation that reconciles contradictory evidence,
 diagnoses an unknown cause across unfamiliar subsystems, shapes several
-feature contracts, or informs architecture, security, schema, migrations,
-concurrency, or public interfaces through native Codex Sol at high effort.
+feature contracts, or requires consequential judgment about architecture,
+security boundaries, production-data semantics, destructive migrations,
+concurrency, or externally consumed contracts through native Codex Sol at high
+effort.
 
 Use a worker for one bounded implementation lane after the lead resolves the
 contract and material design decisions. Route difficult or high-risk work
 affecting security, migrations, concurrency, data integrity, schemas, or
 public interfaces through native Codex Sol at high effort.
+
+When Codex Efficient is selected, classify each scout and worker assignment as
+`easy` or `hard` using its reference. Treat difficulty as a routing attribute,
+not another role. Keep the existing native Codex, Grok, and Ollama mappings
+unchanged when those policies are selected directly.
 
 Default to one active writable worker in a workspace. Use parallel workers
 only for independent write scopes permitted by the active goal workflow. Use
@@ -129,6 +139,11 @@ Use focused follow-ups with the same scout or worker while its scope and
 evidence remain current. Start validation in a fresh native Codex session. If
 two focused follow-up rounds fail to converge, stop delegating and finish or
 re-scope the work in the lead.
+
+For Codex Efficient, apply its evidence-based promotion before this generic
+cutoff. Treat the handoff from an easy Grok assignment to Sol-high as a lane
+escalation rather than a follow-up round, then apply the cutoff to the active
+Sol-high assignment.
 
 ## Clean Up Interrupted Runs
 
