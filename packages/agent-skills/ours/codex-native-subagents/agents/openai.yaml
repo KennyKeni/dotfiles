@@ -1,0 +1,6 @@
+interface:
+  display_name: "Codex Native Subagents"
+  short_description: "Route native Codex roles by model effort"
+  default_prompt: "Use $codex-native-subagents to route this work through the appropriate Codex-native scout, worker, or validator profile."
+policy:
+  allow_implicit_invocation: false

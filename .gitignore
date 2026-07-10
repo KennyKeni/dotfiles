@@ -38,6 +38,9 @@ build/
 stow/agents/
 stow/claude/
 
-# This machine globally ignores AGENTS.md, but this repo intentionally
-# tracks the global Codex instructions.
+# This machine globally ignores .codex/ and AGENTS.md, but this repo
+# intentionally tracks the global Codex instructions and native agent profiles.
+!stow/codex/.codex/
 !stow/codex/.codex/AGENTS.md
+!stow/codex/.codex/agents/
+!stow/codex/.codex/agents/*.toml
