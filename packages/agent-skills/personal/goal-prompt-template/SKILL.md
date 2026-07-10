@@ -62,6 +62,9 @@ Use progressive disclosure. Do not load every reference at session start.
 - When mission execution is selected, read
   [mission-setup.md](references/mission-setup.md) before defining the
   validation contract or decomposing work.
+- When completion requires exhaustive repository coverage, read
+  [exhaustive-sweeps.md](references/exhaustive-sweeps.md) before defining the
+  discovery plan or assigning scouts.
 - When first considering whether to use a scout, worker, or validator in the
   current context, read [delegation.md](references/delegation.md) before
   deciding or assigning. Retain and reuse those rules for later assignments;
