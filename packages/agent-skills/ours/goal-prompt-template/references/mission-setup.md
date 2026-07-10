@@ -104,10 +104,22 @@ domain-specific work remains with the appropriate owner.
 
 ## Handle Gaps and Scope Changes
 
-Record newly discovered gaps with evidence and disposition.
+At mission setup, record in durable state the authorized issue tracker,
+umbrella issue when one exists, and whether the lead may create or update
+issues.
 
-Create or update GitHub issues only when the user or established project
-workflow authorizes it. Otherwise, report the proposed issue.
+For each evidenced gap, have the lead check for duplicates and choose a
+disposition. Subagents may propose new issues; only the lead publishes them.
+
+When authorized, create a tracker-native sub-issue when the work directly
+contributes to the umbrella goal, completion denominator, or delivery boundary.
+Create an independent issue when it is out of scope, cross-cutting, reusable,
+or has a different owner or lifecycle. Link related independent issues without
+adding them to the umbrella denominator.
+
+When publication is unauthorized, report a ready-to-file proposal. Include
+evidence, scope and non-scope, acceptance criteria, ownership, dependencies,
+and blocker-or-follow-up status.
 
 When implementation fails an assertion, mark the implementation and affected
 stage failed. When evidence shows that an assertion itself is invalid or
