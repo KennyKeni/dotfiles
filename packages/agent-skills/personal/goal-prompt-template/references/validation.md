@@ -17,8 +17,9 @@ Before independent validation, require the implementation owner to inspect the
 complete diff, compare it with the feature contract, run focused checks,
 resolve known failures, and report uncertainty.
 
-Run one fresh validator after a non-trivial PR or milestone is coherent and its
-focused gates pass. Do not run a full review after every WIP commit.
+Apply the active validation profile after a change is coherent and its focused
+gates pass. When the profile requires independent validation, run one fresh
+validator. Do not run a full review after every WIP commit.
 
 Use a lead-owned intermediate decision checkpoint, not a completed-change code
 validator, only before:

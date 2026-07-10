@@ -46,6 +46,7 @@ Keep a current-state snapshot rather than an activity diary. Record:
 
 - goal and non-goals;
 - active stage, feature, issue, PR, and Git reference;
+- active validation profile;
 - validation contract or links to it;
 - constraining decisions;
 - completed work with accepted evidence;
@@ -70,6 +71,10 @@ Define a finite validation contract for the active mission or stage. Include:
 - external delivery gates such as CI, review, deployment, or human approval;
 - the authorized delivery boundary, such as local edits, commits, push, PR,
   merge, or issue updates.
+
+Record `quality-first` as the validation profile unless the invocation
+explicitly selects `balanced`. Do not downgrade the profile automatically to
+save time, cost, or agent capacity.
 
 Give assertions stable identifiers when several features or validators must
 refer to them.

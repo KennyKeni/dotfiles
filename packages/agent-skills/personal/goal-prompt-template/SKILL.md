@@ -34,6 +34,9 @@ completion stages, or broad discovery surfaces.
 Start directly when uncertain. Escalate only after concrete independent work
 emerges.
 
+Default the validation profile to `quality-first`. Use `balanced` only when the
+invocation explicitly selects it, and retain that selection through the run.
+
 ## Mission Loop
 
 For mission execution:
@@ -69,6 +72,10 @@ Use progressive disclosure. Do not load every reference at session start.
   current context, read [delegation.md](references/delegation.md) before
   deciding or assigning. Retain and reuse those rules for later assignments;
   do not reread the file for every spawn.
+- Before the first decision about whether a coherent change needs independent
+  validation, read
+  [validation-profiles.md](references/validation-profiles.md). Retain the
+  selected profile through the run.
 - When a PR or milestone becomes ready for validation, or before declaring
   completion, read [validation.md](references/validation.md). Retain and reuse
   it through the current validation cycle.

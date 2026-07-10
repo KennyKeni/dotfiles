@@ -113,9 +113,11 @@ Use the active-agent capacity exposed by the runtime. Do not maintain
 per-milestone or per-mission session counters, and do not require approval
 solely because a cumulative number of agents has been created.
 
-Assign one implementation owner per feature or PR. Use one validator for a
-normal non-trivial PR or milestone and add a second only for high-risk work.
-Prohibit nesting and peer-to-peer coordination.
+Assign one implementation owner per feature or PR. Apply the active validation
+profile to decide which coherent boundaries require a validator. Use one
+validator for each required boundary and add a second only for high-risk work
+that needs materially distinct proof. Prohibit nesting and peer-to-peer
+coordination.
 
 Never run concurrent mutating workers in the same workspace. Require isolated
 worktrees or workspaces for them; otherwise serialize their assignments.
@@ -127,11 +129,11 @@ consequential and the cost is authorized.
 Before assignment, build and pass the assignment packet above. Reuse an
 existing scout or worker when its context remains relevant.
 
-Use a new validator for each new PR or milestone. Reuse that validator only for
-delta revalidation in the same review cycle. Define fresh validator context as
-independent of implementation and limited to the coherent change, contract,
-relevant primary sources, and validation evidence rather than the
-implementation trajectory.
+Use a new validator for each boundary that the active profile requires. Reuse
+that validator only for delta revalidation in the same review cycle. Define
+fresh validator context as independent of implementation and limited to the
+coherent change, contract, relevant primary sources, and validation evidence
+rather than the implementation trajectory.
 
 ## Execute Features
 
