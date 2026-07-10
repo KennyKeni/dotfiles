@@ -20,19 +20,28 @@ resolve known failures, and report uncertainty.
 Run one fresh validator after a non-trivial PR or milestone is coherent and its
 focused gates pass. Do not run a full review after every WIP commit.
 
-Use an intermediate checkpoint only before:
+Use a lead-owned intermediate decision checkpoint, not a completed-change code
+validator, only before:
 
 - a hard-to-reverse architecture, API, schema, security, or migration decision;
 - repeating the first vertical slice across a broad surface;
 - continuing through concrete implementation uncertainty;
 - integrating work whose assumptions materially changed.
 
+Record the proposed decision, alternatives, contract and ownership constraints,
+supporting evidence, reversibility or rollback, affected assertions, and any
+required approver. Pass the checkpoint when the lead confirms consistency with
+the contract and project doctrine and every required owner approves it. Use a
+scout only to gather missing evidence; keep the decision with the lead.
+
 Treat authentication and authorization, security boundaries, data migrations,
 public API or schema compatibility, concurrency, irreversible operations, and
 large cross-cutting diffs as high-risk.
 
-For high-risk work, separate implementation scrutiny from black-box or
-integration validation when the agent-session budget permits it.
+For every high-risk change, including direct execution, run a fresh validator
+after implementation and focused gates pass. When the agent-session budget
+permits it, separate implementation scrutiny from black-box or integration
+validation.
 
 Require validators to distinguish contract failures, probable defects, risks
 requiring investigation, optional improvements, and unsupported preferences.
@@ -62,13 +71,17 @@ Have the lead, not the validator, classify each finding:
   maintainability problem without an observable contract failure.
 - **Do not block:** style, minor optimization, monolith size, generalized
   architecture preference, speculative call reachability without observable
-  effect, documented intentional behavior, duplicate findings, or unrelated
-  pre-existing scope.
+  effect, documented intentional behavior that does not violate the active
+  contract or correctness and security requirements, duplicate findings, or
+  unrelated pre-existing scope.
 
 Allow the lead to dismiss unsupported or non-blocking findings. Require the
 user or designated project owner to waive a validated blocker or material
 accepted risk. A validator finding does not amend the contract, create new
 scope, or automatically trigger implementation or another review.
+
+For completion purposes, a recorded follow-up disposition resolves a verified
+non-blocking finding. Create an external issue only when authorized.
 
 Assign material fixes to an implementation owner while keeping validators
 independent from their requested fixes.
@@ -80,10 +93,12 @@ full review only when scope, architecture, security boundaries, schema, or
 integration behavior materially changed.
 
 Do not let a validator request another validator or reopen the complete review
-cycle. A new finding during delta revalidation may block only when the delta
-caused it and it satisfies the blocking criteria above; otherwise disposition
-it separately. Once targeted revalidation passes and any already-required full
-gate passes, close the review cycle.
+cycle. A new finding during delta revalidation may block when it satisfies the
+criteria above and concerns behavior introduced or exposed by the original
+reviewed change or its fix delta. Reopen only affected assertions; disposition
+unrelated findings separately. Once targeted revalidation passes, admissible
+blockers are resolved or accepted, and any already-required full gate passes,
+close the review cycle.
 
 Do not continue review loops for unsupported findings, stylistic disagreement,
 or accepted behavior.
@@ -93,17 +108,22 @@ stage's PRs. Do not line-by-line re-review every accepted PR.
 
 ## Determine Completion
 
-Mark a direct change locally complete when its compact acceptance contract is
-satisfied, focused validation passes, and material findings are resolved or
-accepted by the user or designated project owner.
+Mark a direct change locally complete when its local acceptance assertions pass,
+focused validation passes, and material findings are resolved or accepted by
+the user or designated project owner.
 
-Mark a feature locally complete only when its contract is satisfied, required
-evidence exists, and material findings are resolved or accepted by the user or
-designated project owner.
+Mark a feature locally complete only when its local acceptance assertions pass,
+required evidence exists, and material findings are resolved or accepted by the
+user or designated project owner.
 
-Mark a stage complete only when all assertions in its denominator pass,
-integration and regression evidence exists, every evidenced gap has a
+Mark a stage locally complete only when all local assertions in its denominator
+pass, integration and regression evidence exists, every evidenced gap has a
 disposition, and no required work is silently omitted.
+
+Mark a mission locally complete only when every required local stage or feature
+assertion passes, cross-feature integration and regression evidence exists, and
+every evidenced gap has a disposition. When no stages exist, use the mission
+contract itself as the denominator.
 
 Revalidate only assertions materially affected by later changes. Do not
 re-prove unrelated completed work.

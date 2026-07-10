@@ -19,20 +19,28 @@ behavior, and existing progress or decision artifacts.
 Use project-defined stages when they exist. Do not invent stages solely to fit
 the template.
 
-If authoritative sources disagree in a way that changes the next action,
-surface and resolve the conflict. Otherwise, make the smallest safe assumption
-and record it.
+When a mission has no project-defined stages or milestones, use its validation
+contract as the completion denominator and define stable milestones from
+coherent feature or PR integration boundaries. Record those boundaries during
+setup and do not move them merely to reset budgets.
+
+Treat governing instructions and approved decisions as normative intent,
+current Git, test, CI, and runtime evidence as observed state, and progress or
+handoff documents as refreshable snapshots. Never let a stale snapshot override
+current evidence. Resolve normative conflicts by instruction priority and then
+the latest specific approved decision. Ask the user or designated owner when a
+coequal conflict would change scope, acceptance, ownership, or material risk.
 
 ## Maintain Durable State
 
-Select one canonical writable durable state artifact. Reuse an existing
-writable project progress document, active issue, or handoff artifact when
-possible. If an authoritative source is read-only, reference it from the
-writable artifact rather than treating it as the update target.
+Select one canonical authorized writable durable state artifact. Reuse an
+active issue only when ongoing issue updates are already authorized; technical
+write access alone is insufficient. Treat other external sources as read-only
+and reference them from the writable state artifact.
 
-When no location exists, use a concise local, uncommitted state file in a
-repository-approved ignored location. Do not add permanent documentation
-merely to support the run.
+When no authorized writable project location exists, use a concise local,
+uncommitted state file in a repository-approved ignored location. Do not add
+permanent documentation merely to support the run.
 
 Keep a current-state snapshot rather than an activity diary. Record:
 
@@ -59,7 +67,8 @@ Define a finite validation contract for the active mission or stage. Include:
 - required interface, schema, data model, or behavioral properties;
 - testable assertions defining completion;
 - required evidence for each assertion;
-- required local, CI, review, deployment, or human gates;
+- local acceptance assertions and evidence required for local completion;
+- external delivery gates such as CI, review, deployment, or human approval;
 - the authorized delivery boundary, such as local edits, commits, push, PR,
   merge, or issue updates.
 

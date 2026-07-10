@@ -112,6 +112,9 @@ Unless the invocation sets another budget:
 - prohibit nesting and peer-to-peer coordination;
 - require user approval before exceeding these limits.
 
+Never run concurrent mutating workers in the same workspace. Require isolated
+worktrees or workspaces for them; otherwise serialize their assignments.
+
 Count every new scout, worker, validator, and replacement against the milestone
 and mission limits. Do not count focused follow-ups to an existing agent as new
 sessions.

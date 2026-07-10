@@ -85,11 +85,17 @@ action. Do not reload a reference merely because another agent is spawned.
 
 After compaction or resumption:
 
-1. Read the canonical durable state artifact.
-2. Verify the active Git reference, issue or PR state, and relevant CI state.
-3. Inspect only the primary artifacts required for the recorded next action.
+1. For mission execution, read the canonical durable state artifact. For direct
+   execution, rederive the compact acceptance contract from the user request
+   and authoritative project artifacts, then inspect the current diff and
+   latest validation evidence.
+2. Verify the active Git reference and, when applicable, issue, PR, and CI state.
+3. Inspect only the primary artifacts required for the next action.
 4. Reuse still-valid scout evidence and feature contracts.
 5. Refresh stale facts before acting.
+
+If direct execution is likely to cross another continuation boundary, create a
+lightweight local checkpoint or escalate it to mission execution.
 
 Do not re-explore the entire repository merely because compaction occurred.
 Do not delegate solely to avoid compaction.
