@@ -6,17 +6,25 @@ use another tracker or local-only state.
 
 ## Separate Hierarchy From Dependencies
 
-Treat GitHub as authoritative only for issue topology. Use parent and sub-issue
-relationships for mission membership and decomposition. Use `blocked by` and
-`blocking` relationships only for real prerequisite edges. Never infer a
-dependency from hierarchy, sub-issue order, labels, milestones, or proximity.
-Allow a related external blocker to remain outside the umbrella hierarchy.
+Within the mission dependency model, treat native GitHub relationships as
+authoritative for issue topology. Use parent and sub-issue relationships for
+mission membership and decomposition. Use `blocked by` and `blocking`
+relationships only for real prerequisite edges. Never infer a dependency from
+hierarchy, sub-issue order, labels, milestones, or proximity. Allow a related
+external blocker to remain outside the umbrella hierarchy.
+
+Do not interpret this topology boundary as a restriction on issue content.
+When issue updates are authorized, continue recording shared goals, scope,
+validation contracts and profiles, decisions, progress, blockers, evidence,
+dispositions, and collaborator-facing next steps on the relevant umbrella and
+feature issues.
 
 Keep validation contracts, completion evidence, runtime agent and workspace
 ownership, authorization, PR and CI state, deployment gates, and the exact next
-action in their existing authoritative sources. Do not persist or mirror GitHub
-relationship edges in local durable state. Treat transient query results and
-derived readiness as disposable observations, not dispatch authority.
+action in their designated authoritative sources, which may include GitHub
+issues and PRs. Do not persist or mirror GitHub relationship edges in local
+durable state. Treat transient query results and derived readiness as
+disposable observations, not dispatch authority.
 
 ## Refresh And Derive Readiness
 
