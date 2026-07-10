@@ -128,8 +128,8 @@ Require it to keep the work in its own session and create no agents.
 
 Keep test intent and independent verification with the lead. Use a separate
 test-scoped worker only for high-risk behavior, a difficult regression
-reproducer, or an explicit requirement of the active goal workflow; keep it
-within the same worker budget.
+reproducer, or an explicit requirement of the active goal workflow; keep its
+work within the same feature or PR scope.
 
 ## Validate At Coherent Boundaries
 

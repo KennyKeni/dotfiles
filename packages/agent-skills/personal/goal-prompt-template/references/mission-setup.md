@@ -22,7 +22,7 @@ the template.
 When a mission has no project-defined stages or milestones, use its validation
 contract as the completion denominator and define stable milestones from
 coherent feature or PR integration boundaries. Record those boundaries during
-setup and do not move them merely to reset budgets.
+setup and change them only when approved scope or evidence changes.
 
 Treat governing instructions and approved decisions as normative intent,
 current Git, test, CI, and runtime evidence as observed state, and progress or
