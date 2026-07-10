@@ -148,6 +148,33 @@ Have validators return findings without implementing fixes. Have the lead
 verify and disposition findings, assign accepted fixes to a worker, and reuse
 the same validator only for delta revalidation in the current review cycle.
 
+### Converge The Review Cycle
+
+Require the validator to return all material blocker candidates within the
+assigned scope in one pass rather than stopping after the first finding.
+
+Have the lead disposition every finding before assigning fixes. Batch accepted
+blockers into one worker round when their ownership and scope permit it. A
+validator finding does not automatically trigger implementation.
+
+Treat one worker fix handoff followed by delta revalidation as one focused
+follow-up round. Revalidate only the fix delta, affected acceptance assertions,
+and observable fallout directly caused by the fix. A finding discovered during
+delta revalidation may trigger another worker round only when the lead verifies
+that it is an admissible, in-scope blocker introduced or exposed by the original
+change or its fix delta.
+
+Close the review cycle when no unresolved admissible blockers remain. Completion
+does not require zero findings or zero optional improvements; non-blocking
+findings require only a recorded disposition.
+
+Permit at most two worker-to-validator delta rounds by default. A further round
+requires an explicit lead decision naming the unresolved blocker, explaining
+why it cannot be resolved or dispositioned in the lead, and explaining why
+another independent review is necessary. Otherwise stop alternating agents and
+have the lead resolve, re-scope, waive through the authorized owner, or escalate
+the remaining issue.
+
 ## Invoke And Continue The Lane
 
 Follow the selected reference for model verification, invocation, continuation,
@@ -157,13 +184,13 @@ resume, wait for, or stop the assignment.
 
 Resume the same scout or worker for bounded corrections while its scope,
 contract, approach, evidence, and tier remain current. Start validation in a
-fresh native Codex session. If two focused follow-up rounds fail to converge,
-stop delegating and finish or re-scope the work in the lead.
+fresh native Codex session. Count and bound worker-to-validator corrections
+under the review-cycle convergence policy above.
 
-For Codex Efficient, apply its evidence-based promotion before this generic
-cutoff. Treat the handoff from a routine Grok assignment to Sol-high as a lane
-escalation rather than a follow-up round, then apply the cutoff to the active
-Sol-high assignment.
+For Codex Efficient, apply its evidence-based promotion before this default
+round bound. Treat the handoff from a routine Grok assignment to Sol-high as a
+lane escalation rather than a follow-up round, then apply the bound to the
+active Sol-high assignment.
 
 ## Clean Up Interrupted Runs
 

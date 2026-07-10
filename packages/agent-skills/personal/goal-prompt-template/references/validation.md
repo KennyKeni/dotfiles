@@ -108,6 +108,10 @@ close the review cycle.
 Do not continue review loops for unsupported findings, stylistic disagreement,
 or accepted behavior.
 
+By default, bound one review cycle to one full review and at most two delta
+revalidation rounds; any additional round requires an explicit lead decision
+for a named unresolved admissible blocker rather than automatic continuation.
+
 At stage completion, run integration and regression validation across the
 stage's PRs. Do not line-by-line re-review every accepted PR.
 
