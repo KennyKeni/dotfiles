@@ -402,11 +402,10 @@
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
       "skillPath": "packages/agent-skills/ours/goal-prompt-template/SKILL.md",
-      "skillFolderHash": "bceaf4ebb87db58231a4ab3c28efff8efd43d4b7",
+      "skillFolderHash": "5e34ba1de1d62537fd306d7fd672cd77472f6318",
       "installedAt": "2026-07-10T00:15:12.019Z",
-      "updatedAt": "2026-07-10T00:15:12.019Z"
+      "updatedAt": "2026-07-10T00:23:20.499Z"
     }
   },
   "dismissed": {
