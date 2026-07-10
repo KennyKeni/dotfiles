@@ -73,9 +73,11 @@ Use progressive disclosure. Do not load every reference at session start.
   deciding or assigning. Retain and reuse those rules for later assignments;
   do not reread the file for every spawn.
 - Before the first decision about whether a coherent change needs independent
-  validation, read
-  [validation-profiles.md](references/validation-profiles.md). Retain the
-  selected profile through the run.
+  validation, read exactly one profile reference: read
+  [validation-quality-first.md](references/validation-quality-first.md) for
+  `quality-first`, or read
+  [validation-balanced.md](references/validation-balanced.md) for `balanced`.
+  Do not read the inactive profile unless the user changes the selection.
 - When a PR or milestone becomes ready for validation, or before declaring
   completion, read [validation.md](references/validation.md). Retain and reuse
   it through the current validation cycle.
