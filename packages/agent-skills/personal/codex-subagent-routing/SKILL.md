@@ -89,9 +89,9 @@ affecting security, migrations, concurrency, data integrity, schemas, or
 public interfaces through native Codex Sol at high effort.
 
 When Codex Efficient is selected, classify each scout and worker assignment as
-`easy` or `hard` using its reference. Treat difficulty as a routing attribute,
-not another role. Keep the existing native Codex, Grok, and Ollama mappings
-unchanged when those policies are selected directly.
+`routine` or `consequential` using its reference. Treat the classification as a
+routing attribute, not another role. Keep the existing native Codex, Grok, and
+Ollama mappings unchanged when those policies are selected directly.
 
 Default to one active writable worker in a workspace. Use parallel workers
 only for independent write scopes permitted by the active goal workflow. Use
@@ -164,7 +164,7 @@ fresh native Codex session. If two focused follow-up rounds fail to converge,
 stop delegating and finish or re-scope the work in the lead.
 
 For Codex Efficient, apply its evidence-based promotion before this generic
-cutoff. Treat the handoff from an easy Grok assignment to Sol-high as a lane
+cutoff. Treat the handoff from a routine Grok assignment to Sol-high as a lane
 escalation rather than a follow-up round, then apply the cutoff to the active
 Sol-high assignment.
 

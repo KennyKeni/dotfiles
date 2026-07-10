@@ -10,23 +10,23 @@ Reuse loaded references for later assignments in the current context.
 
 ## Classify The Scout
 
-Record an easy scout when it has one explicit, bounded question, a clear stop
+Record a routine scout when it has one explicit, bounded question, a clear stop
 condition, and an answer that direct file, line, command, log, or
 authoritative-source evidence can settle. The search may span a large
 repository or source set when the question and stop condition remain bounded.
 
-Record a hard scout when it must reconcile contradictory evidence, diagnose an
-unknown cause across coupled subsystems, trace cross-repository dependencies or
-security and data flows, or gather evidence that determines architecture or
-another high-impact implementation approach.
+Record a consequential scout when it must reconcile contradictory evidence,
+diagnose an unknown cause across coupled subsystems, trace cross-repository
+dependencies or security and data flows, or gather evidence that determines
+architecture or another high-impact implementation approach.
 
-A scout may remain easy when its purpose is to discover the applicable pattern;
-an existing pattern is not a prerequisite for bounded retrieval.
+A scout may remain routine when its purpose is to discover the applicable
+pattern; an existing pattern is not a prerequisite for bounded retrieval.
 
 ## Classify The Worker
 
-Record an easy worker when all four gates pass and no hard trigger below
-applies:
+Record a routine worker when all four gates pass and no consequential trigger
+below applies:
 
 - the behavior, contract, and acceptance assertions are explicit;
 - the change has bounded ownership and scope, with no unresolved material
@@ -38,7 +38,7 @@ applies:
 Treat an established pattern, mechanical repetition, backward compatibility,
 and direct automated tests as strong confidence signals, not prerequisites.
 
-Record a hard worker when any condition is true:
+Record a consequential worker when any condition is true:
 
 - requirements involve ambiguity, product judgment, architecture, or a choice
   among materially different approaches;
@@ -60,45 +60,46 @@ Record a hard worker when any condition is true:
 - the acceptance assertions do not have clear, checkable proof.
 
 Small net-new features, routine integration work, visual changes, and changes
-across multiple independent files may remain easy. Documentation, copy,
-fixtures, and mechanical refactors around security surfaces may remain easy
+across multiple independent files may remain routine. Documentation, copy,
+fixtures, and mechanical refactors around security surfaces may remain routine
 when they leave security behavior unchanged. Test fixtures, local seed data,
 additive patterned APIs, backward-compatible migrations, and routine
-automation are not hard by category; classify their ambiguity, coupling,
-impact, recoverability, and proof.
+automation are not consequential by category; classify their ambiguity,
+coupling, impact, recoverability, and proof.
 
-Default uncertainty to `hard`. Size alone does not determine difficulty.
+Default uncertainty to `consequential`. Size alone does not determine the
+routing class.
 
 ## Route The Tier
 
 Use these mappings:
 
-- easy `scout`: OpenCode `explore` with `xai/grok-4.5`;
-- hard `scout`: native Codex Sol at high effort;
-- easy `worker`: OpenCode `build` with `xai/grok-4.5`;
-- hard `worker`: native Codex Sol at high effort;
+- routine `scout`: OpenCode `explore` with `xai/grok-4.5`;
+- consequential `scout`: native Codex Sol at high effort;
+- routine `worker`: OpenCode `build` with `xai/grok-4.5`;
+- consequential `worker`: native Codex Sol at high effort;
 - every `validator`: fresh native Codex Sol at high effort.
 
 Skip the scout when the main skill's delegation criteria do not justify one.
 Keep `scout`, `worker`, and `validator` as the canonical roles and include the
-difficulty and selected execution lane in the assignment packet.
+routing class and selected execution lane in the assignment packet.
 
 ## Escalate On Evidence
 
-Promote an easy assignment to hard before spawning when any hard trigger is
-known. Promote an easy scout when it cannot settle the explicit question within
-its bounded search budget or encounters material contradictions. Promote an
-easy worker after two materially different unsuccessful approaches, concrete
-coupling evidence, failure to produce acceptance-aligned proof, or discovery
-of a high-consequence implication.
+Promote a routine assignment to consequential before spawning when any
+consequential trigger is known. Promote a routine scout when it cannot settle
+the explicit question within its bounded search budget or encounters material
+contradictions. Promote a routine worker after two materially different
+unsuccessful approaches, concrete coupling evidence, failure to produce
+acceptance-aligned proof, or discovery of a high-consequence implication.
 
 Treat lead or validator findings as new routing evidence. Return bounded
-corrections to the same easy session only while every correction remains easy;
-when a correction triggers hard classification, apply the escalation boundary
-below.
+corrections to the same routine session only while every correction remains
+routine; when a correction triggers consequential classification, apply the
+escalation boundary below.
 
-Stop the easy assignment at that boundary and return its verified evidence.
-Give a fresh Sol-high scout or worker a compact handoff containing the contract,
-observations, attempted proof, changed files when applicable, and unresolved
-questions. Treat Grok self-checks as worker evidence; retain independent
-Sol-high validation.
+Stop the routine assignment at that boundary and return its verified evidence.
+Give a fresh Sol-high scout or worker a compact handoff containing the
+contract, observations, attempted proof, changed files when applicable, and
+unresolved questions. Treat Grok self-checks as worker evidence; retain
+independent Sol-high validation.
