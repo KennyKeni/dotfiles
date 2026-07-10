@@ -378,26 +378,6 @@
       "installedAt": "2026-07-09T12:35:26.920Z",
       "updatedAt": "2026-07-09T12:35:26.920Z"
     },
-    "codex-opencode-grok-first": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/ours/codex-opencode-grok-first/SKILL.md",
-      "skillFolderHash": "89049a69301c62abd83ed664d22f34babe6e950b",
-      "installedAt": "2026-07-09T12:45:41.445Z",
-      "updatedAt": "2026-07-09T23:38:39.551Z"
-    },
-    "codex-opencode-ollama-first": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/ours/codex-opencode-ollama-first/SKILL.md",
-      "skillFolderHash": "05365327834a19266bbfca15d6445fe3b6b4d58a",
-      "installedAt": "2026-07-09T12:45:41.446Z",
-      "updatedAt": "2026-07-09T23:38:40.471Z"
-    },
     "goal-prompt-template": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
@@ -407,14 +387,14 @@
       "installedAt": "2026-07-10T00:15:12.019Z",
       "updatedAt": "2026-07-10T00:34:21.607Z"
     },
-    "codex-sol-first": {
+    "codex-subagent-routing": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "skillPath": "packages/agent-skills/ours/codex-sol-first/SKILL.md",
-      "skillFolderHash": "ad296f35bc7a14b743196b28157079c6335ded32",
-      "installedAt": "2026-07-10T03:34:38.365Z",
-      "updatedAt": "2026-07-10T03:34:38.365Z"
+      "skillPath": "packages/agent-skills/ours/codex-subagent-routing/SKILL.md",
+      "skillFolderHash": "885e8d6115c8bd1a11be9928582cb026bf998bca",
+      "installedAt": "2026-07-10T03:44:09.230Z",
+      "updatedAt": "2026-07-10T03:44:09.230Z"
     }
   },
   "dismissed": {
