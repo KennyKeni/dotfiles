@@ -11,8 +11,9 @@ session as the lead and final judge.
 
 ## Select The Execution Lane
 
-Honor an explicit provider or model request. Without one, use native Codex Sol.
-Use an OpenCode lane only when the user requests it or the active mission has a
+Treat an explicit provider or model request as policy selection, subject to that
+policy's role and risk eligibility. Without one, use native Codex Sol. Use an
+OpenCode lane only when the user requests it or the active mission has a
 recorded preference for it.
 
 Select a lane independently for each assignment. Before the first assignment
@@ -36,6 +37,10 @@ If a selected lane is unavailable, use another lane only when the user or
 active mission authorizes fallback. Otherwise keep the work in the lead or
 report the limitation.
 
+When an assignment is ineligible for an explicitly requested OpenCode policy,
+stop and report the mismatch. Use Sol only after the user or active mission
+authorizes that fallback; do not silently override the provider request.
+
 ## Preserve The Role Model
 
 Use only `lead`, `scout`, `worker`, and `validator` as software-work roles.
@@ -46,6 +51,9 @@ Keep requirements, contracts, decomposition, architecture, assignment, cost
 control, integration, durable state, and final completion judgment with the
 lead. Keep delegation one layer deep and return every subagent result to the
 lead.
+
+Include an explicit no-delegation boundary in every assignment: remain within
+the assigned role and do not create agents or delegate work.
 
 When a goal or mission workflow is active, let it decide whether delegation is
 justified and let it own concurrency, session budgets, validation cadence, and
@@ -84,8 +92,8 @@ one implementation owner per feature or PR rather than competing solutions.
 ## Assign The Scout
 
 State the questions blocking the next contract or implementation decision.
-Give the scout the exact scope, primary sources, read-only boundary, required
-evidence, and stop condition.
+Give the scout the exact scope, primary sources, read-only and no-delegation
+boundaries, required evidence, and stop condition.
 
 Require observed facts with file, symbol, line, command, log, or source
 references; relevant patterns and validation commands; inferences separated
@@ -108,6 +116,7 @@ Let the worker own implementation and tightly coupled tests. Require it to
 stop before changing the contract, architecture, public API, schema, migration
 behavior, or authorized scope. Require files changed, assertions addressed,
 commands actually run, observed results, unrun checks, deviations, and risks.
+Require it to keep the work in its own session and create no agents.
 
 Keep test intent and independent verification with the lead. Use a separate
 test-scoped worker only for high-risk behavior, a difficult regression
@@ -118,6 +127,11 @@ within the same worker budget.
 
 Use native Codex Sol at high effort for every formal validator. Treat OpenCode
 self-checks as worker evidence, not independent review.
+
+Spawn each formal validator with `fork_turns: "none"`, or the native equivalent
+that excludes implementation history. Pass only its compact validation packet,
+including the no-delegation boundary. If fresh context cannot be established,
+report that independent validation is unavailable rather than claiming it.
 
 Have the lead inspect every handoff, complete diff, repository state, focused
 tests, and exact proof output. Follow the active goal workflow's validator

@@ -34,10 +34,10 @@ Record an easy worker only when every condition is true:
 - every acceptance assertion has direct automated proof. Treat build, lint,
   and typecheck as sufficient alone only when they are the requested outcome;
 - the change avoids authentication, authorization, and security boundaries;
-- the change avoids externally consumed or breaking contracts, production-data
-  semantics, destructive or irreversible migrations, rollout-sensitive
-  infrastructure or deployment behavior, behaviorally coupled systems, and
-  concurrency-sensitive behavior.
+- the change avoids breaking or otherwise consequential externally consumed
+  contracts, production-data semantics, destructive or irreversible migrations,
+  rollout-sensitive infrastructure or deployment behavior, behaviorally
+  coupled systems, and concurrency-sensitive behavior.
 
 Record a hard worker when any condition is true:
 

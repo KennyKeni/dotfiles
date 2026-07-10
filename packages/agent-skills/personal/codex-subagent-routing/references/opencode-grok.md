@@ -1,8 +1,10 @@
 # OpenCode Grok Lane
 
-Use this lower-cost lane only for `scout` and `worker` assignments. Use native
-Codex Sol for every formal validator and for work the main skill classifies as
-architecturally consequential or high-risk.
+Use this lower-cost lane only for eligible `scout` and `worker` assignments.
+Use native Codex Sol for every formal validator. When the main skill classifies
+requested work as architecturally consequential or high-risk, return the
+ineligible assignment to the lead; use Sol only when the user or active mission
+authorizes that fallback.
 
 ## Select And Verify The Model
 
@@ -53,7 +55,15 @@ Give every run a unique title and record its exact session ID.
 ## Continue And Clean Up
 
 Resume with `--session <session-id>` and a focused follow-up file. Use the same
-model and agent. Avoid bare `--continue` when several sessions may exist.
+model and agent, and omit `--fork` so the existing session continues. Avoid
+bare `--continue` when several sessions may exist.
+
+If the session ID was not recorded before interruption, recover it by matching
+the run's unique title and repository in:
+
+```bash
+opencode session list --format json --max-count 20
+```
 
 Check for a live process only when a run hangs or is interrupted:
 
@@ -61,5 +71,7 @@ Check for a live process only when a run hangs or is interrupted:
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
 ```
 
-Stop only a leftover process created by the delegated run or report why it
-remains.
+Interrupt only the leftover process created by the delegated run. Then resume
+that exact session with `opencode run --session "$SESSION_ID"`, the same model
+and agent, and a focused follow-up. Delete or replace the session only when it
+cannot resume or its context is no longer trustworthy.

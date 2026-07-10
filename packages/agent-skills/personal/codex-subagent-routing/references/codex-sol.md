@@ -34,11 +34,18 @@ controls support context selection, prefer fresh or narrowly forked context
 over the complete lead history. Record the task name or identifier used to
 steer, wait for, or stop the subagent.
 
+For every validator, set `fork_turns: "none"` or use the native equivalent that
+excludes implementation history. Supply the contract, coherent change,
+relevant primary sources, validation evidence, and findings-only return shape
+directly in the fresh assignment.
+
 ## Continue And Clean Up
 
 Send focused follow-ups to an existing scout or worker when its context remains
 relevant. Start every validator with fresh context.
 
 When a native session hangs or is interrupted, inspect the active agent list
-and stop only that session. Preserve its last useful evidence in the lead
-before replacing or closing it.
+and interrupt only that session without closing it. Resume the same task with
+the native follow-up control and a focused message when its context remains
+trustworthy. Preserve its last useful evidence in the lead; replace or close it
+only when the task cannot resume or its context is no longer reliable.
