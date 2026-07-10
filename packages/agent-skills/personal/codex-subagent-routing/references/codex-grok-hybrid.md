@@ -5,7 +5,7 @@ Codex Sol at high effort for consequential work. This policy selects an
 execution lane; it does not introduce new roles.
 
 Before the first assignment through each selected execution lane, read the
-main skill's directly linked `opencode-grok.md` or `codex-sol.md` reference.
+main skill's directly linked `opencode-grok.md` or `codex-quality.md` reference.
 Reuse loaded references for later assignments in the current context.
 
 ## Classify The Scout

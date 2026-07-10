@@ -19,9 +19,9 @@ recorded preference for it.
 Select a lane independently for each assignment. Before the first assignment
 to a lane in the current context, read its reference completely:
 
-- native Codex: read [codex-sol.md](references/codex-sol.md);
+- native Codex: read [codex-quality.md](references/codex-quality.md);
 - mixed cost-aware routing: read
-  [codex-efficient.md](references/codex-efficient.md), then read the native
+  [codex-grok-hybrid.md](references/codex-grok-hybrid.md), then read the native
   Codex or Grok execution reference only when that policy selects it;
 - xAI through OpenCode: read
   [opencode-grok.md](references/opencode-grok.md);
