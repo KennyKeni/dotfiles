@@ -7,7 +7,7 @@ or are personal skills that only live here.
 ## Layout
 
 - `forks/`: externally-originated skills with local edits or restore concerns.
-- `ours/`: personal skills authored for this setup.
+- `personal/`: personal skills authored for this setup.
 
 Install them from GitHub, not from a local path. For an existing machine with
 the native global lock, prefer:

@@ -72,7 +72,7 @@ Edit config through the usual path, such as `~/.zshrc` or
 repo, so `git diff` shows the real changes here.
 
 Edited and personal skills live in `packages/agent-skills/`, split between
-`forks/` and `ours/`. Push changes to this GitHub repo, then install them with
+`forks/` and `personal/`. Push changes to this GitHub repo, then install them with
 `npx skills --full-depth` from:
 
 ```sh

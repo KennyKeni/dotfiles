@@ -373,7 +373,7 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
-      "skillPath": "packages/agent-skills/ours/claude-opencode-grok-first/SKILL.md",
+      "skillPath": "packages/agent-skills/personal/claude-opencode-grok-first/SKILL.md",
       "skillFolderHash": "777145eb7f51b9d4b7ff8e7197515ff448de7bb4",
       "installedAt": "2026-07-09T12:35:26.920Z",
       "updatedAt": "2026-07-09T12:35:26.920Z"
@@ -382,7 +382,7 @@
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "skillPath": "packages/agent-skills/ours/goal-prompt-template/SKILL.md",
+      "skillPath": "packages/agent-skills/personal/goal-prompt-template/SKILL.md",
       "skillFolderHash": "80be5d8f2d2aa41995539ae55055b1282cfb6aeb",
       "installedAt": "2026-07-10T00:15:12.019Z",
       "updatedAt": "2026-07-10T00:34:21.607Z"
@@ -391,7 +391,7 @@
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "skillPath": "packages/agent-skills/ours/codex-subagent-routing/SKILL.md",
+      "skillPath": "packages/agent-skills/personal/codex-subagent-routing/SKILL.md",
       "skillFolderHash": "5253e3907f6bad02a558289baa87761c16e75f35",
       "installedAt": "2026-07-10T03:44:09.230Z",
       "updatedAt": "2026-07-10T03:52:06.189Z"
