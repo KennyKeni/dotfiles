@@ -42,6 +42,18 @@ When no authorized writable project location exists, use a concise local,
 uncommitted state file in a repository-approved ignored location. Do not add
 permanent documentation merely to support the run.
 
+When tracker-native relationships define mission membership or dependencies,
+treat that topology as authoritative and keep the local artifact as a
+refreshable execution snapshot. When no authorized tracker topology exists,
+the local artifact may own the graph; record that authority explicitly. Do not
+merge a cached tracker graph with a separate local canonical graph.
+
+For a local graph, keep membership hierarchy distinct from prerequisite edges,
+record the nodes and edges in the canonical local artifact, detect dependency
+cycles, and derive readiness from current node and blocker evidence rather than
+persisting it as durable truth. Refresh a selected node and its blockers
+immediately before dispatch.
+
 Keep a current-state snapshot rather than an activity diary. Record:
 
 - goal and non-goals;
@@ -109,8 +121,8 @@ domain-specific work remains with the appropriate owner.
 ## Handle Gaps and Scope Changes
 
 At mission setup, record in durable state the authorized issue tracker,
-umbrella issue when one exists, and whether the lead may create or update
-issues.
+umbrella issue when one exists, whether tracker relationships define mission
+topology, and which issue and relationship mutations the lead may perform.
 
 For each evidenced gap, have the lead check for duplicates and choose a
 disposition. Subagents may propose new issues; only the lead publishes them.

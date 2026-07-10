@@ -65,6 +65,10 @@ Use progressive disclosure. Do not load every reference at session start.
 - When mission execution is selected, read
   [mission-setup.md](references/mission-setup.md) before defining the
   validation contract or decomposing work.
+- When an authorized mission uses a GitHub umbrella issue and native issue
+  relationships, read
+  [github-mission-graph.md](references/github-mission-graph.md) before shaping
+  or mutating that topology or dispatching dependent work.
 - When completion requires exhaustive repository coverage, read
   [exhaustive-sweeps.md](references/exhaustive-sweeps.md) before defining the
   discovery plan or assigning scouts.
@@ -98,9 +102,11 @@ After compaction or resumption:
    and authoritative project artifacts, then inspect the current diff and
    latest validation evidence.
 2. Verify the active Git reference and, when applicable, issue, PR, and CI state.
-3. Inspect only the primary artifacts required for the next action.
-4. Reuse still-valid scout evidence and feature contracts.
-5. Refresh stale facts before acting.
+3. When tracker relationships define mission topology, refresh authoritative
+   membership and dependency edges and rederive readiness before dispatch.
+4. Inspect only the primary artifacts required for the next action.
+5. Reuse still-valid scout evidence and feature contracts.
+6. Refresh stale facts before acting.
 
 If direct execution is likely to cross another continuation boundary, create a
 lightweight local checkpoint or escalate it to mission execution.
