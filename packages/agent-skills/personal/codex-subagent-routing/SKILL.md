@@ -60,6 +60,14 @@ justified and let it own concurrency, session budgets, validation cadence, and
 completion criteria. Pass compact assignments rather than the full goal
 template, mission history, adapter, or lane reference.
 
+Start every new native assignment with `fork_turns: "none"` by default and
+supply its task-local context in the assignment. For a scout or worker only,
+use a small positive `fork_turns` value when essential recent nuance cannot be
+safely or efficiently captured in the compact packet; state that reason before
+spawning. Never use `fork_turns: "all"`. Keep every formal validator fresh with
+`fork_turns: "none"` and no exception. Resume an existing scout or worker for
+bounded follow-ups instead of spawning another session with lead history.
+
 ## Route Deliberately
 
 Use a scout for substantial, objectively checkable retrieval that would
@@ -128,10 +136,11 @@ within the same worker budget.
 Use native Codex Sol at high effort for every formal validator. Treat OpenCode
 self-checks as worker evidence, not independent review.
 
-Spawn each formal validator with `fork_turns: "none"`, or the native equivalent
-that excludes implementation history. Pass only its compact validation packet,
-including the no-delegation boundary. If fresh context cannot be established,
-report that independent validation is unavailable rather than claiming it.
+Spawn each formal validator with the fresh-context policy above, or the native
+equivalent that excludes implementation history. Pass only its compact
+validation packet, including the no-delegation boundary. If fresh context
+cannot be established, report that independent validation is unavailable
+rather than claiming it.
 
 Have the lead inspect every handoff, complete diff, repository state, focused
 tests, and exact proof output. Follow the active goal workflow's validator
