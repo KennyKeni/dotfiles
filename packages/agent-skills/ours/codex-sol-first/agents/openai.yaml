@@ -1,0 +1,6 @@
+interface:
+  display_name: "Codex Sol First"
+  short_description: "Route native Codex roles by Sol effort"
+  default_prompt: "Use $codex-sol-first to route this work through the appropriate native Codex scout, worker, or validator lane."
+policy:
+  allow_implicit_invocation: false
