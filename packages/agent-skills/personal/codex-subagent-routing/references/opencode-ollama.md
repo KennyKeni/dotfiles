@@ -62,9 +62,21 @@ opencode run --dir "$REPO" \
 ```
 
 Give every run a unique title. Read the completed run output and record its
-exact session ID before deleting the prompt file. If the run does not expose a
-session ID, recover it by matching the unique title and repository as described
-below; do not rely on the most recent session implicitly.
+exact `sessionID` from the first JSON event before deleting the prompt file. In
+OpenCode 1.17, `--format json` is a newline-delimited event stream rather than a
+single final object. A successful run emits `step_start`, completed `tool_use`,
+`text`, and `step_finish` events. Treat `step_finish` with `reason: "stop"` plus
+a zero process exit as normal completion. Treat a top-level `error` event and a
+nonzero exit as failure; use its status and retryability to distinguish a
+terminal provider/account error from a resumable interruption. If no event
+exposes a session ID, recover it by matching the unique title and repository as
+described below; do not rely on the most recent session implicitly.
+
+Supervise the event stream rather than polling the process or repository.
+Report completed tool or message milestones and blockers, and send a brief user
+update after roughly one minute without a milestone. Do not repeatedly run
+`git status` to prove activity. Check process liveness only after several
+minutes without events or when the runner reports an interruption.
 
 ## Continue And Clean Up
 
@@ -93,7 +105,8 @@ the run's unique title and repository in:
 opencode session list --format json --max-count 20
 ```
 
-Check for a live process only when a run hangs or is interrupted:
+Check for a live process only after several minutes without events or when a
+run is interrupted:
 
 ```bash
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
