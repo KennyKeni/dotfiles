@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", wants integration tests, or asks for test-first development.
+description: Test-driven development with a vertical red-green-refactor loop. Use when the user wants to build features or fix bugs using TDD, mentions "red-green-refactor", wants integration tests, or asks for test-first development. Use gated interface and behavior planning only when explicitly requested.
 ---
 
 # Test-Driven Development
@@ -46,18 +46,35 @@ RIGHT (vertical):
 
 When exploring the codebase, check `.local/agents/domain.md`. When it exists, use the configured local domain glossary so that test names and interface vocabulary match the project's language, and respect ADRs in the area you're touching. If it is absent, continue without domain memory; do not fall back to committed legacy docs such as `docs/agents/`, `docs/adr/`, or root context files.
 
-Before writing any code:
+Use lightweight planning by default. Invoking this skill does not by itself require user confirmation or plan approval.
 
-- [ ] Confirm with user what interface changes are needed
-- [ ] Confirm with user which behaviors to test (prioritize)
+#### Lightweight Planning — Default
+
+- [ ] Infer the intended public interface and priority behaviors from the request, existing code, and project documentation
+- [ ] State consequential assumptions briefly
 - [ ] Identify opportunities for [deep modules](deep-modules.md) (small interface, deep implementation)
 - [ ] Design interfaces for [testability](interface-design.md)
 - [ ] List the behaviors to test (not implementation steps)
-- [ ] Get user approval on the plan
+- [ ] Start the first tracer bullet without waiting for approval
+
+Ask a targeted question only when a missing decision would materially change the public interface or observable behavior.
+
+#### Gated Planning — Opt In
+
+Use gated planning when the user explicitly requests strict TDD, approval gates, collaborative interface design, or plan approval before coding.
+
+Before writing code:
+
+- [ ] Confirm with the user what public interface changes are needed
+- [ ] Confirm with the user which behaviors are most important to test
+- [ ] Identify opportunities for [deep modules](deep-modules.md) (small interface, deep implementation)
+- [ ] Design interfaces for [testability](interface-design.md)
+- [ ] Present the proposed interface and prioritized behavior list
+- [ ] Wait for user approval
 
 Ask: "What should the public interface look like? Which behaviors are most important to test?"
 
-**You can't test everything.** Confirm with the user exactly which behaviors matter most. Focus testing effort on critical paths and complex logic, not every possible edge case.
+**You can't test everything.** Focus testing effort on critical paths and complex logic, not every possible edge case.
 
 ### 2. Tracer Bullet
 
