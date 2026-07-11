@@ -212,9 +212,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/to-issues/SKILL.md",
-      "skillFolderHash": "f5794cb12b0c00b1c67dcf4e0bea377382acd06c",
+      "skillFolderHash": "75536390cc3cca36a48bbd05d8a9e60bc4ef70d7",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-11T09:37:58.572Z"
+      "updatedAt": "2026-07-11T09:40:49.830Z"
     },
     "to-prd": {
       "source": "KennyKeni/dotfiles",
