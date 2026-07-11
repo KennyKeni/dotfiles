@@ -183,9 +183,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/setup-matt-pocock-skills/SKILL.md",
-      "skillFolderHash": "6489353c45dc2b3b0505d4263700dfefbf67e87e",
+      "skillFolderHash": "a13c4cba1544f400706d840d8ce9ba9b74a3a614",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-11T19:19:02.970Z"
+      "updatedAt": "2026-07-11T19:46:57.769Z"
     },
     "setup-pre-commit": {
       "source": "KennyKeni/dotfiles",
@@ -233,9 +233,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/triage/SKILL.md",
-      "skillFolderHash": "bd470ea756761b926337ba987479ffd3c6b6e514",
+      "skillFolderHash": "eb454cc4438bc6f58b58095d735fcc249102a186",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-11T19:19:04.276Z"
+      "updatedAt": "2026-07-11T19:46:58.918Z"
     },
     "ubiquitous-language": {
       "source": "KennyKeni/dotfiles",
@@ -302,9 +302,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "skillPath": "packages/agent-skills/personal/goal-prompt-template/SKILL.md",
-      "skillFolderHash": "f839351fdc29dbbe9d481f054b94adce39aa67cf",
+      "skillFolderHash": "3c0ca54ddf1d443cb76c0a0a99ae2aaa10b6a8dc",
       "installedAt": "2026-07-10T00:15:12.019Z",
-      "updatedAt": "2026-07-11T10:04:32.953Z"
+      "updatedAt": "2026-07-11T19:46:59.751Z"
     },
     "codex-subagent-routing": {
       "source": "KennyKeni/dotfiles",
