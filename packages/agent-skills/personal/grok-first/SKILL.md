@@ -1,6 +1,6 @@
 ---
 name: grok-first
-description: "Route implementation work to Grok 4.5 through OpenCode; Claude specs, reviews, verifies."
+description: "Route implementation work to Grok 4.5 through Cursor or OpenCode; Claude specs, reviews, verifies."
 ---
 
 # Grok First
@@ -8,13 +8,13 @@ description: "Route implementation work to Grok 4.5 through OpenCode; Claude spe
 Claude Code sessions only. Codex/other harnesses: skip; never self-delegate.
 
 Rationale: Claude (Fable/Opus) tokens are metered and expensive; Grok through
-OpenCode provides a separate implementation lane. Claude wins at ergonomics —
-judgment, design, spec-writing, review, and orchestration. So Grok types, Claude
-thinks and verifies.
+Cursor or OpenCode provides a separate implementation lane. Claude wins at
+ergonomics — judgment, design, spec-writing, review, and orchestration. So Grok
+types, Claude thinks and verifies.
 
 ## Route
 
-Delegate to Grok through OpenCode (default for hands-on work):
+Delegate to Grok through Cursor or OpenCode (default for hands-on work):
 
 - implementation from a frozen spec; refactors; mechanical migrations
 - bug fixes with known repro; test writing; coverage fills
@@ -37,7 +37,73 @@ Heuristic: prompt reads as a work order → delegate; writing it forces decision
 → design, Claude.
 Portfolio/multi-repo work: `$maintainer-orchestrator` instead.
 
-## Invoke
+## Select Cursor Or OpenCode
+
+Use Cursor by default. Honor an explicit Cursor or OpenCode request. Keep
+focused follow-ups in the same harness and session; do not switch harnesses
+mid-task.
+
+Choose Cursor when its subscription-backed `grok-4.5-xhigh` model is available,
+especially for implementation that benefits from a resumable chat ID and
+workspace-aware agent execution. Choose OpenCode when Cursor is unavailable or
+the user explicitly wants a terminal-native OpenCode session using
+`xai/grok-4.5`.
+
+Before the first assignment in the current context, verify only the selected
+harness. If it is unavailable, use the other harness only when the user or
+active mission permits fallback. Never silently substitute another Grok model.
+
+## Invoke Through Cursor
+
+Verify the installed CLI, authentication, and exact model:
+
+```bash
+cursor-agent status
+cursor-agent models | rg -x 'grok-4\.5-xhigh - Cursor Grok 4\.5'
+```
+
+Prompt via temp file, never inline quoting. Set `REPO` and `PROMPT_FILE` to
+absolute paths:
+
+```bash
+PROMPT_FILE=$(mktemp); cat >"$PROMPT_FILE" <<'EOF'
+<goal, repo + key paths, constraints ("don't touch X"), non-goals, proof expected, output shape>
+EOF
+cursor-agent --print \
+  --workspace "$REPO" \
+  --model grok-4.5-xhigh \
+  --output-format json \
+  --trust \
+  --force \
+  < "$PROMPT_FILE"
+```
+
+- Pin `grok-4.5-xhigh`; never substitute a `fast` variant.
+- Use full Agent mode with `--force` for implementation and exploration.
+  Enforce read-only exploration through the prompt, not reduced permissions.
+- Read the completed JSON object and record its `session_id` before deleting
+  the prompt file. Treat a missing session ID as an incomplete handoff; recover
+  it with `cursor-agent ls` before following up.
+- Long runs: Bash run_in_background; don't kill quiet runs <30 min.
+- Parallel independent tasks require separate repositories or write scopes,
+  prompt files, and chat IDs.
+
+Resume with the recorded chat ID, same workspace, model, and permissions:
+
+```bash
+cursor-agent --print \
+  --resume "$CHAT_ID" \
+  --workspace "$REPO" \
+  --model grok-4.5-xhigh \
+  --output-format json \
+  --trust \
+  --force \
+  < "$PROMPT_FILE"
+```
+
+Avoid bare `--continue` when several chats may exist.
+
+## Invoke Through OpenCode
 
 Refresh model names before relying on them:
 
@@ -108,10 +174,11 @@ and what done looks like.
 - run focused tests yourself or demand proof output; Grok claims are advisory
 - for UI, run the app and inspect desktop and mobile screenshots for text fit,
   overlap, responsive behavior, and generic output
-- iterate via `--continue`; after 2 failed rounds, take over and do it directly
+- iterate in the recorded Cursor chat or OpenCode session; after 2 failed
+  rounds, take over and do it directly
 - normal closeout still applies: `$autoreview` before ship
-- after a hung or interrupted run, confirm no live OpenCode process remains
-  before reporting completion
+- after a hung or interrupted run, confirm no live `cursor-agent` or OpenCode
+  process from the assignment remains before reporting completion
 
 ## Economics
 
