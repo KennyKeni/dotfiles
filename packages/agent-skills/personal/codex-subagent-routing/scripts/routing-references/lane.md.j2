@@ -1,0 +1,305 @@
+{{ generated_notice }}
+# {{ lane.title }}
+
+{% if lane.family == "native" %}
+Use this lane for default Codex delegation and for every architecturally
+consequential scout, difficult or high-risk worker, and formal validator.
+
+## Select Model And Effort
+
+Use GPT-5.6 Sol with these defaults:
+
+- `scout`, medium effort: bounded read-only repository exploration;
+- `scout`, high effort: consequential synthesis, unfamiliar cross-subsystem
+  diagnosis, or evidence affecting architecture, security, schemas,
+  migrations, concurrency, or public interfaces;
+- `worker`, medium effort: normal bounded implementation;
+- `worker`, high effort: difficult cross-cutting or high-risk implementation;
+- `validator`, high effort: fresh independent validation.
+
+Retain the current lead model and effort. Prefer GPT-5.6 Sol at xhigh effort
+for a long-horizon mission lead, while leaving parent-session selection to the
+user.
+
+Choose model and effort before spawning and state both in the assignment.
+Keep medium and high as execution settings rather than role names. If the
+requested setting is unavailable, keep the work in the lead or report the
+limitation.
+
+## Invoke Native Codex
+
+Use the current native subagent controls. Keep model and effort selection in
+the spawn assignment rather than persistent custom-agent configuration.
+
+Pass a compact assignment and the minimum useful context. Follow the global
+subagent context-forking policy. Record the task name or identifier used to
+steer, wait for, or stop the subagent immediately after spawning it.
+
+Supervise through mailbox waits. A wait does not interrupt the subagent and
+returns early when it sends a message or completes. Prefer one wait of roughly
+one minute over repeated short waits, and report only meaningful milestones,
+blockers, or a brief update after roughly one minute of silence. Do not inspect
+the subagent's worktree or run repeated status commands merely to prove
+activity. Inspect the active agent list only after several minutes without a
+mailbox event or when an interruption is reported.
+
+For every validator, set `fork_turns: "none"` or use the native equivalent that
+excludes implementation history. Supply the contract, coherent change,
+relevant primary sources, validation evidence, and findings-only return shape
+directly in the fresh assignment.
+
+## Continue And Clean Up
+
+Send focused follow-ups to the recorded task when an existing scout or worker's
+context remains relevant, then return to mailbox waiting. Start every validator
+with fresh context.
+
+When a native session hangs or is interrupted, inspect the active agent list
+and interrupt only that session without closing it. Resume the same task with
+the native follow-up control and a focused message when its context remains
+trustworthy. Preserve its last useful evidence in the lead; replace or close it
+only when the task cannot resume or its context is no longer reliable.
+{% elif lane.family == "cursor" %}
+Use this subscription-backed lane only for eligible `scout` and `worker`
+assignments. Use native Codex Sol for every formal validator. When the main
+skill classifies requested work as architecturally consequential or high-risk,
+return the ineligible assignment to the lead; use Sol only when the user or
+active mission authorizes that fallback.
+
+## Select And Verify The Model
+
+Use `{{ lane.model }}` for every session in this lane. Never substitute
+`grok-4.5-fast-xhigh` or another `fast` variant. Verify the installed CLI,
+authentication, and model once before the first Cursor assignment in the
+current context:
+
+```bash
+cursor-agent status
+cursor-agent models | rg -x '{{ lane.model | replace(".", "\\.") }} - {{ lane.model_label_pattern }}'
+```
+
+Keep the work in Codex or report the limitation when Cursor is unavailable,
+the account is not authenticated, or the model is absent. Retain the exact
+model for focused follow-ups.
+
+## Invoke Cursor
+
+Create a compact prompt file using the environment's approved file-writing
+mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use single-result
+JSON for short probes and scouts. Use event-stream JSON for long workers so the
+lead can supervise meaningful progress without polling the process. Never add
+`--stream-partial-output`; regular `stream-json` already emits thinking
+progress, completed assistant messages, tool activity, errors, and a final
+result, while partial output adds token-sized assistant fragments and duplicates
+the completed response.
+
+Worker invocation:
+
+```bash
+cursor-agent --print \
+  --workspace "$REPO" \
+  --model {{ lane.model }} \
+  --output-format stream-json \
+  --trust \
+  --force \
+  < "$PROMPT_FILE"
+```
+
+Scout invocation:
+
+```bash
+cursor-agent --print \
+  --workspace "$REPO" \
+  --model {{ lane.model }} \
+  --output-format json \
+  --trust \
+  --force \
+  < "$PROMPT_FILE"
+```
+
+Run scouts in full Agent mode with `--force` so repository, shell, web, and
+other available tools are not permission-constrained. Enforce the scout's
+evidence-only and no-edit boundaries in its assignment rather than through
+Cursor mode permissions. Give workers the main skill's bounded change surface
+and no-delegation boundary.
+
+For `stream-json`, capture `session_id` from the initial `system/init` event
+immediately; do not wait for the final result. Observe completed assistant
+messages, `tool_call` start/completion, errors, and the terminal `result` event.
+Treat the terminal event's `is_error`, subtype, process exit, and useful result
+as the completion evidence. Do not reconstruct the answer from thinking deltas.
+
+Supervise the live event stream rather than interrogating the workspace. Report
+meaningful milestones or blockers, and send a brief user update after roughly
+one minute without a milestone. Do not run repeated `git status` or process
+checks merely to prove activity. Check process liveness only after several
+minutes without events or when the runner reports an interruption.
+
+## Continue And Clean Up
+
+Resume a focused follow-up with the recorded chat ID, the same workspace and
+model, full permissions, and a focused prompt file:
+
+```bash
+cursor-agent --print \
+  --resume "$CHAT_ID" \
+  --workspace "$REPO" \
+  --model {{ lane.model }} \
+  --output-format stream-json \
+  --trust \
+  --force \
+  < "$PROMPT_FILE"
+```
+
+Use `--force` for both scouts and workers. Avoid bare `--continue` when several
+chats may exist. Delete each prompt file after the invocation completes and its
+chat ID and useful result are preserved. If the chat ID was not recorded before
+an interruption, use `cursor-agent ls` interactively and match the repository
+and assignment context; Cursor does not provide a reliable headless chat-list
+interface.
+
+Keep `stream-json` for a follow-up to a long worker; `json` remains suitable for
+a short follow-up. Resume the same chat after a capacity error or interruption
+when its context remains trustworthy.
+
+Check for a live process only after several minutes without events or when a
+run is interrupted:
+
+```bash
+ps -axo pid,ppid,command | rg '[c]ursor-agent' || true
+```
+
+Interrupt only the leftover process created by the delegated run. Preserve the
+prompt file until the interrupted run's chat ID and useful evidence are
+recovered. Then resume that exact chat with the full follow-up invocation above.
+Replace the chat only when it cannot resume or its context is no longer
+trustworthy.
+{% else %}
+Use this lower-cost lane only for eligible `scout` and `worker` assignments.
+Use native Codex Sol for every formal validator. When the main skill classifies
+requested work as architecturally consequential or high-risk, return the
+ineligible assignment to the lead; use Sol only when the user or active mission
+authorizes that fallback.
+
+## Select And Verify The Model
+
+{% if lane.variant == "grok" %}
+Use `{{ lane.model }}` for every session in this lane. Never substitute a `fast`
+variant. Refresh and verify it once before the first Grok assignment in the
+current context:
+
+```bash
+opencode models --refresh >/dev/null
+opencode models | rg -x '{{ lane.model | replace(".", "\\.") }}'
+```
+
+Keep the work in Codex or report the limitation when the model is unavailable
+or lacks a required capability. Retain the exact model for focused follow-ups.
+{% else %}
+Choose one model before starting a session:
+
+{{ lane.model_choices_markdown }}
+
+Retain the selected exact model for focused follow-ups. Refresh and verify it
+once before the first assignment in the current context:
+
+```bash
+{{ lane.model_variable }}={{ lane.model }} # Set the selected exact model ID.
+opencode models --refresh >/dev/null
+opencode models | rg -Fx "${{ lane.model_variable }}"
+```
+
+Choose another listed model only when its routing criteria apply. Otherwise
+keep the work in Codex or report the limitation.
+{% endif %}
+
+## Invoke OpenCode
+
+Verify `opencode agent list` shows both `explore (primary)` and `build
+(primary)`. Use `--agent explore` for scouts and `--agent build` for workers.
+
+Create a compact prompt file using the environment's approved file-writing
+mechanism. Set `REPO`{% if lane.variant == "ollama" %}, `{{ lane.model_variable }}`,{% endif %} and `PROMPT_FILE` {% if lane.variant == "grok" %}to absolute paths{% else %}before invocation{% endif %}.
+
+Worker invocation:
+
+```bash
+opencode run --dir "$REPO" \
+  --model {% if lane.variant == "ollama" %}"${{ lane.model_variable }}"{% else %}{{ lane.model }}{% endif %} \
+  --agent build \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --dangerously-skip-permissions \
+  --title "{{ lane.title_prefix }} worker: <bounded-task>" \
+  "Read the attached assignment and complete only that worker scope."
+```
+
+Scout invocation:
+
+```bash
+opencode run --dir "$REPO" \
+  --model {% if lane.variant == "ollama" %}"${{ lane.model_variable }}"{% else %}{{ lane.model }}{% endif %} \
+  --agent explore \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --title "{{ lane.title_prefix }} scout: <bounded-question>" \
+  "Read the attached assignment and return evidence only. Do not edit files."
+```
+
+Give every run a unique title. Read the completed run output and record its
+exact `sessionID` from the first JSON event before deleting the prompt file. In
+OpenCode 1.17, `--format json` is a newline-delimited event stream rather than a
+single final object. A successful run emits `step_start`, completed `tool_use`,
+`text`, and `step_finish` events. Treat `step_finish` with `reason: "stop"` plus
+a zero process exit as normal completion. Treat a top-level `error` event and a
+nonzero exit as failure; use its status and retryability to distinguish a
+terminal provider/account error from a resumable interruption. If no event
+exposes a session ID, recover it by matching the unique title and repository as
+described below; do not rely on the most recent session implicitly.
+
+Supervise the event stream rather than polling the process or repository.
+Report completed tool or message milestones and blockers, and send a brief user
+update after roughly one minute without a milestone. Do not repeatedly run
+`git status` to prove activity. Check process liveness only after several
+minutes without events or when the runner reports an interruption.
+
+## Continue And Clean Up
+
+Resume with the recorded session ID and a focused follow-up file. Set `AGENT`
+to the original session's exact `explore` or `build` value. Use the same model
+and agent, and omit `--fork` so the existing session continues:
+
+```bash
+opencode run --dir "$REPO" \
+  --session "$SESSION_ID" \
+  --model {% if lane.variant == "ollama" %}"${{ lane.model_variable }}"{% else %}{{ lane.model }}{% endif %} \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+  "Read the attached follow-up and remain within the original assignment."
+```
+
+For a worker follow-up, retain `--dangerously-skip-permissions`. Avoid bare
+`--continue` when several sessions may exist. Delete each prompt file after
+the invocation completes and its session ID and useful result are preserved.
+
+If the session ID was not recorded before interruption, recover it by matching
+the run's unique title and repository in:
+
+```bash
+opencode session list --format json --max-count 20
+```
+
+Check for a live process only after several minutes without events or when a
+run is interrupted:
+
+```bash
+ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
+```
+
+Interrupt only the leftover process created by the delegated run. Preserve the
+prompt file until the interrupted run's session ID and useful evidence are
+recovered. Then resume that exact session with the full follow-up invocation
+above. Delete or replace the session only when it cannot resume or its context
+is no longer trustworthy.
+{% endif %}
