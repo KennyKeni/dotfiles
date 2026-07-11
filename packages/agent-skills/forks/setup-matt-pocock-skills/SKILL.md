@@ -70,6 +70,11 @@ Use [issue-contract.md](./issue-contract.md) as the sole normative template for
 tracking umbrellas, executable leaves, and readiness. Record the configured
 tracker's relationship capabilities in `.local/agents/issue-tracker.md`.
 
+Require every tracking umbrella to define its shared goal, scope, and completion
+denominator. Require every human-only executable leaf to state why it cannot be
+delegated. Do not apply a readiness label until the applicable contract is
+complete.
+
 For GitHub, require native parent/sub-issue and blocked-by/blocking
 relationships with read-back. If the configured `gh` lacks those capabilities,
 report the blocker instead of substituting body references.

@@ -29,6 +29,9 @@ Reference the tracking umbrella, or state that this issue is independent.
 
 **Category:** bug / enhancement
 
+**Execution:** AFK agent / human. For human execution, state the judgment,
+access, design decision, or manual verification that prevents delegation.
+
 **Summary:** One-line description of the required outcome.
 
 ### Current behavior

@@ -67,8 +67,8 @@ Show counts and a one-line summary per issue. Let the maintainer pick.
 
 5. **Apply the outcome:**
    - `ready-for-agent` — render the complete canonical contract in a maintainer-approved Agent Brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)), verify it, then apply the label.
-   - `ready-for-human` — same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).
-   - `tracking` — verify that the issue is an aggregate, then apply the non-dispatchable role; no leaf contract is required.
+   - `ready-for-human` — render and verify the canonical contract with human execution selected and a concrete reason it cannot be delegated, then apply the label.
+   - `tracking` — verify that the issue is an aggregate whose shared goal, scope, and completion denominator are complete, then apply the non-dispatchable role; no leaf contract is required.
    - `needs-info` — post triage notes (template below).
    - `wontfix` (bug) — polite explanation, then close.
    - `wontfix` (enhancement) — write to `.local/out-of-scope/`, mention it from a comment, then close ([OUT-OF-SCOPE.md](OUT-OF-SCOPE.md)).
