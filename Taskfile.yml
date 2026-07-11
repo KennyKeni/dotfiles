@@ -33,6 +33,7 @@ tasks:
         fi
 
         mise install
+        task hooks:install
         task link
         task pnpm:globals
         BASH
@@ -183,6 +184,11 @@ tasks:
         uv run --script
         {{.TASKFILE_DIR}}/scripts/codex-subagent-routing/generate_references.py
         --check
+
+  hooks:install:
+    desc: Install repository Git hooks with Lefthook.
+    cmds:
+      - mise exec -- lefthook install pre-push
 
   _stow:
     internal: true
