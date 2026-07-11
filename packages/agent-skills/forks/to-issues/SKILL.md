@@ -33,14 +33,30 @@ Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an
 
 ### 4. Confirm the breakdown when needed
 
-Present the proposed breakdown as a numbered list. For each slice, show:
+Choose the automatic path only when all of the following are true:
+
+- The skill was triggered from the user's intent rather than explicitly invoked
+  or requested by name.
+- The conversation is already working through the problem and contains enough
+  settled context to draft acceptance criteria and dependencies without making
+  new product or architectural decisions.
+- A pre-existing umbrella issue has been identified on the configured GitHub
+  tracker and will be the native parent of every new slice.
+- No slice contains an unresolved HITL decision.
+
+On the automatic path, treat the settled conversation context as approval and
+proceed directly to publishing. Show the published breakdown in the completion
+summary.
+
+Otherwise, use the confirmation path. Present the proposed breakdown as a
+numbered list. For each slice, show:
 
 - **Title**: short descriptive name
 - **Type**: HITL / AFK
 - **Blocked by**: which other slices (if any) must complete first
 - **User stories covered**: which user stories this addresses (if the source material has them)
 
-Normally, ask the user:
+Ask the user:
 
 - Does the granularity feel right? (too coarse / too fine)
 - Are the dependency relationships correct?
@@ -48,23 +64,6 @@ Normally, ask the user:
 - Are the correct slices marked as HITL and AFK?
 
 Iterate until the user approves the breakdown.
-
-Skip this confirmation round and proceed directly to publishing only when all of
-the following are true:
-
-- The skill was triggered automatically from the user's intent rather than
-  explicitly invoked or requested by name.
-- The conversation is already working through the problem and contains enough
-  settled context to draft acceptance criteria and dependencies without making
-  new product or architectural decisions.
-- A pre-existing umbrella issue has been identified on the configured GitHub
-  tracker and will be the native parent of every new slice.
-
-In this automatic path, treat the settled conversation context as approval of
-the breakdown. Still show the published breakdown in the completion summary.
-Do not skip confirmation when any slice contains an unresolved HITL decision,
-when the intended parent issue is ambiguous, or when publishing would require
-creating a new umbrella issue.
 
 ### 5. Publish the issues to the issue tracker
 
