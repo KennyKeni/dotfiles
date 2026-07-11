@@ -334,6 +334,16 @@
       "skillFolderHash": "710270d11c37329c22a0f4a38fec0d9c6dedf639",
       "installedAt": "2026-07-11T09:41:59.479Z",
       "updatedAt": "2026-07-11T10:04:24.619Z"
+    },
+    "grok-first": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/personal/grok-first/SKILL.md",
+      "skillFolderHash": "4c07272a7a1178d8da3651aba9821df3b0ee3d27",
+      "installedAt": "2026-07-11T10:08:53.465Z",
+      "updatedAt": "2026-07-11T10:08:53.465Z"
     }
   },
   "dismissed": {
