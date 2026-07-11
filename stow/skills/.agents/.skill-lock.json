@@ -183,9 +183,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/setup-matt-pocock-skills/SKILL.md",
-      "skillFolderHash": "04b27d0aabb95d428634010af6a9c024f1528b7a",
+      "skillFolderHash": "6489353c45dc2b3b0505d4263700dfefbf67e87e",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-11T10:04:28.096Z"
+      "updatedAt": "2026-07-11T19:19:02.970Z"
     },
     "setup-pre-commit": {
       "source": "KennyKeni/dotfiles",
@@ -233,9 +233,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/triage/SKILL.md",
-      "skillFolderHash": "ee2420c4b6746ab0889525a32e0cd1b8638d3198",
+      "skillFolderHash": "bd470ea756761b926337ba987479ffd3c6b6e514",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-11T10:04:31.852Z"
+      "updatedAt": "2026-07-11T19:19:04.276Z"
     },
     "ubiquitous-language": {
       "source": "KennyKeni/dotfiles",
