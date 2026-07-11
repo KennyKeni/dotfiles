@@ -24,9 +24,10 @@ model for focused follow-ups.
 ## Invoke Cursor
 
 Create a compact prompt file using the environment's approved file-writing
-mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use structured output
-and record the `session_id` from the initialization or terminal result event as
-the Cursor chat ID.
+mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use single-result
+structured output and record the `session_id` from the completed JSON object as
+the Cursor chat ID. Do not use `stream-json`; keep intermediate reasoning and
+tool events out of the lead context.
 
 Worker invocation:
 
@@ -34,7 +35,7 @@ Worker invocation:
 cursor-agent --print \
   --workspace "$REPO" \
   --model grok-4.5-xhigh \
-  --output-format stream-json \
+  --output-format json \
   --trust \
   --force \
   < "$PROMPT_FILE"
@@ -46,7 +47,7 @@ Scout invocation:
 cursor-agent --print \
   --workspace "$REPO" \
   --model grok-4.5-xhigh \
-  --output-format stream-json \
+  --output-format json \
   --trust \
   --force \
   < "$PROMPT_FILE"
@@ -61,14 +62,14 @@ and no-delegation boundary.
 ## Continue And Clean Up
 
 Resume a focused follow-up with the recorded chat ID, the same workspace and
-model, the role-appropriate mode or force flag, and a focused prompt file:
+model, full permissions, and a focused prompt file:
 
 ```bash
 cursor-agent --print \
   --resume "$CHAT_ID" \
   --workspace "$REPO" \
   --model grok-4.5-xhigh \
-  --output-format stream-json \
+  --output-format json \
   --trust \
   --force \
   < "$PROMPT_FILE"
