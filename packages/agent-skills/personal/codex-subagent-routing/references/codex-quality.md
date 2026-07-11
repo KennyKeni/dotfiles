@@ -33,27 +33,27 @@ Pass a compact assignment and the minimum useful context. Follow the global
 subagent context-forking policy. Record the task name or identifier used to
 steer, wait for, or stop the subagent immediately after spawning it.
 
-Supervise through mailbox waits. A wait does not interrupt the subagent and
-returns early when it sends a message or completes. Prefer one wait of roughly
-one minute over repeated short waits, and report only meaningful milestones,
-blockers, or a brief update after roughly one minute of silence. Do not inspect
-the subagent's worktree or run repeated status commands merely to prove
-activity. Inspect the active agent list only after several minutes without a
-mailbox event or when an interruption is reported.
+Apply the main skill's event loop. Observe through mailbox waits, which return
+early when the task sends a message or completes and otherwise produce a quiet
+tick. Prefer waits of roughly one minute over repeated short waits. After
+several minutes without a mailbox event, the main event loop permits one
+active-agent liveness inspection for the current quiet episode. Leave the
+subagent's worktree untouched during supervision.
 
-For every validator, set `fork_turns: "none"` or use the native equivalent that
-excludes implementation history. Supply the contract, coherent change,
-relevant primary sources, validation evidence, and findings-only return shape
-directly in the fresh assignment.
+For each initial formal validation pass, set `fork_turns: "none"` or use the
+native equivalent that excludes implementation history. Supply the contract,
+coherent change, relevant primary sources, validation evidence, and
+findings-only return shape directly in the fresh assignment. Retain its task
+identifier only for bounded delta revalidation in the same review cycle.
 
 ## Continue And Clean Up
 
-Send focused follow-ups to the recorded task when an existing scout or worker's
-context remains relevant, then return to mailbox waiting. Start every validator
-with fresh context.
+Send the event loop's focused scout or worker follow-ups to the recorded task,
+then return to mailbox waiting.
 
-When a native session hangs or is interrupted, inspect the active agent list
-and interrupt only that session without closing it. Resume the same task with
-the native follow-up control and a focused message when its context remains
-trustworthy. Preserve its last useful evidence in the lead; replace or close it
-only when the task cannot resume or its context is no longer reliable.
+When the event loop permits recovery, inspect the active agent list and
+interrupt only the affected session without closing it. Resume a scout or
+worker with the native follow-up control only while its context remains
+trustworthy. Preserve an interrupted initial validator's useful evidence and
+replace it with a fresh pass; resume a validator only for bounded delta
+revalidation. Replace or close any task whose context is no longer reliable.

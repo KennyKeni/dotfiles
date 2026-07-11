@@ -170,11 +170,12 @@ messages, `tool_call` start/completion, errors, and the terminal `result` event.
 Treat the terminal event's `is_error`, subtype, process exit, and useful result
 as the completion evidence. Do not reconstruct the answer from thinking deltas.
 
-Supervise the live event stream rather than interrogating the workspace. Report
-meaningful milestones or blockers, and send a brief user update after roughly
-one minute without a milestone. Do not run repeated `git status` or process
-checks merely to prove activity. Check process liveness only after several
-minutes without events or when the runner reports an interruption.
+Apply the main skill's event loop. Observe `stream-json` through its completed
+assistant messages, `tool_call` start and completion events, errors, and
+terminal `result` event. Single-result `json` may remain quiet until its
+terminal result. After several minutes without an expected stream event, the
+main event loop permits one process-liveness inspection for the current quiet
+episode. Leave the workspace untouched during supervision.
 
 ## Continue And Clean Up
 
@@ -204,8 +205,8 @@ Keep `stream-json` for a follow-up to a long worker; `json` remains suitable for
 a short follow-up. Resume the same chat after a capacity error or interruption
 when its context remains trustworthy.
 
-Check for a live process only after several minutes without events or when a
-run is interrupted:
+When the main event loop permits a lane-health check or recovery, inspect the
+recorded run's process:
 
 ```bash
 ps -axo pid,ppid,command | rg '[c]ursor-agent' || true

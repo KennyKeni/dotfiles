@@ -142,30 +142,30 @@ Pass a compact assignment and the minimum useful context. Follow the global
 subagent context-forking policy. Record the task name or identifier used to
 steer, wait for, or stop the subagent immediately after spawning it.
 
-Supervise through mailbox waits. A wait does not interrupt the subagent and
-returns early when it sends a message or completes. Prefer one wait of roughly
-one minute over repeated short waits, and report only meaningful milestones,
-blockers, or a brief update after roughly one minute of silence. Do not inspect
-the subagent's worktree or run repeated status commands merely to prove
-activity. Inspect the active agent list only after several minutes without a
-mailbox event or when an interruption is reported.
+Apply the main skill's event loop. Observe through mailbox waits, which return
+early when the task sends a message or completes and otherwise produce a quiet
+tick. Prefer waits of roughly one minute over repeated short waits. After
+several minutes without a mailbox event, the main event loop permits one
+active-agent liveness inspection for the current quiet episode. Leave the
+subagent's worktree untouched during supervision.
 
-For every validator, set `fork_turns: "none"` or use the native equivalent that
-excludes implementation history. Supply the contract, coherent change,
-relevant primary sources, validation evidence, and findings-only return shape
-directly in the fresh assignment.
+For each initial formal validation pass, set `fork_turns: "none"` or use the
+native equivalent that excludes implementation history. Supply the contract,
+coherent change, relevant primary sources, validation evidence, and
+findings-only return shape directly in the fresh assignment. Retain its task
+identifier only for bounded delta revalidation in the same review cycle.
 
 ## Continue And Clean Up
 
-Send focused follow-ups to the recorded task when an existing scout or worker's
-context remains relevant, then return to mailbox waiting. Start every validator
-with fresh context.
+Send the event loop's focused scout or worker follow-ups to the recorded task,
+then return to mailbox waiting.
 
-When a native session hangs or is interrupted, inspect the active agent list
-and interrupt only that session without closing it. Resume the same task with
-the native follow-up control and a focused message when its context remains
-trustworthy. Preserve its last useful evidence in the lead; replace or close it
-only when the task cannot resume or its context is no longer reliable.
+When the event loop permits recovery, inspect the active agent list and
+interrupt only the affected session without closing it. Resume a scout or
+worker with the native follow-up control only while its context remains
+trustworthy. Preserve an interrupted initial validator's useful evidence and
+replace it with a fresh pass; resume a validator only for bounded delta
+revalidation. Replace or close any task whose context is no longer reliable.
 {% elif lane.family == "cursor" %}
 ## Select And Verify The Model
 
@@ -238,11 +238,12 @@ messages, `tool_call` start/completion, errors, and the terminal `result` event.
 Treat the terminal event's `is_error`, subtype, process exit, and useful result
 as the completion evidence. Do not reconstruct the answer from thinking deltas.
 
-Supervise the live event stream rather than interrogating the workspace. Report
-meaningful milestones or blockers, and send a brief user update after roughly
-one minute without a milestone. Do not run repeated `git status` or process
-checks merely to prove activity. Check process liveness only after several
-minutes without events or when the runner reports an interruption.
+Apply the main skill's event loop. Observe `stream-json` through its completed
+assistant messages, `tool_call` start and completion events, errors, and
+terminal `result` event. Single-result `json` may remain quiet until its
+terminal result. After several minutes without an expected stream event, the
+main event loop permits one process-liveness inspection for the current quiet
+episode. Leave the workspace untouched during supervision.
 
 ## Continue And Clean Up
 
@@ -272,8 +273,8 @@ Keep `stream-json` for a follow-up to a long worker; `json` remains suitable for
 a short follow-up. Resume the same chat after a capacity error or interruption
 when its context remains trustworthy.
 
-Check for a live process only after several minutes without events or when a
-run is interrupted:
+When the main event loop permits a lane-health check or recovery, inspect the
+recorded run's process:
 
 ```bash
 ps -axo pid,ppid,command | rg '[c]ursor-agent' || true
@@ -377,11 +378,11 @@ terminal provider/account error from a resumable interruption. If no event
 exposes a session ID, recover it by matching the unique title and repository as
 described below; do not rely on the most recent session implicitly.
 
-Supervise the event stream rather than polling the process or repository.
-Report completed tool or message milestones and blockers, and send a brief user
-update after roughly one minute without a milestone. Do not repeatedly run
-`git status` to prove activity. Check process liveness only after several
-minutes without events or when the runner reports an interruption.
+Apply the main skill's event loop. Observe the newline-delimited event stream
+through `step_start`, completed `tool_use`, `text`, `step_finish`, and error
+events. After several minutes without an expected event, the main event loop
+permits one process-liveness inspection for the current quiet episode. Leave
+the repository untouched during supervision.
 
 ## Continue And Clean Up
 
@@ -411,8 +412,8 @@ the run's unique title and repository in:
 opencode session list --format json --max-count 20
 ```
 
-Check for a live process only after several minutes without events or when a
-run is interrupted:
+When the main event loop permits a lane-health check or recovery, inspect the
+recorded run's process:
 
 ```bash
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true

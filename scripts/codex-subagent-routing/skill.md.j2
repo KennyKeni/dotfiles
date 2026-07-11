@@ -55,10 +55,7 @@ justified and let it own available concurrency, validation cadence, and
 completion criteria. Pass compact assignments rather than the full goal
 template, mission history, adapter, or lane reference.
 
-Follow the global subagent context-forking policy. Keep every formal validator
-fresh with `fork_turns: "none"` and no exception. Resume an existing scout or
-worker for bounded follow-ups instead of spawning another session with lead
-history.
+Follow the global subagent context-forking policy.
 
 ## Route Deliberately
 
@@ -97,6 +94,11 @@ State the questions blocking the next contract or implementation decision.
 Give the scout the exact scope, primary sources, read-only and no-delegation
 boundaries, required evidence, and stop condition.
 
+When retrieval needs a budget, enumerate the maximum sources, files, queries,
+or evidence branches to inspect. Lane eligibility and escalation triggers are
+earlier hard stops; in particular, a material contradiction immediately stops
+a routine Grok scout for escalation.
+
 Require observed facts with file, symbol, line, command, log, or source
 references; relevant patterns and validation commands; inferences separated
 from observations; contradictions and missing evidence; and a recommended
@@ -114,6 +116,11 @@ acceptance assertions, verified evidence, constraints and non-goals, applicable
 repository instructions, required proof, delivery boundary, stop conditions,
 and return shape.
 
+When implementation needs a budget, enumerate the maximum materially different
+approaches and required acceptance checks. Lane eligibility and escalation
+triggers are earlier hard stops, including a Grok lane's two-unsuccessful-
+approach and failed-proof boundaries.
+
 Let the worker own implementation and tightly coupled tests. Require it to
 stop before changing the contract, architecture, public API, schema, migration
 behavior, or authorized scope. Require files changed, assertions addressed,
@@ -130,20 +137,21 @@ work within the same feature or PR scope.
 Use native Codex Sol at high effort for every formal validator. Treat OpenCode
 self-checks as worker evidence, not independent review.
 
-Spawn each formal validator with the fresh-context policy above, or the native
-equivalent that excludes implementation history. Pass only its compact
-validation packet, including the no-delegation boundary. If fresh context
-cannot be established, report that independent validation is unavailable
-rather than claiming it.
+Start each initial formal validation pass in a fresh native Codex session with
+`fork_turns: "none"` or the native equivalent that excludes implementation
+history. Pass only its compact validation packet, including the no-delegation
+boundary. If fresh context cannot be established, report that independent
+validation is unavailable rather than claiming it.
 
 Have the lead inspect every handoff, complete diff, repository state, focused
 tests, and exact proof output. Follow the active goal workflow's validator
-requirements and cadence. Without one, use one fresh validator after a
-coherent non-trivial PR or milestone passes focused gates.
+requirements and review checkpoints. Without one, use one fresh validator
+after a coherent non-trivial PR or milestone passes focused gates.
 
 Have validators return findings without implementing fixes. Have the lead
 verify and disposition findings, assign accepted fixes to a worker, and reuse
-the same validator only for delta revalidation in the current review cycle.
+the same validator session only for delta revalidation in the current review
+cycle.
 
 ### Converge The Review Cycle
 
@@ -172,6 +180,58 @@ another independent review is necessary. Otherwise stop alternating agents and
 have the lead resolve, re-scope, waive through the authorized owner, or escalate
 the remaining issue.
 
+## Supervise Running Assignments
+
+Supervise each assignment as an event loop. Observe through the selected lane's
+mailbox or event stream, classify each event, take the corresponding action,
+then return to observation. Passive waits and stream reads are observation and
+leave the assignment untouched.
+
+| Event | Lead action |
+| --- | --- |
+| A wait or stream read returns without a runner event | Treat it as a quiet tick and observe again. |
+| A scout or worker requests input or reports a blocker | Send one focused response within the existing contract. |
+| New evidence invalidates the contract, authorized scope, or lane eligibility | Steer or stop the affected scout or worker at that boundary. |
+| A validator emits an intermediate message | Continue observing so it can return one complete findings or blocker report. |
+| The assignment returns | Apply the role-specific continuation rule below. |
+| The harness reports an error or configured deadline, loses the recorded session or process, or supplies lane-specific evidence of frozen execution | Recover a scout or worker under the selected lane; replace an interrupted initial validator with a corrected fresh pass; recover a validator session only when it is already performing bounded delta revalidation. |
+| The assignment continues beyond an explicit contract, scope, search, attempt, or proof boundary | Stop that assignment and preserve its useful evidence. |
+| A user update is due | Update the user without contacting the assignment. |
+
+A quiet episode begins when invocation succeeds or after the latest runner
+event, and ends at the next runner event or final return. When the selected lane
+says that silence is abnormal, perform its non-invasive health check once for
+that quiet episode. A result showing only liveness is not a runner event and
+does not begin a new quiet episode. A live runner returns the lead to
+observation. Another health check requires a new quiet episode, a runner or
+observation-channel error, or a configured deadline. Silence alone is not
+evidence of frozen execution.
+
+After a final return:
+
+- resume a scout only for a bounded clarification or evidence gap while its
+  question, scope, and evidence remain current;
+- resume a worker only for a bounded correction while its contract, scope,
+  approach, evidence, and lane eligibility remain current;
+- let an initial validator return without steering, disposition every finding,
+  then reuse that session only for bounded delta revalidation in the same
+  review cycle. When an invalid validation packet prevents review, correct the
+  packet and start a fresh validation pass.
+
+Schedule lead work by dependency. When the next lead decision depends on the
+assignment, wait for its return. Continue work whose result is independent of
+that assignment.
+
+Report meaningful milestones and blockers. During ongoing work, send a brief
+status after roughly one minute of user-visible silence; while work remains
+active, repeat only at the host-required update interval rather than on every
+quiet tick. A user update neither contacts the assignment nor ends its quiet
+episode.
+
+Configure any wall-clock deadline prospectively through the user, workflow,
+lead, or runner. Deadline expiry is a timeout condition; elapsed silence cannot
+create a deadline.
+
 ## Invoke And Continue The Lane
 
 Follow the selected reference for model verification, invocation, continuation,
@@ -179,20 +239,20 @@ and cleanup. Include the canonical role and selected lane in every assignment.
 Record the selected lane's task or session identifier needed to steer, resume,
 wait for, or stop the assignment.
 
-Resume the same scout or worker for bounded corrections while its scope,
-contract, approach, evidence, and tier remain current. Start validation in a
-fresh native Codex session. Count and bound worker-to-validator corrections
-under the review-cycle convergence policy above.
-
 {% if grok_lanes %}
-For a Grok lane, apply its evidence-based promotion before this default round
-bound. Treat the handoff from a routine Grok assignment to Sol-high as a lane
-escalation rather than a follow-up round, then apply the bound to the active
-Sol-high assignment.
+For a Grok lane, apply its evidence-based promotion before the review-cycle
+round bound. Treat the handoff from a routine Grok assignment to Sol-high as a
+lane escalation rather than a follow-up round, then apply the bound to the
+active Sol-high assignment.
 {% endif %}
 
-## Clean Up Interrupted Runs
+## Enforce And Recover Assignments
 
-Follow the selected reference's cleanup procedure only when a run hangs or is
-interrupted. Stop only the session or process created for the assignment and
-preserve its last useful evidence before replacing or closing it.
+When the event loop reaches an assignment-boundary event, stop only the
+affected assignment through the selected lane's control and preserve its last
+useful evidence.
+
+When the event loop reaches a recovery event, apply its role-aware decision and
+follow the selected lane's recovery procedure. Recover or replace only the
+session or process created for that assignment and preserve its last useful
+evidence before resuming, replacing, or closing it.

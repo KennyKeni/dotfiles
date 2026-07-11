@@ -166,11 +166,11 @@ terminal provider/account error from a resumable interruption. If no event
 exposes a session ID, recover it by matching the unique title and repository as
 described below; do not rely on the most recent session implicitly.
 
-Supervise the event stream rather than polling the process or repository.
-Report completed tool or message milestones and blockers, and send a brief user
-update after roughly one minute without a milestone. Do not repeatedly run
-`git status` to prove activity. Check process liveness only after several
-minutes without events or when the runner reports an interruption.
+Apply the main skill's event loop. Observe the newline-delimited event stream
+through `step_start`, completed `tool_use`, `text`, `step_finish`, and error
+events. After several minutes without an expected event, the main event loop
+permits one process-liveness inspection for the current quiet episode. Leave
+the repository untouched during supervision.
 
 ## Continue And Clean Up
 
@@ -199,8 +199,8 @@ the run's unique title and repository in:
 opencode session list --format json --max-count 20
 ```
 
-Check for a live process only after several minutes without events or when a
-run is interrupted:
+When the main event loop permits a lane-health check or recovery, inspect the
+recorded run's process:
 
 ```bash
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
