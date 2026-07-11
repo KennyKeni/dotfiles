@@ -31,7 +31,7 @@ Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an
 - Prefer many thin slices over few thick ones
 </vertical-slice-rules>
 
-### 4. Quiz the user
+### 4. Confirm the breakdown when needed
 
 Present the proposed breakdown as a numbered list. For each slice, show:
 
@@ -40,7 +40,7 @@ Present the proposed breakdown as a numbered list. For each slice, show:
 - **Blocked by**: which other slices (if any) must complete first
 - **User stories covered**: which user stories this addresses (if the source material has them)
 
-Ask the user:
+Normally, ask the user:
 
 - Does the granularity feel right? (too coarse / too fine)
 - Are the dependency relationships correct?
@@ -49,9 +49,29 @@ Ask the user:
 
 Iterate until the user approves the breakdown.
 
+Skip this confirmation round and proceed directly to publishing only when all of
+the following are true:
+
+- The skill was triggered automatically from the user's intent rather than
+  explicitly invoked or requested by name.
+- The conversation is already working through the problem and contains enough
+  settled context to draft acceptance criteria and dependencies without making
+  new product or architectural decisions.
+- A pre-existing umbrella issue has been identified on the configured GitHub
+  tracker and will be the native parent of every new slice.
+
+In this automatic path, treat the settled conversation context as approval of
+the breakdown. Still show the published breakdown in the completion summary.
+Do not skip confirmation when any slice contains an unresolved HITL decision,
+when the intended parent issue is ambiguous, or when publishing would require
+creating a new umbrella issue.
+
 ### 5. Publish the issues to the issue tracker
 
-For each approved slice, publish a new issue to the issue tracker. Use the issue body template below. These issues are considered ready for AFK agents, so publish them with the correct triage label unless instructed otherwise.
+For each approved slice—or each slice covered by the automatic path in step
+4—publish a new issue to the issue tracker. Use the issue body template below.
+These issues are considered ready for AFK agents, so publish them with the
+correct triage label unless instructed otherwise.
 
 Publish issues in dependency order (blockers first) so you can reference real issue identifiers in the "Blocked by" field.
 
