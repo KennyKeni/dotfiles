@@ -296,16 +296,6 @@
       "installedAt": "2026-07-08T20:38:38.293Z",
       "updatedAt": "2026-07-08T20:38:38.293Z"
     },
-    "claude-opencode-grok-first": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "ref": "main",
-      "skillPath": "packages/agent-skills/personal/claude-opencode-grok-first/SKILL.md",
-      "skillFolderHash": "777145eb7f51b9d4b7ff8e7197515ff448de7bb4",
-      "installedAt": "2026-07-09T12:35:26.920Z",
-      "updatedAt": "2026-07-09T12:35:26.920Z"
-    },
     "goal-prompt-template": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
