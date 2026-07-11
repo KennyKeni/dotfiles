@@ -344,6 +344,16 @@
       "skillFolderHash": "7658879df61d82a44d257acde18919b1156600de",
       "installedAt": "2026-07-11T10:08:53.465Z",
       "updatedAt": "2026-07-11T10:32:16.388Z"
+    },
+    "design-modular-backend": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/personal/design-modular-backend/SKILL.md",
+      "skillFolderHash": "a43bacaeb43b609b8825790f5a95d340cbfa1537",
+      "installedAt": "2026-07-11T23:36:34.686Z",
+      "updatedAt": "2026-07-11T23:36:34.686Z"
     }
   },
   "dismissed": {
