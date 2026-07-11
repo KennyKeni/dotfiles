@@ -26,8 +26,7 @@ model for focused follow-ups.
 Create a compact prompt file using the environment's approved file-writing
 mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use single-result
 structured output and record the `session_id` from the completed JSON object as
-the Cursor chat ID. Do not use `stream-json`; keep intermediate reasoning and
-tool events out of the lead context.
+the Cursor chat ID.
 
 Worker invocation:
 
