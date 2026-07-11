@@ -323,6 +323,16 @@
       "skillFolderHash": "00270eb2266776a3b8fe88aa5f82cd8adeba883e",
       "installedAt": "2026-07-10T03:44:09.230Z",
       "updatedAt": "2026-07-11T02:10:38.149Z"
+    },
+    "claude-subagent-routing": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/personal/claude-subagent-routing/SKILL.md",
+      "skillFolderHash": "3904ea7bc8c908f1dbef5c5f5807259228e8e8b2",
+      "installedAt": "2026-07-11T02:19:21.673Z",
+      "updatedAt": "2026-07-11T02:19:21.673Z"
     }
   },
   "dismissed": {
