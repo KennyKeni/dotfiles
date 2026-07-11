@@ -28,11 +28,27 @@ Six **state** roles:
 - `ready-for-human` — needs human implementation
 - `wontfix` — will not be actioned
 
-Every triaged issue should carry exactly one category role and one state role. If state roles conflict, flag it and ask the maintainer before doing anything else. A `tracking` issue is never dispatchable.
+One orthogonal **control** role:
+
+- `implementation-locked` — implementation is owned and in progress
+
+Every triaged issue should carry exactly one category role and one state role.
+The control role may coexist with any category or state and does not count
+toward that invariant. If state roles conflict, flag it and ask the maintainer
+before doing anything else. A `tracking` issue is never dispatchable.
 
 These are canonical role names — the actual issue-tracker label strings may differ. Read `.local/agents/issue-tracker.md`, `.local/agents/triage-labels.md`, and `.local/agents/issue-contract.md`, then follow the tracker file's command conventions for every operation. Run `/setup-matt-pocock-skills` if any file is missing. Do not create local issue files as a fallback.
 
-`ready-for-agent` means contract-complete and dispatchable. It grants no permission to edit, commit, push, open a pull or merge request, merge, deploy, close issues, or mutate issue relationships.
+`ready-for-agent` means contract-complete and eligible for agent
+implementation. It grants no permission to edit, commit, push, open a pull or
+merge request, merge, deploy, close issues, or mutate issue relationships.
+
+`implementation-locked` means the current owner may continue implementation
+but another human or agent must not begin. The lock does not change category,
+state, readiness, relationships, or authorization. Removing it changes none of
+those things. Adding it does not cancel or interrupt already-active work. Treat
+it as issue-local; do not infer or propagate it through hierarchy or
+dependencies.
 
 State transitions: an unlabeled issue normally goes to `needs-triage` first; from there it moves to `needs-info`, `tracking`, `ready-for-agent`, `ready-for-human`, or `wontfix`. `needs-info` returns to `needs-triage` once the reporter replies. The maintainer can override at any time — flag transitions that look unusual and ask before proceeding.
 
@@ -43,6 +59,8 @@ The maintainer invokes `/triage` and describes what they want in natural languag
 - "Show me anything that needs my attention"
 - "Let's look at #42"
 - "Move #42 to ready-for-agent"
+- "Lock #42 while it is being implemented"
+- "Unlock #42"
 - "What's ready for agents to pick up?"
 
 ## Show what needs attention
@@ -54,6 +72,10 @@ Query the issue tracker and present three buckets, oldest first:
 3. **`needs-info` with reporter activity since the last triage notes** — needs re-evaluation.
 
 Show counts and a one-line summary per issue. Let the maintainer pick.
+
+When listing issues available for new agent pickup, exclude
+`implementation-locked` issues. A direct request may still inspect or triage a
+locked issue.
 
 ## Triage a specific issue
 
@@ -77,6 +99,14 @@ Show counts and a one-line summary per issue. Let the maintainer pick.
 ## Quick state override
 
 If the maintainer says "move #42 to ready-for-agent", trust the requested destination and skip grilling, but still require the canonical contract. Draft the Agent Brief from established evidence, confirm it and the role changes, publish and verify the brief, then apply the label. If required fields remain unresolved, recommend `needs-info` instead.
+
+## Implementation lock
+
+Add or remove `implementation-locked` through the configured issue-mutation
+workflow and read back the result. Preserve the issue's category and state; do
+not require an Agent Brief rewrite or state transition solely to change the
+lock. When a locked issue changes state, report that it remains unavailable to
+new implementers. Do not remove a lock held by another active owner.
 
 ## Needs-info template
 

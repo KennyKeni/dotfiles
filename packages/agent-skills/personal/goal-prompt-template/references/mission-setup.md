@@ -55,6 +55,16 @@ cycles, and derive readiness from current node and blocker evidence rather than
 persisting it as durable truth. Refresh a selected node and its blockers
 immediately before dispatch.
 
+Immediately before starting implementation of a tracker issue, refresh its
+labels. An unlocked issue may be selected normally. If
+`implementation-locked` is present, continue only when the active mission
+already owns that implementation; otherwise do not start it. When issue-label
+mutations are already authorized, claim an unlocked issue by applying
+`implementation-locked` and reading it back before dispatch. Remove and read
+back an owned lock when implementation is complete or deliberately relinquished.
+Never remove another owner's active lock. The label is issue-local; do not
+propagate it through tracker relationships.
+
 Keep a current-state snapshot rather than an activity diary. Record:
 
 - goal and non-goals;
@@ -64,6 +74,7 @@ Keep a current-state snapshot rather than an activity diary. Record:
 - constraining decisions;
 - completed work with accepted evidence;
 - agent ownership and integration boundaries;
+- owned implementation locks;
 - blockers, risks, unresolved questions, and exact next action.
 
 Update it after contract approval, a material decision, feature or PR

@@ -78,3 +78,12 @@ An issue contract, label, relationship, or assignment establishes dispatch
 eligibility only. The active workflow must independently authorize local edits,
 branches or worktrees, commits, pushes, pull or merge requests, merges,
 deployments, issue mutations, and relationship mutations.
+
+## Implementation lock
+
+`implementation-locked` is orthogonal to readiness. It marks implementation as
+owned and in progress. The current owner may continue; another human or agent
+must not begin implementation until the lock is removed. Removing the label
+does not establish readiness or authorization, and adding it does not cancel or
+interrupt work already active. Do not infer or propagate a lock through parent,
+child, or dependency relationships.

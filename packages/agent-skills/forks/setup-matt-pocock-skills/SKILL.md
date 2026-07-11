@@ -10,7 +10,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 
 - **Issue tracker** — GitHub Issues or GitLab Issues for PRDs, implementation issues, QA reports, refactor plans, and triage state
 - **Issue contract** — the canonical tracking-umbrella and executable-leaf format and readiness rules
-- **Triage labels** — the strings used for category and state roles
+- **Triage labels** — the strings used for category, state, and control roles
 - **Domain docs** — where local-only context docs and ADRs live, and the consumer rules for reading them
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, then write the local setup. Ask only if the repo cannot be identified as a GitHub or GitLab repo, or the user wants non-default label names.
@@ -62,7 +62,17 @@ Six state roles:
 - `ready-for-human` — needs human implementation
 - `wontfix` — will not be actioned
 
-Default: each role's string equals its name. If the repo has no existing issue labels, the defaults are fine. If labels are missing and the user wants them created, use the issue manager's CLI (`gh label create` for GitHub, `glab label create` for GitLab) rather than editing local files only.
+One control role:
+
+- `implementation-locked` — implementation is owned and in progress; only the
+  current owner may continue until the lock is released
+
+The control role is orthogonal to category and state: it may coexist with any
+category or state label and does not change readiness. Default each role's
+string to its name. If the repo has no existing issue labels, the defaults are
+fine. If labels are missing and the user wants them created, use the issue
+manager's CLI (`gh label create` for GitHub, `glab label create` for GitLab)
+rather than editing local files only.
 
 ### 4. Issue contract and relationship capabilities
 

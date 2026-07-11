@@ -49,6 +49,14 @@ unresolved disposition as satisfied without an approved contract change. Also
 require every approval, integration, workspace, PR, review, CI, deployment,
 and human gate that applies before work may start.
 
+Treat `implementation-locked` as an ownership lock, not a readiness state. An
+unlocked issue may be claimed normally. If the label is present, dispatch only
+when the active mission already owns that implementation. When issue-label
+mutations are already authorized, claim the issue by adding the label and
+reading it back before dispatch; remove and read it back when the owner
+completes or relinquishes implementation. Never remove another owner's active
+lock, and do not infer or propagate locks through GitHub relationships.
+
 ## Mutate Relationships Safely
 
 Record the authorized GitHub host and repository scope and separate
