@@ -22,8 +22,8 @@ or lacks a required capability. Retain the exact model for focused follow-ups.
 
 ## Invoke OpenCode
 
-Verify `opencode agent list` shows `explore (primary)`. Use `--agent explore`
-for scouts and `--agent build` for workers.
+Verify `opencode agent list` shows both `explore (primary)` and `build
+(primary)`. Use `--agent explore` for scouts and `--agent build` for workers.
 
 Create a compact prompt file using the environment's approved file-writing
 mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths.
@@ -35,6 +35,7 @@ opencode run --dir "$REPO" \
   --model xai/grok-4.5 \
   --agent build \
   --file "$PROMPT_FILE" \
+  --format json \
   --dangerously-skip-permissions \
   --title "grok worker: <bounded-task>" \
   "Read the attached assignment and complete only that worker scope."
@@ -47,17 +48,35 @@ opencode run --dir "$REPO" \
   --model xai/grok-4.5 \
   --agent explore \
   --file "$PROMPT_FILE" \
+  --format json \
   --title "grok scout: <bounded-question>" \
   "Read the attached assignment and return evidence only. Do not edit files."
 ```
 
-Give every run a unique title and record its exact session ID.
+Give every run a unique title. Read the completed run output and record its
+exact session ID before deleting the prompt file. If the run does not expose a
+session ID, recover it by matching the unique title and repository as described
+below; do not rely on the most recent session implicitly.
 
 ## Continue And Clean Up
 
-Resume with `--session <session-id>` and a focused follow-up file. Use the same
-model and agent, and omit `--fork` so the existing session continues. Avoid
-bare `--continue` when several sessions may exist.
+Resume with the recorded session ID and a focused follow-up file. Set `AGENT`
+to the original session's exact `explore` or `build` value. Use the same model
+and agent, and omit `--fork` so the existing session continues:
+
+```bash
+opencode run --dir "$REPO" \
+  --session "$SESSION_ID" \
+  --model xai/grok-4.5 \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+  "Read the attached follow-up and remain within the original assignment."
+```
+
+For a worker follow-up, retain `--dangerously-skip-permissions`. Avoid bare
+`--continue` when several sessions may exist. Delete each prompt file after
+the invocation completes and its session ID and useful result are preserved.
 
 If the session ID was not recorded before interruption, recover it by matching
 the run's unique title and repository in:
@@ -72,7 +91,8 @@ Check for a live process only when a run hangs or is interrupted:
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
 ```
 
-Interrupt only the leftover process created by the delegated run. Then resume
-that exact session with `opencode run --session "$SESSION_ID"`, the same model
-and agent, and a focused follow-up. Delete or replace the session only when it
-cannot resume or its context is no longer trustworthy.
+Interrupt only the leftover process created by the delegated run. Preserve the
+prompt file until the interrupted run's session ID and useful evidence are
+recovered. Then resume that exact session with the full follow-up invocation
+above. Delete or replace the session only when it cannot resume or its context
+is no longer trustworthy.

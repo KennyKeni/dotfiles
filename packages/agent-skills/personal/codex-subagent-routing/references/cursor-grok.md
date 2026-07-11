@@ -9,8 +9,9 @@ active mission authorizes that fallback.
 ## Select And Verify The Model
 
 Use `grok-4.5-xhigh` for every session in this lane. Never substitute
-`grok-4.5-fast-xhigh` or another `fast` variant. Verify authentication and the
-model once before the first Cursor assignment in the current context:
+`grok-4.5-fast-xhigh` or another `fast` variant. Verify the installed CLI,
+authentication, and model once before the first Cursor assignment in the
+current context:
 
 ```bash
 cursor-agent status
@@ -25,8 +26,10 @@ model for focused follow-ups.
 
 Create a compact prompt file using the environment's approved file-writing
 mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use single-result
-structured output and record the `session_id` from the completed JSON object as
-the Cursor chat ID.
+structured output. Read the completed JSON object and record its `session_id`
+as the Cursor chat ID before deleting the prompt file. Treat a missing or
+malformed `session_id` as an incomplete handoff; recover the chat ID with
+`cursor-agent ls` before attempting a follow-up.
 
 Worker invocation:
 
@@ -75,9 +78,11 @@ cursor-agent --print \
 ```
 
 Use `--force` for both scouts and workers. Avoid bare `--continue` when several
-chats may exist. If the chat ID was not recorded before an interruption, use
-`cursor-agent ls` interactively and match the repository and assignment context;
-Cursor does not provide a reliable headless chat-list interface.
+chats may exist. Delete each prompt file after the invocation completes and its
+chat ID and useful result are preserved. If the chat ID was not recorded before
+an interruption, use `cursor-agent ls` interactively and match the repository
+and assignment context; Cursor does not provide a reliable headless chat-list
+interface.
 
 Check for a live process only when a run hangs or is interrupted:
 
@@ -85,6 +90,8 @@ Check for a live process only when a run hangs or is interrupted:
 ps -axo pid,ppid,command | rg '[c]ursor-agent' || true
 ```
 
-Interrupt only the leftover process created by the delegated run. Then resume
-that exact chat with `--resume "$CHAT_ID"` and a focused follow-up. Replace the
-chat only when it cannot resume or its context is no longer trustworthy.
+Interrupt only the leftover process created by the delegated run. Preserve the
+prompt file until the interrupted run's chat ID and useful evidence are
+recovered. Then resume that exact chat with the full follow-up invocation above.
+Replace the chat only when it cannot resume or its context is no longer
+trustworthy.
