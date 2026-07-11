@@ -31,7 +31,15 @@ the spawn assignment rather than persistent custom-agent configuration.
 
 Pass a compact assignment and the minimum useful context. Follow the global
 subagent context-forking policy. Record the task name or identifier used to
-steer, wait for, or stop the subagent.
+steer, wait for, or stop the subagent immediately after spawning it.
+
+Supervise through mailbox waits. A wait does not interrupt the subagent and
+returns early when it sends a message or completes. Prefer one wait of roughly
+one minute over repeated short waits, and report only meaningful milestones,
+blockers, or a brief update after roughly one minute of silence. Do not inspect
+the subagent's worktree or run repeated status commands merely to prove
+activity. Inspect the active agent list only after several minutes without a
+mailbox event or when an interruption is reported.
 
 For every validator, set `fork_turns: "none"` or use the native equivalent that
 excludes implementation history. Supply the contract, coherent change,
@@ -40,8 +48,9 @@ directly in the fresh assignment.
 
 ## Continue And Clean Up
 
-Send focused follow-ups to an existing scout or worker when its context remains
-relevant. Start every validator with fresh context.
+Send focused follow-ups to the recorded task when an existing scout or worker's
+context remains relevant, then return to mailbox waiting. Start every validator
+with fresh context.
 
 When a native session hangs or is interrupted, inspect the active agent list
 and interrupt only that session without closing it. Resume the same task with
