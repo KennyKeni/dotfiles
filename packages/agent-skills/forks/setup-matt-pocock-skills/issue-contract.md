@@ -1,0 +1,77 @@
+# Issue Contract
+
+This file is the sole normative template for issue readiness. Issue bodies,
+triage comments, and execution workflows must point here rather than defining
+competing templates.
+
+## Issue kinds
+
+A **tracking umbrella** owns the shared goal, scope, and completion denominator.
+Apply one category label and the `tracking` state label. An umbrella is never
+dispatchable.
+
+An **executable leaf** owns one independently verifiable slice. Apply one
+category label and either `ready-for-agent` for an AFK leaf or
+`ready-for-human` for a HITL leaf, but only after every field below is complete.
+
+For a planned leaf, render the contract in the issue body. For a reporter-created
+issue whose body must remain intact, render it in the latest maintainer-approved
+`## Agent Brief` comment. That rendered contract is authoritative.
+
+## Leaf template
+
+```markdown
+## Parent
+
+Reference the tracking umbrella, or state that this issue is independent.
+
+## Agent Brief
+
+**Category:** bug / enhancement
+
+**Summary:** One-line description of the required outcome.
+
+### Current behavior
+
+Describe the status quo or broken behavior.
+
+### Desired behavior
+
+Describe observable behavior after completion, including relevant errors and
+edge cases.
+
+### Key interfaces
+
+- Name behavioral contracts, types, function signatures, configuration shapes,
+  schemas, or externally visible boundaries that matter.
+- Avoid file paths and line numbers that may become stale.
+
+### Acceptance criteria
+
+- [ ] Independently verifiable criterion 1
+- [ ] Independently verifiable criterion 2
+- [ ] Independently verifiable criterion 3
+
+### Out of scope
+
+- Adjacent behavior that this issue must not change.
+
+## Dependencies
+
+- Reference every prerequisite issue, or state `None - can start immediately`.
+```
+
+## Relationship authority
+
+Use the relationship mechanism declared in `.local/agents/issue-tracker.md`.
+On GitHub, native parent/sub-issue and blocked-by/blocking relationships are
+authoritative; the `Parent` and `Dependencies` fields are supplemental. When a
+configured tracker lacks a supported native mechanism, those fields are
+authoritative. Never infer prerequisites from hierarchy or child order.
+
+## Readiness is not authorization
+
+An issue contract, label, relationship, or assignment establishes dispatch
+eligibility only. The active workflow must independently authorize local edits,
+branches or worktrees, commits, pushes, pull or merge requests, merges,
+deployments, issue mutations, and relationship mutations.

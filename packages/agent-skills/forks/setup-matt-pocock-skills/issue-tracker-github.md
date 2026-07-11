@@ -4,6 +4,15 @@ This repo uses GitHub Issues as the canonical tracker. Run every GitHub issue op
 
 Keep the interface consistent. Do not switch to a connector, browser automation, `curl`, or handwritten GraphQL. If `gh` is missing, unauthenticated, or lacks permission, stop and report that blocker instead of choosing another interface.
 
+## Relationship capabilities
+
+- **Parent/sub-issue:** native and authoritative through `gh issue edit --add-sub-issue` / `--parent` and `gh issue view --json parent,subIssues`.
+- **Dependencies:** native and authoritative through `gh issue edit --add-blocked-by` / `--add-blocking` and `gh issue view --json blockedBy,blocking`.
+
+Require a `gh` version that exposes those flags and JSON fields. If the
+configured CLI lacks them, stop and report the blocker. Body references are
+supplemental on GitHub and never replace native relationships.
+
 ## Conventions
 
 - **Create an issue**: `gh issue create --title "..." --body-file -`. Supply multi-line bodies with a heredoc on standard input.
@@ -22,25 +31,45 @@ An umbrella, tracking, or parent issue and its children must use GitHub's native
 Create each child with `gh issue create`, capture its number or URL, then attach it:
 
 ```bash
-child_id="$(gh api "repos/{owner}/{repo}/issues/$child_number" --jq '.id')"
-gh api --method POST \
-  "repos/{owner}/{repo}/issues/$parent_number/sub_issues" \
-  -F "sub_issue_id=$child_id"
+gh issue edit "$parent_number" --add-sub-issue "$child_number"
 ```
 
 After attaching all children, verify the complete set:
 
 ```bash
-gh api --paginate \
-  "repos/{owner}/{repo}/issues/$parent_number/sub_issues" \
-  --jq '.[].number'
+gh issue view "$parent_number" --json subIssues --jq '.subIssues[].number'
 ```
 
-Do not report a breakdown as published until every intended child appears in this read-back. `gh api` is the sanctioned CLI path here because `gh issue` does not expose native sub-issue management.
+Do not report a breakdown as published until every intended child appears in this read-back.
+
+## Native dependencies
+
+Hierarchy expresses membership, not execution order. Represent every real
+prerequisite with a native blocked-by relationship:
+
+```bash
+gh issue edit "$child_number" --add-blocked-by "$blocker_number"
+```
+
+Read back both directions and confirm the approved graph:
+
+```bash
+gh issue view "$child_number" \
+  --json blockedBy,blocking \
+  --jq '{blockedBy: [.blockedBy[].number], blocking: [.blocking[].number]}'
+```
+
+Detect dependency cycles before mutation. After every authorized relationship
+mutation, read it back and recheck the affected graph. The `Parent` and
+`Dependencies` fields in `.local/agents/issue-contract.md` remain useful for
+humans but are supplemental on GitHub.
 
 Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
 
 Use `.local/agents/triage-labels.md` for the actual GitHub label strings to apply for category and state roles.
+
+Relationship support and technical access do not authorize relationship
+mutations. Use only the mutation boundary approved by the active workflow.
 
 ## When a skill says "publish to the issue tracker"
 

@@ -25,7 +25,7 @@ Match the project's existing conventions for tooling — don't add a new package
 
 ### 3. Isolate the logic in a portable module
 
-Put the actual logic — the bit that's answering the question — behind a small, pure interface that could be lifted out and dropped into the real codebase later. The TUI around it is throwaway; the logic module shouldn't be.
+Put the actual logic — the bit answering the question — behind a small, pure interface so the decision can be evaluated independently of the TUI. Treat both the TUI and logic as exploratory code.
 
 The right shape depends on the question:
 
@@ -36,7 +36,7 @@ The right shape depends on the question:
 
 Pick whichever shape best fits the question being asked, *not* whichever is easiest to wire to a TUI. Keep it pure: no I/O, no terminal code, no `console.log` for control flow. The TUI imports it and calls into it; nothing flows the other direction.
 
-This is what makes the prototype useful past its own lifetime. When the question's been answered, the validated reducer / machine / function set can be lifted into the real module — the TUI shell gets deleted.
+This makes the prototype's answer useful past its own lifetime. If the user later authorizes production implementation, rewrite the validated shape or harden it to production standards and add the required tests. Delete the prototype only when cleanup is authorized.
 
 ### 4. Build the smallest TUI that exposes the state
 
@@ -68,7 +68,7 @@ Give the user the run command. They'll drive it themselves; the interesting mome
 
 ### 7. Capture the answer
 
-When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them. If the prototype belongs to an issue, record the answer in the configured issue tracker. Otherwise leave a local note under `.local/prototypes/<slug>.md` so the answer can be filled in (or filled in by you, if you've watched the session) before the prototype gets deleted.
+When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them. Record the answer in the configured issue tracker only when issue updates are already authorized. Otherwise leave a local note under `.local/prototypes/<slug>.md` so the answer can be filled in before separately authorized cleanup.
 
 ## Anti-patterns
 

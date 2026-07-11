@@ -97,7 +97,7 @@ Surface the URL (and the `?variant=` keys). The user will flip through whenever 
 
 ### 6. Capture the answer and clean up
 
-Once a variant has won, write down which one and why (configured issue tracker if the prototype belongs to an issue, `.local/adr/` for architectural decisions, or `.local/prototypes/<slug>.md` if running AFK and the user hasn't responded yet). Then:
+Once a variant has won, write down which one and why in an already-authorized issue or ADR, or use `.local/prototypes/<slug>.md` as the local fallback. When cleanup or production implementation is authorized:
 
 - **Sub-shape A** — delete the losing variants and the switcher; fold the winner into the existing page.
 - **Sub-shape B** — promote the winning variant to a real route, delete the throwaway route and the switcher.

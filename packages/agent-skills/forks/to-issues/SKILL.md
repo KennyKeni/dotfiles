@@ -1,106 +1,95 @@
 ---
 name: to-issues
-description: Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.
+description: Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when the user wants to convert a plan into issues, create implementation tickets, or break down work into issues.
 ---
 
 # To Issues
 
-Break a plan into independently-grabbable issues using vertical slices (tracer bullets).
+Break a plan into independently verifiable tracer-bullet issues.
 
-The configured issue tracker and triage label vocabulary must be in `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md` — run `/setup-matt-pocock-skills` if not. Read and follow the tracker file's command conventions for every operation. Publish issues only to the configured GitHub/GitLab tracker; do not create local issue files.
+Read `.local/agents/issue-tracker.md`, `.local/agents/triage-labels.md`, and
+`.local/agents/issue-contract.md` before drafting or mutating issues. Run
+`setup-matt-pocock-skills` if any are missing. Follow the configured tracker
+interface for every operation. Publish only to that tracker.
 
-## Process
+## Gather Context
 
-### 1. Gather context
+Work from the current conversation. When the user supplies an issue reference,
+fetch its body, comments, labels, and native relationships. Treat a PRD or
+tracking issue as the umbrella, never as an executable leaf.
 
-Work from whatever is already in the conversation context. If the user passes an issue reference (issue number, URL, or path) as an argument, fetch it from the issue tracker and read its full body and comments.
+Explore the codebase when needed. Use `.local/agents/domain.md` and its
+configured local domain vocabulary and ADRs when present.
 
-### 2. Explore the codebase (optional)
+## Draft Vertical Slices
 
-If you have not already explored the codebase, do so to understand the current state of the code. Check `.local/agents/domain.md`; when it exists, issue titles and descriptions should use the configured local domain vocabulary and respect ADRs in the area you're touching. Do not fall back to committed domain docs as agent memory.
+Each slice must deliver a narrow, complete path through every affected layer
+and be independently demoable or verifiable. Prefer many thin slices over a
+few horizontal or cross-cutting tickets.
 
-### 3. Draft vertical slices
+Classify each slice:
 
-Break the plan into **tracer bullet** issues. Each issue is a thin vertical slice that cuts through ALL integration layers end-to-end, NOT a horizontal slice of one layer.
+- **AFK:** the contract is complete enough for implementation without another
+  product or design decision.
+- **HITL:** a human decision, access gate, design review, or manual step remains.
 
-Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an architectural decision or a design review. AFK slices can be implemented and merged without human interaction. Prefer AFK over HITL where possible.
+AFK and HITL classify readiness; neither grants permission to edit, commit,
+push, open a pull or merge request, merge, deploy, or mutate issues.
 
-<vertical-slice-rules>
-- Each slice delivers a narrow but COMPLETE path through every layer (schema, API, UI, tests)
-- A completed slice is demoable or verifiable on its own
-- Prefer many thin slices over few thick ones
-</vertical-slice-rules>
+## Approve The Breakdown
 
-### 4. Confirm the breakdown when needed
+Use the automatic path only when the skill was model-triggered from settled
+conversation context, a pre-existing GitHub tracking umbrella is identified,
+every contract field and dependency is already resolved, and every slice is
+AFK. Treat that settled context as approval and show the published breakdown in
+the completion summary.
 
-Choose the automatic path only when all of the following are true:
+Otherwise present a numbered list with title, AFK/HITL type, prerequisites,
+and covered user stories. Ask whether granularity, dependencies, and
+classifications are correct. Iterate until the user approves the breakdown.
 
-- The skill was triggered from the user's intent rather than explicitly invoked
-  or requested by name.
-- The conversation is already working through the problem and contains enough
-  settled context to draft acceptance criteria and dependencies without making
-  new product or architectural decisions.
-- A pre-existing umbrella issue has been identified on the configured GitHub
-  tracker and will be the native parent of every new slice.
-- No slice contains an unresolved HITL decision.
+## GitHub Native Relationships
 
-On the automatic path, treat the settled conversation context as approval and
-proceed directly to publishing. Show the published breakdown in the completion
-summary.
+When the configured tracker is GitHub:
 
-Otherwise, use the confirmation path. Present the proposed breakdown as a
-numbered list. For each slice, show:
+- Attach every generated slice to its umbrella with GitHub's native sub-issue
+  relationship.
+- Represent every real prerequisite with GitHub's native blocked-by/blocking
+  relationship.
+- Treat `Parent` and `Dependencies` text as supplemental; it never substitutes
+  for native relationships.
+- Keep hierarchy and dependencies distinct. Child order never implies a
+  prerequisite.
+- Read back the complete sub-issue list and every dependency edge after
+  mutation.
+- Do not report publication complete while an intended relationship is absent
+  or a dependency cycle exists.
 
-- **Title**: short descriptive name
-- **Type**: HITL / AFK
-- **Blocked by**: which other slices (if any) must complete first
-- **User stories covered**: which user stories this addresses (if the source material has them)
+Use the exact commands and version requirements in
+`.local/agents/issue-tracker.md`.
 
-Ask the user:
+For another tracker, follow its recorded relationship capabilities. Use and
+verify native relationships when supported. When the configured tracker lacks
+a supported native mechanism, the canonical contract's `Parent` or
+`Dependencies` field is authoritative; do not invent a competing graph.
 
-- Does the granularity feel right? (too coarse / too fine)
-- Are the dependency relationships correct?
-- Should any slices be merged or split further?
-- Are the correct slices marked as HITL and AFK?
+## Publish Executable Leaves
 
-Iterate until the user approves the breakdown.
+Publish blockers before their dependents so real identifiers are available.
+Render every planned leaf from the sole normative template in
+`.local/agents/issue-contract.md`; do not define another issue template here.
 
-### 5. Publish the issues to the issue tracker
+For each leaf:
 
-For each approved slice—or each slice covered by the automatic path in step
-4—publish a new issue to the issue tracker. Use the issue body template below.
-These issues are considered ready for AFK agents, so publish them with the
-correct triage label unless instructed otherwise.
+1. Create the issue with the complete rendered contract.
+2. Create the authorized native hierarchy and dependency relationships required
+   by the configured tracker.
+3. Read back the issue body, relationships, and labels.
+4. Apply the configured category label.
+5. Apply `ready-for-agent` only to a complete AFK leaf, or `ready-for-human` to
+   a complete HITL leaf.
+6. Read back the final state and confirm the contract and graph match the
+   approved breakdown.
 
-Publish issues in dependency order (blockers first) so you can reference real issue identifiers in the "Blocked by" field.
-
-When the source is an existing GitHub issue, attach every new slice to it as a native GitHub sub-issue using `.local/agents/issue-tracker.md`. If this run creates a GitHub umbrella or tracking issue, attach every child to that issue the same way. The parent reference in the body is supplemental, not the relationship.
-
-If an older tracker file lacks a native sub-issue command, use only this `gh` CLI sequence: fetch the child's REST database ID with `gh api "repos/{owner}/{repo}/issues/$child_number" --jq '.id'`, then attach it with `gh api --method POST "repos/{owner}/{repo}/issues/$parent_number/sub_issues" -F "sub_issue_id=$child_id"`. Read back `gh api --paginate "repos/{owner}/{repo}/issues/$parent_number/sub_issues" --jq '.[].number'` and confirm that every intended child is present before reporting completion.
-
-<issue-template>
-## Parent
-
-A reference to the parent issue on the issue tracker (if the source was an existing issue, otherwise omit this section).
-
-## What to build
-
-A concise description of this vertical slice. Describe the end-to-end behavior, not layer-by-layer implementation.
-
-Avoid specific file paths or code snippets — they go stale fast. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it here and note briefly that it came from a prototype. Trim to the decision-rich parts — not a working demo, just the important bits.
-
-## Acceptance criteria
-
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
-
-## Blocked by
-
-- A reference to the blocking ticket (if any)
-
-Or "None - can start immediately" if no blockers.
-
-</issue-template>
-
-Do not close or edit the title, body, or labels of an existing parent issue. Adding the required native sub-issue relationships is allowed.
+When the source is an existing parent issue, preserve its title, body, labels,
+and state. Relationship mutations do not authorize other parent mutations.

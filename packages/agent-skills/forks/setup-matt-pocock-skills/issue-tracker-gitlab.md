@@ -4,6 +4,20 @@ This repo uses GitLab Issues as the canonical tracker.
 
 Use `glab` from the repo root so it resolves the current GitLab project.
 
+## Relationship capabilities
+
+Record the observed capability during setup:
+
+- **Parent/child:** supported / unsupported; configured command or API mechanism.
+- **Dependencies:** supported / unsupported; configured command or API mechanism.
+
+GitLab relationship availability depends on the configured plan, work-item
+features, and tooling. When a native mechanism is supported, use it and record
+the exact create, remove, query, and read-back commands here. When it is not
+supported, state that the `Parent` or `Dependencies` field in
+`.local/agents/issue-contract.md` is authoritative. Do not create a competing
+local graph.
+
 Common operations:
 
 - **Read an issue**: `glab issue view <number> --comments`, including labels and discussion.
@@ -14,6 +28,9 @@ Common operations:
 - **Close**: `glab issue close <number>` and add a final note when context is useful.
 
 Use `.local/agents/triage-labels.md` for the actual GitLab label strings to apply for category and state roles.
+
+Relationship support and technical access do not authorize relationship
+mutations. Use only the mutation boundary approved by the active workflow.
 
 ## Creating issues
 

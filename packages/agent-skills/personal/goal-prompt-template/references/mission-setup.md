@@ -6,6 +6,7 @@ Read this file after selecting mission execution and before decomposition.
 
 - Establish current state
 - Maintain durable state
+- Adopt approved issue decomposition
 - Define correctness before decomposition
 - Shape features and PRs
 - Handle gaps and scope changes
@@ -69,6 +70,24 @@ Update it after contract approval, a material decision, feature or PR
 completion, validation, stage transition, handoff, or proof supersession. Do
 not update it after every turn.
 
+## Adopt Approved Issue Decomposition
+
+When `.local/agents/issue-tracker.md` and `.local/agents/issue-contract.md`
+exist, read them before interpreting tracker state. Use their configured
+relationship authority and canonical issue contract.
+
+When an approved tracking umbrella and executable leaves already exist, adopt
+that graph as the baseline decomposition. Treat the umbrella as
+non-dispatchable. Map complete leaf contracts and acceptance criteria to the
+mission validation assertions instead of independently reslicing the work.
+Reshape the graph only for evidenced gaps and only within the authorized issue
+and relationship mutation boundary.
+
+Issue labels, contracts, relationships, and assignment establish no execution
+or delivery authority. Record the independently approved boundary for local
+edits, branches or worktrees, commits, pushes, pull or merge requests, merges,
+deployments, issue updates, and relationship mutations.
+
 ## Define Correctness Before Decomposition
 
 Define a finite validation contract for the active mission or stage. Include:
@@ -96,8 +115,9 @@ to match code that has already been written.
 
 ## Shape Features and PRs
 
-Decompose work into coherent vertical features that produce independently
-verifiable progress.
+When no approved decomposition exists, decompose work into coherent vertical
+features that produce independently verifiable progress. When one exists,
+shape only the evidenced gaps permitted above.
 
 For each feature, state:
 

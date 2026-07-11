@@ -13,6 +13,10 @@ relationships only for real prerequisite edges. Never infer a dependency from
 hierarchy, sub-issue order, labels, milestones, or proximity. Allow a related
 external blocker to remain outside the umbrella hierarchy.
 
+When `.local/agents/issue-contract.md` exists, use it as the canonical leaf
+contract and treat tracking umbrellas as non-dispatchable. Labels, contracts,
+relationships, and assignment establish no execution or delivery authority.
+
 Do not interpret this topology boundary as a restriction on issue content.
 When issue updates are authorized, continue recording shared goals, scope,
 validation contracts and profiles, decisions, progress, blockers, evidence,
@@ -54,11 +58,11 @@ other issue updates. Technical permission never substitutes for workflow
 authorization. After each authorized relationship mutation, read it back,
 recheck affected dependency cycles, and rederive affected readiness.
 
-Prefer the configured GitHub connector when it supports the required operation.
-For CLI use, require GitHub CLI 2.94 or newer for direct hierarchy and
-dependency flags and JSON fields; otherwise use supported REST or GraphQL
-operations through `gh api`. Verify the active `mise`-managed version and
-capability before assuming an interface is available.
+Follow the interface and capability requirements in
+`.local/agents/issue-tracker.md`. When it configures the CLI, verify the active
+`mise`-managed version and the required hierarchy and dependency flags and JSON
+fields before mutation. Do not silently switch interfaces or replace native
+relationships with body references.
 
 Do not add a custom graph CLI or mandate a JSON schema until repeated traversal,
 pagination, cycle, or reconciliation failures demonstrate the need. When an
