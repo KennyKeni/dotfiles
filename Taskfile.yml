@@ -111,7 +111,6 @@ tasks:
 
         const defaultAgents = ["codex", "claude-code", "zed"];
         const skillAgentOverrides = new Map([
-          ["claude-opencode-grok-first", ["claude-code"]],
           ["claude-subagent-routing", ["claude-code"]],
           ["codex-subagent-routing", ["codex"]],
         ]);
