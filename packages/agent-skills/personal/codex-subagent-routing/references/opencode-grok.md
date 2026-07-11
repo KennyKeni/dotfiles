@@ -8,8 +8,9 @@ authorizes that fallback.
 
 ## Select And Verify The Model
 
-Use `xai/grok-4.5` for every session in this lane. Refresh and verify it once
-before the first Grok assignment in the current context:
+Use `xai/grok-4.5` for every session in this lane. Never substitute a `fast`
+variant. Refresh and verify it once before the first Grok assignment in the
+current context:
 
 ```bash
 opencode models --refresh >/dev/null

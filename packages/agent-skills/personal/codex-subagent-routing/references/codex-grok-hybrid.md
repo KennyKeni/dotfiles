@@ -1,12 +1,25 @@
-# Codex Efficient Policy
+# Codex-Grok 4.5 Hybrid Policy
 
 Use this mixed policy to spend Grok 4.5 on routine work while reserving native
 Codex Sol at high effort for consequential work. This policy selects an
 execution lane; it does not introduce new roles.
 
 Before the first assignment through each selected execution lane, read the
-main skill's directly linked `opencode-grok.md` or `codex-quality.md` reference.
-Reuse loaded references for later assignments in the current context.
+main skill's directly linked `opencode-grok.md`, `cursor-grok.md`, or
+`codex-quality.md` reference. Reuse loaded references for later assignments in
+the current context.
+
+## Select The Grok Harness
+
+Treat the Grok execution harness as a routing attribute separate from role and
+routing class. Honor an explicit `OpenCode` or `Cursor` request for each routine
+assignment. Otherwise use the active mission's recorded Grok harness preference;
+when neither supplies one, default to OpenCode for backward compatibility.
+
+Record the selected harness in the assignment packet. Keep focused follow-ups
+in the same OpenCode session or Cursor chat. Do not switch harnesses mid-session;
+start a new session only when the user or active mission selects another harness
+or the current harness is unavailable and fallback is authorized.
 
 ## Classify The Scout
 
@@ -74,15 +87,16 @@ routing class.
 
 Use these mappings:
 
-- routine `scout`: OpenCode `explore` with `xai/grok-4.5`;
+- routine `scout`: selected Grok harness with Grok 4.5;
 - consequential `scout`: native Codex Sol at high effort;
-- routine `worker`: OpenCode `build` with `xai/grok-4.5`;
+- routine `worker`: selected Grok harness with Grok 4.5;
 - consequential `worker`: native Codex Sol at high effort;
 - every `validator`: fresh native Codex Sol at high effort.
 
 Skip the scout when the main skill's delegation criteria do not justify one.
 Keep `scout`, `worker`, and `validator` as the canonical roles and include the
-routing class and selected execution lane in the assignment packet.
+routing class, selected execution lane, and Grok harness in the assignment
+packet.
 
 ## Escalate On Evidence
 

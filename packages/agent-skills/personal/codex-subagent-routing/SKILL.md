@@ -1,20 +1,21 @@
 ---
 name: codex-subagent-routing
-description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, Codex Efficient, OpenCode/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
+description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, Codex Efficient, OpenCode/Grok, Cursor/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
 ---
 
 # Codex Subagent Routing
 
 Use this skill only from the user-facing, goal-owning Codex session. Treat each
-subagent or OpenCode session as a bounded execution lane. Keep the current
+subagent, OpenCode session, or Cursor chat as a bounded execution lane. Keep the current
 session as the lead and final judge.
 
 ## Select The Execution Lane
 
 Treat an explicit provider or model request as policy selection, subject to that
-policy's role and risk eligibility. Without one, use native Codex Sol. Use an
-OpenCode lane only when the user requests it or the active mission has a
-recorded preference for it.
+policy's role and risk eligibility. Treat an explicit OpenCode or Cursor request
+as execution-harness selection within a compatible Grok policy. Without a
+provider or policy request, use native Codex Sol. Use an external lane only when
+the user requests it or the active mission has a recorded preference for it.
 
 Select a lane independently for each assignment. Before the first assignment
 to a lane in the current context, read its reference completely:
@@ -22,9 +23,11 @@ to a lane in the current context, read its reference completely:
 - native Codex: read [codex-quality.md](references/codex-quality.md);
 - mixed cost-aware routing: read
   [codex-grok-hybrid.md](references/codex-grok-hybrid.md), then read the native
-  Codex or Grok execution reference only when that policy selects it;
+  Codex or selected Grok harness reference only when that policy selects it;
 - xAI through OpenCode: read
   [opencode-grok.md](references/opencode-grok.md);
+- Grok 4.5 through Cursor: read
+  [cursor-grok.md](references/cursor-grok.md);
 - Ollama Cloud through OpenCode: read
   [opencode-ollama.md](references/opencode-ollama.md).
 
@@ -37,7 +40,7 @@ If a selected lane is unavailable, use another lane only when the user or
 active mission authorizes fallback. Otherwise keep the work in the lead or
 report the limitation.
 
-When an assignment is ineligible for an explicitly requested OpenCode policy,
+When an assignment is ineligible for an explicitly requested external policy,
 stop and report the mismatch. Use Sol only after the user or active mission
 authorizes that fallback; do not silently override the provider request.
 
@@ -179,8 +182,8 @@ the remaining issue.
 
 Follow the selected reference for model verification, invocation, continuation,
 and cleanup. Include the canonical role and selected lane in every assignment.
-Record the native task identifier or OpenCode session ID needed to steer,
-resume, wait for, or stop the assignment.
+Record the native task identifier, OpenCode session ID, or Cursor chat ID needed
+to steer, resume, wait for, or stop the assignment.
 
 Resume the same scout or worker for bounded corrections while its scope,
 contract, approach, evidence, and tier remain current. Start validation in a
