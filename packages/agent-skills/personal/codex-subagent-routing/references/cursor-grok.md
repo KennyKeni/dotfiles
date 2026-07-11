@@ -46,15 +46,17 @@ Scout invocation:
 cursor-agent --print \
   --workspace "$REPO" \
   --model grok-4.5-xhigh \
-  --mode ask \
   --output-format stream-json \
   --trust \
+  --force \
   < "$PROMPT_FILE"
 ```
 
-The scout's assignment must require evidence only and prohibit edits. The
-worker's assignment must carry the main skill's bounded change surface and
-no-delegation boundary.
+Run scouts in full Agent mode with `--force` so repository, shell, web, and
+other available tools are not permission-constrained. Enforce the scout's
+evidence-only and no-edit boundaries in its assignment rather than through
+Cursor mode permissions. Give workers the main skill's bounded change surface
+and no-delegation boundary.
 
 ## Continue And Clean Up
 
@@ -68,14 +70,14 @@ cursor-agent --print \
   --model grok-4.5-xhigh \
   --output-format stream-json \
   --trust \
+  --force \
   < "$PROMPT_FILE"
 ```
 
-Add `--mode ask` for a scout or `--force` for a worker. Avoid bare `--continue`
-when several chats may exist. If the chat ID was not recorded before an
-interruption, use `cursor-agent ls` interactively and match the repository and
-assignment context; Cursor does not provide a reliable headless chat-list
-interface.
+Use `--force` for both scouts and workers. Avoid bare `--continue` when several
+chats may exist. If the chat ID was not recorded before an interruption, use
+`cursor-agent ls` interactively and match the repository and assignment context;
+Cursor does not provide a reliable headless chat-list interface.
 
 Check for a live process only when a run hangs or is interrupted:
 
