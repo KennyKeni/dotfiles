@@ -113,6 +113,7 @@ tasks:
         const skillAgentOverrides = new Map([
           ["claude-subagent-routing", ["claude-code"]],
           ["codex-subagent-routing", ["codex"]],
+          ["grok-first", ["claude-code"]],
         ]);
         const bySourceAndAgents = new Map();
 
