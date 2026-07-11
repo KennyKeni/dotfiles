@@ -1,6 +1,6 @@
 ---
 name: codex-subagent-routing
-description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, Codex Efficient, OpenCode/Grok, Cursor/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
+description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, OpenCode/Grok, Cursor/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
 ---
 
 # Codex Subagent Routing
@@ -11,19 +11,15 @@ session as the lead and final judge.
 
 ## Select The Execution Lane
 
-Treat an explicit provider or model request as policy selection, subject to that
-policy's role and risk eligibility. Treat an explicit OpenCode or Cursor request
-as execution-harness selection within a compatible Grok policy. Without a
-provider or policy request, use native Codex Sol. Use an external lane only when
-the user requests it or the active mission has a recorded preference for it.
+Treat an explicit provider, harness, or model request as lane-policy selection,
+subject to that policy's role and risk eligibility. Without one, use native
+Codex Sol. Use an external lane only when the user requests it or the active
+mission has a recorded preference for it.
 
 Select a lane independently for each assignment. Before the first assignment
 to a lane in the current context, read its reference completely:
 
 - native Codex: read [codex-quality.md](references/codex-quality.md);
-- mixed cost-aware routing: read
-  [codex-grok-hybrid.md](references/codex-grok-hybrid.md), then read the native
-  Codex or selected Grok harness reference only when that policy selects it;
 - xAI through OpenCode: read
   [opencode-grok.md](references/opencode-grok.md);
 - Grok 4.5 through Cursor: read
@@ -88,9 +84,9 @@ contract and material design decisions. Route difficult or high-risk work
 affecting security, migrations, concurrency, data integrity, schemas, or
 public interfaces through native Codex Sol at high effort.
 
-When Codex Efficient is selected, classify each scout and worker assignment as
-`routine` or `consequential` using its reference. Treat the classification as a
-routing attribute, not another role. Keep the existing native Codex, Grok, and
+When a Grok lane is selected, classify each scout and worker assignment as
+`routine` or `consequential` using that complete lane reference. Treat the
+classification as a routing attribute, not another role. Keep native Codex and
 Ollama mappings unchanged when those policies are selected directly.
 
 Default to one active writable worker in a workspace. Use parallel workers
@@ -190,10 +186,10 @@ contract, approach, evidence, and tier remain current. Start validation in a
 fresh native Codex session. Count and bound worker-to-validator corrections
 under the review-cycle convergence policy above.
 
-For Codex Efficient, apply its evidence-based promotion before this default
-round bound. Treat the handoff from a routine Grok assignment to Sol-high as a
-lane escalation rather than a follow-up round, then apply the bound to the
-active Sol-high assignment.
+For a Grok lane, apply its evidence-based promotion before this default round
+bound. Treat the handoff from a routine Grok assignment to Sol-high as a lane
+escalation rather than a follow-up round, then apply the bound to the active
+Sol-high assignment.
 
 ## Clean Up Interrupted Runs
 

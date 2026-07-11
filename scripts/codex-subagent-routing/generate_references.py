@@ -33,15 +33,12 @@ GENERATED_NOTICE = (
     "`scripts/codex-subagent-routing/lanes.yaml` or `lane.md.j2`. -->"
 )
 ALLOWED_FAMILIES = {"native", "cursor", "opencode"}
-COMMON_FIELDS = {"slug", "family", "title"}
+COMMON_FIELDS = {"slug", "family", "title", "models"}
 FAMILY_FIELDS = {
     "native": set(),
-    "cursor": {"model", "model_label_pattern"},
+    "cursor": {"model_label_patterns"},
     "opencode": {
         "variant",
-        "model",
-        "model_variable",
-        "model_choices_markdown",
         "title_prefix",
     },
 }
@@ -94,19 +91,65 @@ def load_lanes() -> list[dict[str, Any]]:
         unknown = lane.keys() - COMMON_FIELDS - FAMILY_FIELDS[family]
         if unknown:
             raise SpecError(f"unknown fields for {slug}: {', '.join(sorted(unknown))}")
-        if family != "native" and "model" not in lane:
-            raise SpecError(f"{slug} must define model")
+        if family != "native" and "models" not in lane:
+            raise SpecError(f"{slug} must define models")
         if family == "opencode" and "title_prefix" not in lane:
             raise SpecError(f"{slug} must define title_prefix")
         if family == "opencode" and lane.get("variant") not in {"grok", "ollama"}:
             raise SpecError(f"{slug} must define variant as grok or ollama")
-        if lane.get("variant") == "ollama":
-            ollama_fields = {"model_variable", "model_choices_markdown"}
-            missing_ollama = ollama_fields - lane.keys()
-            if missing_ollama:
+
+        if family == "native":
+            continue
+
+        models = lane["models"]
+        if not isinstance(models, dict):
+            raise SpecError(f"{slug} models must be a mapping")
+        model_keys = set(models)
+        if model_keys == {"shared"}:
+            lane["model_mode"] = "shared"
+            lane["scout_model"] = models["shared"]
+            lane["worker_model"] = models["shared"]
+        elif model_keys == {"scout", "worker"}:
+            lane["model_mode"] = "tiered"
+            lane["scout_model"] = models["scout"]
+            lane["worker_model"] = models["worker"]
+        elif model_keys == {"capability"} and lane.get("variant") == "ollama":
+            capability = models["capability"]
+            capability_fields = {"default", "variable", "choices_markdown"}
+            if not isinstance(capability, dict) or set(capability) != capability_fields:
                 raise SpecError(
-                    f"{slug} is missing: {', '.join(sorted(missing_ollama))}"
+                    f"{slug} capability models must define exactly: "
+                    f"{', '.join(sorted(capability_fields))}"
                 )
+            lane["model_mode"] = "capability"
+            lane["model_default"] = capability["default"]
+            lane["model_variable"] = capability["variable"]
+            lane["model_choices_markdown"] = capability["choices_markdown"]
+        else:
+            raise SpecError(
+                f"{slug} models must use shared, scout+worker, or Ollama capability mode"
+            )
+
+        if lane["model_mode"] in {"shared", "tiered"}:
+            model_ids = [lane["scout_model"], lane["worker_model"]]
+            if not all(isinstance(model_id, str) and model_id for model_id in model_ids):
+                raise SpecError(f"{slug} model IDs must be non-empty strings")
+            lane["models_to_verify"] = list(dict.fromkeys(model_ids))
+
+        if family == "cursor":
+            patterns = lane.get("model_label_patterns")
+            if not isinstance(patterns, dict):
+                raise SpecError(f"{slug} must define model_label_patterns")
+            missing_patterns = set(lane["models_to_verify"]) - patterns.keys()
+            if missing_patterns:
+                raise SpecError(
+                    f"{slug} is missing Cursor label patterns for: "
+                    f"{', '.join(sorted(missing_patterns))}"
+                )
+            lane["model_verifications"] = [
+                {"id": model_id, "label_pattern": patterns[model_id]}
+                for model_id in lane["models_to_verify"]
+            ]
 
     return lanes
 

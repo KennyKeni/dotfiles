@@ -8,26 +8,31 @@ lanes:
   - slug: cursor-grok
     family: cursor
     title: Cursor Grok Lane
-    model: grok-4.5-xhigh
-    model_label_pattern: Cursor Grok 4\.5
+    models:
+      shared: grok-4.5-xhigh
+    model_label_patterns:
+      grok-4.5-xhigh: Cursor Grok 4\.5
 
   - slug: opencode-grok
     family: opencode
     variant: grok
     title: OpenCode Grok Lane
-    model: xai/grok-4.5
+    models:
+      shared: xai/grok-4.5
     title_prefix: grok
 
   - slug: opencode-ollama
     family: opencode
     variant: ollama
     title: OpenCode Ollama Lane
-    model: ollama-cloud/glm-5.2
-    model_variable: MODEL
     title_prefix: ollama
-    model_choices_markdown: |-
-      - `ollama-cloud/glm-5.2` for text and code retrieval, implementation, and the
-        largest text-only contexts;
-      - `ollama-cloud/kimi-k2.7-code` when the assignment requires image input;
-      - `ollama-cloud/minimax-m3` when the assignment requires video input or
-        image-plus-text context beyond Kimi's capacity.
+    models:
+      capability:
+        default: ollama-cloud/glm-5.2
+        variable: MODEL
+        choices_markdown: |-
+          - `ollama-cloud/glm-5.2` for text and code retrieval, implementation, and the
+            largest text-only contexts;
+          - `ollama-cloud/kimi-k2.7-code` when the assignment requires image input;
+          - `ollama-cloud/minimax-m3` when the assignment requires video input or
+            image-plus-text context beyond Kimi's capacity.
