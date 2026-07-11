@@ -4,10 +4,20 @@ lanes:
   - slug: codex-quality
     family: native
     title: Native Codex Sol Lane
+    description_name: native Codex Sol
+    selection_label: native Codex
+    policy: direct
+    default: true
+    external: false
 
   - slug: cursor-grok
     family: cursor
     title: Cursor Grok Lane
+    description_name: Cursor/Grok
+    selection_label: Grok through Cursor
+    policy: grok
+    default: false
+    external: true
     models:
       shared: grok-4.5-xhigh
     model_label_patterns:
@@ -17,6 +27,11 @@ lanes:
     family: opencode
     variant: grok
     title: OpenCode Grok Lane
+    description_name: OpenCode/Grok
+    selection_label: xAI through OpenCode
+    policy: grok
+    default: false
+    external: true
     models:
       shared: xai/grok-4.5
     title_prefix: grok
@@ -25,6 +40,11 @@ lanes:
     family: opencode
     variant: ollama
     title: OpenCode Ollama Lane
+    description_name: OpenCode/Ollama
+    selection_label: Ollama Cloud through OpenCode
+    policy: direct
+    default: false
+    external: true
     title_prefix: ollama
     models:
       capability:

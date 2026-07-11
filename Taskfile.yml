@@ -171,14 +171,14 @@ tasks:
         BASH
 
   skills:routing:generate:
-    desc: Generate Codex subagent routing lane references.
+    desc: Generate the Codex subagent routing skill and lane references.
     cmds:
       - >-
         uv run --script
         {{.TASKFILE_DIR}}/scripts/codex-subagent-routing/generate_references.py
 
   skills:routing:check:
-    desc: Check that generated Codex subagent routing lane references are current.
+    desc: Check that generated Codex subagent routing files are current.
     cmds:
       - >-
         uv run --script
@@ -188,7 +188,7 @@ tasks:
   hooks:install:
     desc: Install repository Git hooks with Lefthook.
     cmds:
-      - mise exec -- lefthook install pre-push
+      - mise exec -- lefthook install pre-commit
 
   _stow:
     internal: true
