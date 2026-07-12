@@ -34,20 +34,53 @@ coequal conflict would change scope, acceptance, ownership, or material risk.
 
 ## Maintain Durable State
 
-Select one canonical authorized writable durable state artifact. Reuse an
-active issue only when ongoing issue updates are already authorized; technical
-write access alone is insufficient. Treat other external sources as read-only
-and reference them from the writable state artifact.
+Choose exactly one canonical writable state artifact:
 
-When no authorized writable project location exists, use a concise local,
-uncommitted state file in a repository-approved ignored location. Do not add
-permanent documentation merely to support the run.
+- When ongoing updates to the mission or umbrella issue are already authorized,
+  use that issue as the sole canonical state. Technical write access alone is
+  insufficient. Do not create a local state file alongside it.
+- Otherwise, use `.local/state/<mission-slug>.md` as the sole writable state.
+  Keep it uncommitted and do not create permanent project documentation for
+  execution state. External issues, PRs, plans, and handoffs remain evidence or
+  read-only references; do not maintain a second state snapshot in them.
+
+Derive `<mission-slug>` from a stable, concise mission identity using lowercase
+ASCII letters, digits, and hyphens. Before creating a file, inspect existing
+state files. Reuse a file only when its recorded repository and mission
+identity match. If a matching direct-execution checkpoint exists, upgrade that
+same file in place when work becomes a mission. If the candidate filename
+belongs to unrelated work, use the first available numeric suffix, such as
+`<mission-slug>-2.md`; never overwrite the unrelated file.
+
+Use ISO 8601 UTC timestamps in `YYYY-MM-DDTHH:mm:ssZ` form. The canonical
+artifact must always identify:
+
+- status: `active`, `blocked`, `complete`, or `superseded`, plus `created_at`
+  and `updated_at`;
+- repository identity and mission identity, including the mission slug;
+- authority kind: `mission-issue` or `local-state-file`, with the canonical
+  issue URL or repository-relative file path;
+- tracker authority and topology authority, including the tracker, umbrella
+  issue when one exists, and whether tracker-native relationships or the local
+  artifact own mission membership and prerequisite edges;
+- the authorization boundary for local edits, branches or worktrees, commits,
+  pushes, pull or merge requests, merges, deployments, issue updates, and
+  relationship mutations;
+- validation state: profile, contract or stable links, current assertion and
+  gate state, and accepted evidence;
+- active work: stage, feature, issue, PR, Git reference, ownership, integration
+  boundary, and owned implementation locks as applicable;
+- blockers, risks, and unresolved questions; and
+- the exact next action.
 
 When tracker-native relationships define mission membership or dependencies,
-treat that topology as authoritative and keep the local artifact as a
-refreshable execution snapshot. When no authorized tracker topology exists,
-the local artifact may own the graph; record that authority explicitly. Do not
-merge a cached tracker graph with a separate local canonical graph.
+treat that topology as authoritative. Query it fresh and never copy its nodes
+or edges into local durable state. The canonical artifact may record only the
+topology authority, relevant tracker references, derived current observations,
+and the exact next action. When no tracker topology has been designated
+authoritative, a local state file may own the mission DAG; record that authority
+explicitly and store the graph only there. Never merge a cached tracker graph
+with a separate local canonical graph.
 
 For a local graph, keep membership hierarchy distinct from prerequisite edges,
 record the nodes and edges in the canonical local artifact, detect dependency
@@ -65,21 +98,20 @@ back an owned lock when implementation is complete or deliberately relinquished.
 Never remove another owner's active lock. The label is issue-local; do not
 propagate it through tracker relationships.
 
-Keep a current-state snapshot rather than an activity diary. Record:
-
-- goal and non-goals;
-- active stage, feature, issue, PR, and Git reference;
-- active validation profile;
-- validation contract or links to it;
-- constraining decisions;
-- completed work with accepted evidence;
-- agent ownership and integration boundaries;
-- owned implementation locks;
-- blockers, risks, unresolved questions, and exact next action.
+Keep a current-state snapshot rather than an activity diary. In addition to the
+required fields above, retain goal and non-goals, constraining decisions, and
+completed work with accepted evidence when they are material to continuation.
 
 Update it after contract approval, a material decision, feature or PR
 completion, validation, stage transition, handoff, or proof supersession. Do
 not update it after every turn.
+
+When the mission finishes, set `status: complete`, update `updated_at`, and add
+`completed_at`. When another state artifact takes over, set
+`status: superseded`, update `updated_at`, and add `superseded_at` plus the
+successor's canonical reference. Preserve complete and superseded artifacts.
+Delete one only when the user or an already-authorized cleanup workflow
+explicitly requests that cleanup.
 
 ## Adopt Approved Issue Decomposition
 

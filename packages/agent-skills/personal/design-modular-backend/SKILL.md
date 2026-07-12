@@ -11,7 +11,7 @@ Build a **module-first, selectively hexagonal** backend: cohesive business capab
 
 ### 1. Inventory conversations
 
-Inspect the repository and trace representative behavior end to end. Record:
+Inspect the repository and trace representative behavior end to end. Read `.local/agents/domain.md` when it exists, then follow its routing to relevant context, ADRs, and architecture documents. Treat accepted architecture as normative, proposed architecture as advisory, and superseded architecture as historical. Record:
 
 - business capabilities and the language used for them;
 - driving conversations: HTTP/RPC calls, commands, events, schedules, streams, actor messages, workflow signals, or direct library calls;
@@ -81,6 +81,34 @@ For a design request, present one representative flow from trigger through modul
 For an implementation request, build one end-to-end tracer slice before replicating the shape. Test core behavior through its public use case, adapters against port contracts, module collaborations at public contracts, and a small number of assembled paths end to end.
 
 Complete this step when the representative slice works without bypassing a module contract and the proposed pattern handles every inventoried execution model.
+
+## Persist a design
+
+Present the design inline by default. Create a file only when the user explicitly asks to save or write the architecture.
+
+For a local save without another requested path, write or update `.local/architecture/modular-backend.md`. For a committed or shared save, require the user to supply the target path; that output is outside this local convention.
+
+Use this structure:
+
+```markdown
+# Modular Backend Architecture
+
+Status: proposed | accepted | superseded
+Updated: YYYY-MM-DD
+Scope: <capabilities and systems covered>
+Tracker: <issue URL or none>
+Supersedes: <document or none>
+Superseded by: <document or none>
+
+## Current state
+## Target state
+## Module and dependency model
+## Runtime and adapter model
+## Migration strategy
+## Linked decisions
+```
+
+Default a new document to `proposed`. Change status to `accepted` only after explicit user acceptance or an authoritative linked decision. Change status to `superseded` only when naming its successor. Keep atomic decisions in `.local/adr/` and link them from the architecture document.
 
 ## Design checks
 

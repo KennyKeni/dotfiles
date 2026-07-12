@@ -97,7 +97,7 @@ Surface the URL (and the `?variant=` keys). The user will flip through whenever 
 
 ### 6. Capture the answer and clean up
 
-Once a variant has won, write down which one and why in an already-authorized issue or ADR, or use `.local/prototypes/<slug>.md` as the local fallback. When cleanup or production implementation is authorized:
+Once a variant has won, report which one and why inline. Write the conclusion to an issue or ADR only when that write is already authorized. Only when the user explicitly asks to save it locally, write `.local/extra/prototypes/<slug>.md` with the question, winning variant, rationale, and useful details borrowed from other variants. Do not create a local conclusion file otherwise. When cleanup or production implementation is authorized:
 
 - **Sub-shape A** — delete the losing variants and the switcher; fold the winner into the existing page.
 - **Sub-shape B** — promote the winning variant to a real route, delete the throwaway route and the switcher.

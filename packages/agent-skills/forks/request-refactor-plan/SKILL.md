@@ -5,7 +5,11 @@ description: Create a detailed refactor plan with tiny commits via user intervie
 
 This skill will be invoked when the user wants to create a refactor request. You should go through the steps below. You may skip steps if you don't consider them necessary.
 
-Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`, then follow the tracker file's command conventions for every operation. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
+Before filing, read `.local/agents/issue-tracker.md`,
+`.local/agents/triage-labels.md`, and `.local/agents/issue-contract.md`, then
+follow the tracker file's command conventions for every operation. Run
+`/setup-matt-pocock-skills` if the local setup is missing. Do not create local
+issue files as a fallback.
 
 1. Ask the user for a long, detailed description of the problem they want to solve and any potential ideas for solutions.
 
@@ -21,17 +25,19 @@ Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-l
 
 7. Break the implementation into a plan of tiny commits. Remember Martin Fowler's advice to "make each refactoring step as small as possible, so that you can always see the program working."
 
-8. Create an issue in the configured issue tracker with the refactor plan. Use the following template for the issue description:
+8. Create a non-dispatchable tracking umbrella in the configured issue tracker.
+Render the canonical umbrella template from `.local/agents/issue-contract.md`,
+then append the refactor-plan sections below as supplemental detail. Apply the
+configured `enhancement` and `tracking` labels and read back the issue. This
+publishes the approved intent and decisions, not executable work.
+
+9. Invoke `to-issues` on the published umbrella to produce the executable
+tracer-bullet leaves and verified relationships. Do not implement the refactor
+as part of this workflow.
+
+Use these supplemental sections after the canonical umbrella core:
 
 <refactor-plan-template>
-
-## Problem Statement
-
-The problem that the developer is facing, from the developer's perspective.
-
-## Solution
-
-The solution to the problem, from the developer's perspective.
 
 ## Commits
 
@@ -58,10 +64,6 @@ A list of testing decisions that were made. Include:
 - A description of what makes a good test (only test external behavior, not implementation details)
 - Which modules will be tested
 - Prior art for the tests (i.e. similar types of tests in the codebase)
-
-## Out of Scope
-
-A description of the things that are out of scope for this refactor.
 
 ## Further Notes (optional)
 

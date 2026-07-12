@@ -27,9 +27,19 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 Look for the originating spec, in this order:
 
 1. Issue references in the commit messages (`#123`, `Closes #45`, etc.) — fetch via the workflow in `.local/agents/issue-tracker.md`.
-2. A path the user explicitly passed as an argument.
-3. A relevant `.local/` artifact if the work was captured locally.
-4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+2. Relevant `accepted` documents under `.local/architecture/`. Treat
+   `proposed` and `superseded` documents as context, not requirements.
+3. A relevant `.local/state/` artifact only while its recorded status is
+   `active`; completed or superseded state is continuation history, not a spec.
+4. A path or artifact the user explicitly designates as a spec source.
+5. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+
+For tracker issues, read the current body, labels, state, comments, and native
+relationships. Derive the active contract from the current issue body and the
+latest maintainer-approved contract or decision comments. Do not treat earlier
+superseded text, closed alternatives, or unrelated linked issues as active
+requirements. Files under `.local/extra/` are evidence, not specs, unless the
+user explicitly designates one for this review.
 
 ### 3. Identify the standards sources
 
@@ -38,7 +48,7 @@ Anything in the repo that documents how code should be written. Common locations
 - `AGENTS.md`
 - `CLAUDE.md`
 - `CONTRIBUTING.md`
-- `.local/agents/domain.md`, `.local/context/`, and `.local/adr/` (local domain language and architectural decisions are standards)
+- `.local/agents/domain.md`, `.local/context/`, `.local/adr/`, and accepted `.local/architecture/` documents (local domain language and accepted architectural decisions are standards; accepted architecture may also be a Spec requirement)
 - `.editorconfig`, `eslint.config.*`, `biome.json`, `prettier.config.*`, `tsconfig.json` (machine-enforced standards — note them but don't re-check what tooling already checks)
 - Any `STYLE.md`, `STANDARDS.md`, `STYLEGUIDE.md`, or similar at the repo root or under `docs/`
 

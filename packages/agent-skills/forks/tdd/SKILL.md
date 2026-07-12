@@ -44,7 +44,7 @@ RIGHT (vertical):
 
 ### 1. Planning
 
-When exploring the codebase, check `.local/agents/domain.md`. When it exists, use the configured local domain glossary so that test names and interface vocabulary match the project's language, and respect ADRs in the area you're touching. If it is absent, continue without domain memory; do not fall back to committed legacy docs such as `docs/agents/`, `docs/adr/`, or root context files.
+When exploring the codebase, check `.local/agents/domain.md`. When it exists, use the configured local domain glossary so that test names and interface vocabulary match the project's language, and respect ADRs in the area you're touching. If it is absent, continue without domain memory.
 
 Use lightweight planning by default. Invoking this skill does not by itself require user confirmation or plan approval.
 

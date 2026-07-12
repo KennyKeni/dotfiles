@@ -14,6 +14,37 @@ An **executable leaf** owns one independently verifiable slice. Apply one
 category label and either `ready-for-agent` for an AFK leaf or
 `ready-for-human` for a HITL leaf, but only after every field below is complete.
 
+## Tracking umbrella template
+
+Every tracking umbrella uses this canonical core. Workflow-specific material
+such as a PRD, refactor decisions, or testing notes may follow these sections as
+supplemental content, but must not redefine them.
+
+```markdown
+## Goal
+
+Describe the shared user or developer outcome this body of work must achieve.
+
+## Scope
+
+- State the behavior and boundaries owned by this umbrella.
+
+## Out of scope
+
+- State important exclusions that keep the work bounded.
+
+## Completion denominator
+
+- [ ] Name every independently verifiable outcome required before the umbrella
+      can close, or link each outcome to its executable leaf once the breakdown
+      exists.
+
+```
+
+The completion denominator is authoritative even before leaves exist. Native
+tracker hierarchy is authoritative for umbrella membership when configured;
+do not mirror that membership into a body-maintained list.
+
 For a planned leaf, render the contract in the issue body. For a reporter-created
 issue whose body must remain intact, render it in the latest maintainer-approved
 `## Agent Brief` comment. That rendered contract is authoritative.

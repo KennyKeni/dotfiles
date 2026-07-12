@@ -25,8 +25,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `.gitignore` — is `.local/` already ignored?
 - `AGENTS.md` and `CLAUDE.md` at the repo root — do they exist, and is there already an `## Agent skills` section?
 - `.local/agents/` — does this skill's output already exist?
-- `.local/context/` and `.local/adr/` — do local-only domain docs already exist?
-- Legacy locations, for reporting only: `docs/agents/`, root `CONTEXT.md`, root `CONTEXT-MAP.md`, `docs/adr/`, `.scratch/`, `.out-of-scope/`, and root `UBIQUITOUS_LANGUAGE.md`
+- `.local/context/`, `.local/adr/`, and `.local/architecture/` — do local-only domain or architecture docs already exist?
 - `gh auth status` / `gh label list` for GitHub, or `glab auth status` / `glab label list` for GitLab, when available — are auth and expected labels present?
 - Tracker relationship capabilities — are native hierarchy and dependency relationships available through the configured CLI and plan?
 
@@ -36,11 +35,15 @@ Summarise what's present and what's missing. Then state the defaults this skill 
 
 - GitHub Issues or GitLab Issues, matching the repo manager, is the canonical issue tracker.
 - `AGENTS.md` and, only when the repo already uses it or the user asks, `CLAUDE.md` are the only committed setup pointers this skill edits or creates.
-- `.local/` is gitignored and holds all other generated agent-owned config, domain docs, ADRs, reports, handoffs, scratch notes, and rejected-feature memory.
-- `.local/agents/` holds setup files consumed by the skills.
+- `.local/` is gitignored and holds local skill configuration and lazily created artifacts.
+- `.local/agents/` holds only the four setup files consumed by the skills.
 - `.local/context/` holds local-only domain context docs.
 - `.local/adr/` holds local-only Architecture Decision Records.
-- `.local/out-of-scope/` holds local rejected-feature memory for triage.
+- `.local/architecture/` holds explicitly saved architecture documents.
+- `.local/state/` holds execution continuity only when a producing workflow needs local state; explicit handoffs live under `.local/state/handoffs/`.
+- `.local/extra/reports/` and `.local/extra/prototypes/` hold disposable output only when the user explicitly asks to save it.
+
+Create each artifact directory lazily. Setup creates only `.local/agents/` and its four files.
 
 Do not offer tracker choices beyond GitHub Issues and GitLab Issues. If there is no GitHub or GitLab remote, ask for the repository or remote to use before doing issue-tracker operations; do not fall back to local issue files.
 
@@ -106,6 +109,7 @@ Use this layout:
 - **Single-context** — `.local/context/CONTEXT.md` plus `.local/adr/`.
 - **Multi-context** — `.local/context/CONTEXT-MAP.md` points to context files under `.local/context/`.
 - **ADRs** — all ADRs live in `.local/adr/`; include the context name in the title or slug when a decision is context-specific.
+- **Architecture** — relevant `accepted` documents under `.local/architecture/` are normative; `proposed` documents are advisory and `superseded` documents are historical.
 
 ### 6. Confirm and edit
 
@@ -143,7 +147,11 @@ Tracking umbrellas, executable leaves, and readiness use the canonical contract 
 
 ### Domain docs
 
-Local-only domain context and ADRs live under `.local/context/` and `.local/adr/`. See `.local/agents/domain.md`.
+Local-only domain context, ADRs, and explicitly saved architecture documents live under `.local/context/`, `.local/adr/`, and `.local/architecture/`. See `.local/agents/domain.md`.
+
+### Local artifacts
+
+Producing workflows create `.local/state/` and `.local/extra/` lazily. These contain execution state and disposable output, not project documentation.
 ```
 
 Also ensure `.gitignore` contains `.local/` as a standalone ignored path.
@@ -156,8 +164,6 @@ Then write the four setup files using the seed templates in this skill folder as
 - [domain.md](./domain.md) — domain doc consumer rules + layout
 
 Write them to `.local/agents/issue-tracker.md`, `.local/agents/issue-contract.md`, `.local/agents/triage-labels.md`, and `.local/agents/domain.md`. Fill the tracker template's relationship capability record with observed support rather than leaving placeholders.
-
-Do not delete, move, or rewrite existing committed docs automatically. If legacy `docs/agents/`, root `CONTEXT.md`, root `CONTEXT-MAP.md`, `docs/adr/`, `.scratch/`, `.out-of-scope/`, or root `UBIQUITOUS_LANGUAGE.md` files exist, report them as legacy/manual cleanup candidates.
 
 ### 8. Done
 

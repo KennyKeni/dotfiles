@@ -10,7 +10,6 @@ Move issues on the project issue tracker through a small state machine of triage
 ## Reference docs
 
 - [AGENT-BRIEF.md](AGENT-BRIEF.md) — guidance for applying the canonical issue contract to reporter-created issues
-- [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md) — how the `.local/out-of-scope/` knowledge base works
 
 ## Roles
 
@@ -79,7 +78,7 @@ locked issue.
 
 ## Triage a specific issue
 
-1. **Gather context.** Read the full issue from the configured tracker (body, comments, labels, reporter, dates). Parse any prior triage notes so you don't re-ask resolved questions. Check `.local/agents/domain.md`; when it exists, explore the codebase using the configured local domain glossary and respecting ADRs in the area. Read `.local/out-of-scope/*.md` and surface any prior rejection that resembles this issue. Do not fall back to committed domain docs as agent memory.
+1. **Gather context.** Read the full issue from the configured tracker (body, comments, labels, reporter, dates). Parse any prior triage notes so you don't re-ask resolved questions. Check `.local/agents/domain.md`; when it exists, explore the codebase using the configured local domain glossary and respecting ADRs in the area. Use the configured tracker's closed-decision search recipe to find conceptually similar rejected requests, then read every plausible match and surface its rationale.
 
 2. **Recommend.** Tell the maintainer your category and state recommendation with reasoning, plus a brief codebase summary relevant to the issue. Wait for direction.
 
@@ -92,8 +91,7 @@ locked issue.
    - `ready-for-human` — render and verify the canonical contract with human execution selected and a concrete reason it cannot be delegated, then apply the label.
    - `tracking` — verify that the issue is an aggregate whose shared goal, scope, and completion denominator are complete, then apply the non-dispatchable role; no leaf contract is required.
    - `needs-info` — post triage notes (template below).
-   - `wontfix` (bug) — polite explanation, then close.
-   - `wontfix` (enhancement) — write to `.local/out-of-scope/`, mention it from a comment, then close ([OUT-OF-SCOPE.md](OUT-OF-SCOPE.md)).
+   - `wontfix` — post a durable tracker comment explaining the decision and rationale, apply the role, close the issue, and perform the configured rejection read-back. If this repeats a prior rejection, link the new issue to the historical issue and summarize whether the rationale still applies. Preserve the historical issue's closed state unless the maintainer explicitly asks to reopen it.
    - `needs-triage` — apply the role. Optional comment if there's partial progress.
 
 ## Quick state override

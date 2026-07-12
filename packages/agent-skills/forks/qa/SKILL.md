@@ -7,7 +7,7 @@ description: Interactive QA session where user reports bugs or issues conversati
 
 Run an interactive QA session. The user describes problems they're encountering. You clarify, explore the codebase for context, and file issues in the configured issue tracker that are durable, user-focused, and use the project's domain language.
 
-Before filing, read `.local/agents/issue-tracker.md` and `.local/agents/triage-labels.md`, then follow the tracker file's command conventions for every operation. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
+Before filing, read `.local/agents/issue-tracker.md`, `.local/agents/triage-labels.md`, and `.local/agents/issue-contract.md`, then follow the tracker file's command conventions for every operation. Run `/setup-matt-pocock-skills` if the local setup is missing. Do not create local issue files as a fallback.
 
 ## For each issue the user raises
 
@@ -48,7 +48,7 @@ Keep as a single issue when:
 
 ### 4. File the issue(s)
 
-Create issues using the commands and conventions in `.local/agents/issue-tracker.md`. Do NOT ask the user to review first — just file and share URLs.
+Create issues using the commands and conventions in `.local/agents/issue-tracker.md`. Do NOT ask the user to review first — just file and share URLs. Every new reporter issue starts with the configured category label and `needs-triage`; QA reporting does not make a leaf dispatchable.
 
 Issues must be **durable** — they should still make sense after major refactors. Write from the user's perspective.
 
@@ -78,37 +78,14 @@ Use this template:
 
 #### For a breakdown (multiple issues)
 
-Create issues in dependency order (blockers first) so you can reference real issue numbers.
-
-Use this template for each sub-issue:
-
-```
-## Parent issue
-
-#<parent-issue-number> (if you created a tracking issue) or "Reported during QA session"
-
-## What's wrong
-
-[Describe this specific behavior problem — just this slice, not the whole report]
-
-## What I expected
-
-[Expected behavior for this specific slice]
-
-## Steps to reproduce
-
-1. [Steps specific to THIS issue]
-
-## Blocked by
-
-- #<issue-number> (if this issue can't be fixed until another is resolved)
-
-Or "None — can start immediately" if no blockers.
-
-## Additional context
-
-[Any extra observations relevant to this slice]
-```
+Create a non-dispatchable tracking issue from the canonical umbrella template
+in `.local/agents/issue-contract.md`, with the configured category and
+`tracking` labels. Then create reporter leaves in dependency order (blockers
+first) using the single-issue report sections above plus supplemental `Parent`
+and `Dependencies` fields from the canonical contract. Preserve these reporter
+bodies; triage adds a canonical `## Agent Brief` comment if a leaf later becomes
+dispatchable. Leaves start in `needs-triage`; only triage may approve them for
+dispatch.
 
 When creating a breakdown:
 
@@ -116,10 +93,8 @@ When creating a breakdown:
 - **Mark blocking relationships honestly** — if issue B genuinely can't be tested until issue A is fixed, say so. If they're independent, mark both as "None — can start immediately"
 - **Create issues in dependency order** so you can reference real issue numbers in "Blocked by"
 - **Maximize parallelism** — the goal is that multiple people (or agents) can grab different issues simultaneously
-- **Use native GitHub sub-issues** — when you create a GitHub tracking issue, attach every child through the native sub-issue operation in `.local/agents/issue-tracker.md`; a parent link in the body is only supplemental
-- **Verify the umbrella** — read back the tracking issue's native sub-issue list and confirm every intended child is present before reporting completion
-
-If an older tracker file lacks the native operation, use only this `gh` CLI sequence: fetch the child's REST database ID with `gh api "repos/{owner}/{repo}/issues/$child_number" --jq '.id'`, attach it with `gh api --method POST "repos/{owner}/{repo}/issues/$parent_number/sub_issues" -F "sub_issue_id=$child_id"`, and verify with `gh api --paginate "repos/{owner}/{repo}/issues/$parent_number/sub_issues" --jq '.[].number'`.
+- **Use configured relationships** — create hierarchy and genuine dependency edges only through the mechanisms declared in `.local/agents/issue-tracker.md`; when native relationships are configured, read them back and verify the complete graph
+- **Respect unsupported relationships** — when the configured tracker declares a relationship unsupported, use the canonical contract's supplemental fields as its authority rather than improvising another API or graph
 
 #### Rules for all issue bodies
 

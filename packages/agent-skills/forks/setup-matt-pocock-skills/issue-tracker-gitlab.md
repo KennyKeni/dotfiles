@@ -22,10 +22,23 @@ Common operations:
 
 - **Read an issue**: `glab issue view <number> --comments`, including labels and discussion.
 - **List issues**: `glab issue list` with the appropriate `--label`, `--state`, and JSON/JQ options when available.
+- **Search closed decisions**: `glab issue list --closed --per-page 100 --search "<concept terms>" --in title,description --output json`. Search both the reporter's wording and the underlying concept before concluding that no prior rejection exists.
 - **Comment on an issue**: `glab issue note <number> --message "..."`
 - **Create an issue**: `glab issue create --title "..." --description-file <file>` or `--description "..."`.
 - **Update labels**: `glab issue update <number> --label "label"` and remove stale labels with the matching `glab` option available on this machine.
 - **Close**: `glab issue close <number>` and add a final note when context is useful.
+
+For a rejection, put the durable rationale in a final issue note, close the
+issue, then use `glab issue view <number> --comments --output json` to read back
+the closed state, labels, description, URL, and discussion. If that view omits
+a required field on the installed version, use
+`glab api projects/:id/issues/<number>` and
+`glab api projects/:id/issues/<number>/notes` through the same configured
+`glab` interface. A successful mutation without this read-back is incomplete.
+
+When a new report repeats a closed rejection, link the new issue to the prior
+issue in a tracker note and preserve the prior issue as history. Reopen a
+historical issue only when the maintainer explicitly requests it.
 
 Use `.local/agents/triage-labels.md` for the actual GitLab label strings to apply for category and state roles.
 

@@ -7,7 +7,7 @@ description: Disciplined diagnosis loop for hard bugs and performance regression
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
-When exploring the codebase, check `.local/agents/domain.md`. When it exists, use the configured local domain glossary to get a clear mental model of the relevant modules, and check ADRs in the area you're touching. If it is absent, continue without domain memory; do not fall back to committed legacy docs such as `docs/agents/`, `docs/adr/`, or root context files.
+When exploring the codebase, check `.local/agents/domain.md`. When it exists, use the configured local domain glossary to get a clear mental model of the relevant modules, and check ADRs in the area you're touching. If it is absent, continue without domain memory.
 
 ## Phase 1 — Build a feedback loop
 

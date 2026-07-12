@@ -68,7 +68,7 @@ Give the user the run command. They'll drive it themselves; the interesting mome
 
 ### 7. Capture the answer
 
-When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them. Record the answer in the configured issue tracker only when issue updates are already authorized. Otherwise leave a local note under `.local/prototypes/<slug>.md` so the answer can be filled in before separately authorized cleanup.
+When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them, then report the conclusion inline. Record it in an issue or ADR only when that write is already authorized. Only when the user explicitly asks to save it locally, write `.local/extra/prototypes/<slug>.md` with the question, conclusion, and observed transitions or cases that support it. Do not create a local conclusion file otherwise.
 
 ## Anti-patterns
 

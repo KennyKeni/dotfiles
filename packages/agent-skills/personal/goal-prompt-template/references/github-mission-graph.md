@@ -25,10 +25,12 @@ feature issues.
 
 Keep validation contracts, completion evidence, runtime agent and workspace
 ownership, authorization, PR and CI state, deployment gates, and the exact next
-action in their designated authoritative sources, which may include GitHub
-issues and PRs. Do not persist or mirror GitHub relationship edges in local
-durable state. Treat transient query results and derived readiness as
-disposable observations, not dispatch authority.
+action in the sole canonical state artifact selected by `mission-setup.md`.
+GitHub issues and PRs may still own their native workflow facts and evidence,
+which the canonical artifact can reference. Do not persist or mirror GitHub
+relationship nodes or edges in local durable state. Treat transient query
+results and derived readiness as disposable observations, not dispatch
+authority.
 
 ## Refresh And Derive Readiness
 

@@ -32,7 +32,7 @@ This skill is _informed_ by the project's domain model. The domain language give
 
 ### 1. Explore
 
-Check `.local/agents/domain.md` first. When it exists, read the configured local context docs and any ADRs in the area you're touching. If it is absent, continue without domain memory; do not fall back to committed legacy docs such as `docs/agents/`, `docs/adr/`, or root context files.
+Check `.local/agents/domain.md` first. When it exists, read the configured local context docs and any ADRs in the area you're touching. If it is absent, continue without domain memory.
 
 Then use the Agent tool with `subagent_type=Explore` to walk the codebase. Don't follow rigid heuristics — explore organically and note where you experience friction:
 
@@ -44,30 +44,27 @@ Then use the Agent tool with `subagent_type=Explore` to walk the codebase. Don't
 
 Apply the **deletion test** to anything you suspect is shallow: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal you want.
 
-### 2. Present candidates as an HTML report
+### 2. Present candidates inline
 
-Write a self-contained HTML file under `.local/reports/architecture-review-<timestamp>.html` so agent-owned output stays local and gitignored. Create `.local/reports/` if needed. If there is no repo root, resolve the OS temp dir from `$TMPDIR`, falling back to `/tmp` (or `%TEMP%` on Windows). Open it for the user — `xdg-open <path>` on Linux, `open <path>` on macOS, `start <path>` on Windows — and tell them the absolute path.
+Return the findings in the conversation by default. Do not create or open a report file unless the user explicitly asks for a saved or visual report.
 
-The report uses **Tailwind via CDN** for layout and styling, and **Mermaid via CDN** for diagrams where a graph/flow/sequence reliably communicates the structure. Mix Mermaid with hand-crafted CSS/SVG visuals — use Mermaid when relationships are graph-shaped (call graphs, dependencies, sequences), and hand-built divs/SVG when you want something more editorial (mass diagrams, cross-sections, collapse animations). Each candidate gets a **before/after visualisation**. Be visual.
-
-For each candidate, the same template as before, but rendered as a card:
+For each candidate, include:
 
 - **Files** — which files/modules are involved
 - **Problem** — why the current architecture is causing friction
 - **Solution** — plain English description of what would change
 - **Benefits** — explained in terms of locality and leverage, and how tests would improve
-- **Before / After diagram** — side-by-side, custom-drawn, illustrating the shallowness and the deepening
-- **Recommendation strength** — one of `Strong`, `Worth exploring`, `Speculative`, rendered as a badge
+- **Recommendation strength** — one of `Strong`, `Worth exploring`, `Speculative`
 
-End the report with a **Top recommendation** section: which candidate you'd tackle first and why.
+End with a **Top recommendation**: which candidate you'd tackle first and why.
 
 **Use local context vocabulary for the domain, and [LANGUAGE.md](LANGUAGE.md) vocabulary for the architecture.** If `.local/context/CONTEXT.md` or a mapped context file defines "Order," talk about "the Order intake module" — not "the FooBarHandler," and not "the Order service."
 
-**ADR conflicts**: if a candidate contradicts an existing ADR, only surface it when the friction is real enough to warrant revisiting the ADR. Mark it clearly in the card (e.g. a warning callout: _"contradicts ADR-0007 — but worth reopening because…"_). Don't list every theoretical refactor an ADR forbids.
+**ADR conflicts**: if a candidate contradicts an existing ADR, only surface it when the friction is real enough to warrant revisiting the ADR. Mark it clearly (e.g. _"contradicts ADR-0007 — but worth reopening because…"_). Don't list every theoretical refactor an ADR forbids.
 
-See [HTML-REPORT.md](HTML-REPORT.md) for the full HTML scaffold, diagram patterns, and styling guidance.
+If the user explicitly asks for a saved or visual report, read [HTML-REPORT.md](HTML-REPORT.md), write the self-contained report to `.local/extra/reports/architecture-review-<timestamp>.html`, open it for the user, and provide the absolute path. Create the directory if needed.
 
-Do NOT propose interfaces yet. After the file is written, ask the user: "Which of these would you like to explore?"
+Do NOT propose interfaces yet. After presenting the findings, ask the user: "Which of these would you like to explore?"
 
 ### 3. Grilling loop
 

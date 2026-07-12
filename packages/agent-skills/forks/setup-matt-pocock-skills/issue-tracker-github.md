@@ -18,11 +18,25 @@ supplemental on GitHub and never replace native relationships.
 - **Create an issue**: `gh issue create --title "..." --body-file -`. Supply multi-line bodies with a heredoc on standard input.
 - **Read an issue**: `gh issue view <number> --comments`, filtering comments by `jq` and also fetching labels.
 - **List issues**: `gh issue list --state open --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'` with appropriate `--label` and `--state` filters.
+- **Search closed decisions**: `gh issue list --state closed --limit 100 --search "<concept terms>" --json number,title,url,body,labels,closedAt --jq '.'`. Search both the reporter's wording and the underlying concept before concluding that no prior rejection exists.
 - **Comment on an issue**: `gh issue comment <number> --body "..."`
 - **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
 - **Close**: `gh issue close <number> --comment "..."`
 
 After any create or mutation, inspect the result with `gh issue view` or the matching `gh api` read and report the issue URL. A successful command without read-back is not completion.
+
+For a rejection, store the durable rationale in the closing comment on the
+issue, then read back `state`, `stateReason`, labels, URL, body, and comments:
+
+```bash
+gh issue view "$issue_number" \
+  --json state,stateReason,labels,url,body,comments \
+  --jq '{state, stateReason, labels: [.labels[].name], url, body, comments: [.comments[].body]}'
+```
+
+When a new report repeats a closed rejection, link the new issue to the prior
+issue in a tracker comment and preserve the prior issue as history. Reopen a
+historical issue only when the maintainer explicitly requests it.
 
 ## Native sub-issues
 

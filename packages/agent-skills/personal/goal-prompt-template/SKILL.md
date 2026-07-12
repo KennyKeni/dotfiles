@@ -65,6 +65,10 @@ Use progressive disclosure. Do not load every reference at session start.
 - When mission execution is selected, read
   [mission-setup.md](references/mission-setup.md) before defining the
   validation contract or decomposing work.
+- When direct execution needs a continuation checkpoint, read the `Maintain
+  Durable State` section of
+  [mission-setup.md](references/mission-setup.md) before creating or updating
+  that checkpoint.
 - When an authorized mission uses a GitHub umbrella issue and native issue
   relationships, read
   [github-mission-graph.md](references/github-mission-graph.md) before shaping
@@ -97,10 +101,10 @@ action. Do not reload a reference merely because another agent is spawned.
 
 After compaction or resumption:
 
-1. For mission execution, read the canonical durable state artifact. For direct
-   execution, rederive the compact acceptance contract from the user request
-   and authoritative project artifacts, then inspect the current diff and
-   latest validation evidence.
+1. Read the sole canonical durable state artifact when one exists. For direct
+   execution without a continuation checkpoint, rederive the compact
+   acceptance contract from the user request and authoritative project
+   artifacts, then inspect the current diff and latest validation evidence.
 2. Verify the active Git reference and, when applicable, issue, PR, and CI state.
 3. When tracker relationships define mission topology, refresh authoritative
    membership and dependency edges and rederive readiness before dispatch.
@@ -109,7 +113,11 @@ After compaction or resumption:
 6. Refresh stale facts before acting.
 
 If direct execution is likely to cross another continuation boundary, create a
-lightweight local checkpoint or escalate it to mission execution.
+lightweight checkpoint using the same artifact-selection, identity, required
+field, lifecycle, and cleanup rules as mission state in
+[mission-setup.md](references/mission-setup.md). If direct work later escalates
+to mission execution, upgrade that same checkpoint in place; do not create a
+second durable state artifact.
 
 Do not re-explore the entire repository merely because compaction occurred.
 Do not delegate solely to avoid compaction.

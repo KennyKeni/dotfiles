@@ -9,23 +9,20 @@ The configured issue tracker, triage labels, and issue contract must be in `.loc
 
 ## Process
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already. Check `.local/agents/domain.md`; when it exists, use the configured local domain vocabulary throughout the PRD and respect any ADRs in the area you're touching. Do not fall back to committed domain docs as agent memory.
+1. Explore the repo to understand the current state of the codebase, if you haven't already. Check `.local/agents/domain.md`; when it exists, use the configured local domain vocabulary throughout the PRD and respect any ADRs in the area you're touching.
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can.
 
 Check with the user that these seams match their expectations.
 
-3. Write the PRD using the template below, then publish it to the project issue tracker as a non-dispatchable tracking umbrella. Apply the configured `enhancement` category and `tracking` state labels. The next planning step is `to-issues`; publishing the PRD does not authorize implementation.
+3. Render the canonical tracking umbrella template from
+`.local/agents/issue-contract.md`, then append the PRD sections below as
+supplemental detail and publish the result. Apply the configured `enhancement`
+category and `tracking` state labels. Read back the body, labels, state, URL,
+and configured relationships. The next planning step is `to-issues`;
+publishing the PRD does not authorize implementation.
 
 <prd-template>
-
-## Problem Statement
-
-The problem that the user is facing, from the user's perspective.
-
-## Solution
-
-The solution to the problem, from the user's perspective.
 
 ## User Stories
 
@@ -62,10 +59,6 @@ A list of testing decisions that were made. Include:
 - A description of what makes a good test (only test external behavior, not implementation details)
 - Which modules will be tested
 - Prior art for the tests (i.e. similar types of tests in the codebase)
-
-## Out of Scope
-
-A description of the things that are out of scope for this PRD.
 
 ## Further Notes
 

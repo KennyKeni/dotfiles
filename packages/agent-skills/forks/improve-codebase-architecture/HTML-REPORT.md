@@ -1,6 +1,8 @@
 # HTML Report Format
 
-The architectural review is rendered as a single self-contained HTML file under `.local/reports/` in the repo. Tailwind and Mermaid both come from CDNs. Mermaid handles graph-shaped diagrams reliably; hand-built divs and inline SVG handle the more editorial visuals (mass diagrams, cross-sections). Mix the two — don't lean on Mermaid for everything, it'll start to look generic.
+Use this format only when the user explicitly asks for a saved or visual architecture report. Render the review as a single self-contained HTML file at `.local/extra/reports/architecture-review-<timestamp>.html` in the repo, create the directory if needed, open the file for the user, and provide its absolute path. Do not create an HTML report for the default inline review.
+
+Tailwind and Mermaid both come from CDNs. Mermaid handles graph-shaped diagrams reliably; hand-built divs and inline SVG handle the more editorial visuals (mass diagrams, cross-sections). Mix the two — don't lean on Mermaid for everything, it'll start to look generic.
 
 ## Scaffold
 
