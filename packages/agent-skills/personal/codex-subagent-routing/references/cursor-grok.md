@@ -1,9 +1,8 @@
 # Cursor Grok Lane
 
 Use this policy to spend the configured Grok model or models on routine work
-through Cursor while reserving native Codex Sol at high effort for
-consequential work. This policy selects an execution lane; it does not
-introduce new roles.
+through Cursor while reserving native Codex Sol for consequential
+work. This policy selects an execution lane; it does not introduce new roles.
 
 ## Classify The Scout
 
@@ -72,7 +71,7 @@ routing class.
 Use these mappings:
 
 - routine `scout`: this lane with `grok-4.5-xhigh`;
-- consequential `scout`: native Codex Sol at high effort;
+- consequential `scout`: native Codex Sol at medium effort;
 - routine `worker`: this lane with `grok-4.5-xhigh`;
 - consequential `worker`: native Codex Sol at high effort;
 - every `validator`: fresh native Codex Sol at high effort.
@@ -101,9 +100,9 @@ routine; when a correction triggers consequential classification, apply the
 escalation boundary below.
 
 Stop the routine assignment at that boundary and return its verified evidence.
-Give a fresh Sol-high scout or worker a compact handoff containing the
-contract, observations, attempted proof, changed files when applicable, and
-unresolved questions. Treat Grok self-checks as worker evidence; retain
+Give a fresh Sol-medium scout or Sol-high worker a compact handoff containing
+the contract, observations, attempted proof, changed files when applicable,
+and unresolved questions. Treat Grok self-checks as worker evidence; retain
 independent Sol-high validation.
 
 ## Select And Verify The Model

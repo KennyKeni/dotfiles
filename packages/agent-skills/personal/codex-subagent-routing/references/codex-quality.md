@@ -1,19 +1,23 @@
-# Native Codex Sol Lane
+# Native Codex Lane
 
 Use this lane for default Codex delegation and for every architecturally
 consequential scout, difficult or high-risk worker, and formal validator.
 
 ## Select Model And Effort
 
-Use GPT-5.6 Sol with these defaults:
+Use GPT-5.6 Luna and GPT-5.6 Sol with these defaults:
 
-- `scout`, medium effort: bounded read-only repository exploration;
-- `scout`, high effort: consequential synthesis, unfamiliar cross-subsystem
-  diagnosis, or evidence affecting architecture, security, schemas,
-  migrations, concurrency, or public interfaces;
-- `worker`, medium effort: normal bounded implementation;
-- `worker`, high effort: difficult cross-cutting or high-risk implementation;
-- `validator`, high effort: fresh independent validation.
+- routine `scout`: `gpt-5.6-luna` at high effort for bounded read-only
+  repository exploration;
+- consequential `scout`: `gpt-5.6-sol` at medium effort for consequential
+  synthesis, unfamiliar cross-subsystem diagnosis, or evidence affecting
+  architecture, security, schemas, migrations, concurrency, or public
+  interfaces;
+- routine `worker`: `gpt-5.6-luna` at high effort for normal bounded
+  implementation;
+- consequential `worker`: `gpt-5.6-sol` at medium effort for difficult
+  cross-cutting or high-risk implementation;
+- `validator`: `gpt-5.6-sol` at high effort for fresh independent validation.
 
 Retain the current lead model and effort. Prefer GPT-5.6 Sol at xhigh effort
 for a long-horizon mission lead, while leaving parent-session selection to the

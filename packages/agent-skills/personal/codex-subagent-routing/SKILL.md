@@ -1,6 +1,6 @@
 ---
 name: codex-subagent-routing
-description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex Sol, Cursor/Grok, OpenCode/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
+description: Route bounded scout, worker, and validator assignments from a Codex lead through native Codex, Cursor/Grok, OpenCode/Grok, or OpenCode/Ollama execution lanes. Use when the user invokes $codex-subagent-routing, requests one of these Codex-led delegation policies, or combines lane selection with the goal prompt template.
 ---
 
 # Codex Subagent Routing
@@ -13,7 +13,7 @@ lead and final judge.
 
 Treat an explicit provider, harness, or model request as lane-policy selection,
 subject to that policy's role and risk eligibility. Without one, use the default
-lane, native Codex Sol. Use an external lane only when the
+lane, native Codex. Use an external lane only when the
 user requests it or the active mission has a recorded preference for it.
 
 Select a lane independently for each assignment. Before the first assignment
@@ -70,13 +70,13 @@ the selected lane. Route investigation that reconciles contradictory evidence,
 diagnoses an unknown cause across unfamiliar subsystems, shapes several
 feature contracts, or requires consequential judgment about architecture,
 security boundaries, production-data semantics, destructive migrations,
-concurrency, or externally consumed contracts through native Codex Sol at high
+concurrency, or externally consumed contracts through native Codex Sol at medium
 effort.
 
 Use a worker for one bounded implementation lane after the lead resolves the
 contract and material design decisions. Route difficult or high-risk work
 affecting security, migrations, concurrency, data integrity, schemas, or
-public interfaces through native Codex Sol at high effort.
+public interfaces through the selected lane's consequential worker mapping.
 
 When a Grok lane is selected, classify each scout and worker assignment as
 `routine` or `consequential` using that complete lane reference. Treat the
@@ -239,9 +239,9 @@ Record the selected lane's task or session identifier needed to steer, resume,
 wait for, or stop the assignment.
 
 For a Grok lane, apply its evidence-based promotion before the review-cycle
-round bound. Treat the handoff from a routine Grok assignment to Sol-high as a
-lane escalation rather than a follow-up round, then apply the bound to the
-active Sol-high assignment.
+round bound. Treat the handoff from a routine Grok assignment to its native
+Codex Sol consequential tier as a lane escalation rather than a follow-up
+round, then apply the bound to the active Sol assignment.
 
 ## Enforce And Recover Assignments
 

@@ -2,9 +2,8 @@
 
 {% if lane.family == "cursor" or (lane.family == "opencode" and lane.variant == "grok") %}
 Use this policy to spend the configured Grok model or models on routine work
-through {{ "Cursor" if lane.family == "cursor" else "OpenCode" }} while reserving native Codex Sol at high effort for
-consequential work. This policy selects an execution lane; it does not
-introduce new roles.
+through {{ "Cursor" if lane.family == "cursor" else "OpenCode" }} while reserving native Codex Sol for consequential
+work. This policy selects an execution lane; it does not introduce new roles.
 
 ## Classify The Scout
 
@@ -73,7 +72,7 @@ routing class.
 Use these mappings:
 
 - routine `scout`: this lane with `{{ lane.scout_model }}`;
-- consequential `scout`: native Codex Sol at high effort;
+- consequential `scout`: native Codex Sol at medium effort;
 - routine `worker`: this lane with `{{ lane.worker_model }}`;
 - consequential `worker`: native Codex Sol at high effort;
 - every `validator`: fresh native Codex Sol at high effort.
@@ -102,9 +101,9 @@ routine; when a correction triggers consequential classification, apply the
 escalation boundary below.
 
 Stop the routine assignment at that boundary and return its verified evidence.
-Give a fresh Sol-high scout or worker a compact handoff containing the
-contract, observations, attempted proof, changed files when applicable, and
-unresolved questions. Treat Grok self-checks as worker evidence; retain
+Give a fresh Sol-medium scout or Sol-high worker a compact handoff containing
+the contract, observations, attempted proof, changed files when applicable,
+and unresolved questions. Treat Grok self-checks as worker evidence; retain
 independent Sol-high validation.
 
 {% endif %}
@@ -114,15 +113,19 @@ consequential scout, difficult or high-risk worker, and formal validator.
 
 ## Select Model And Effort
 
-Use GPT-5.6 Sol with these defaults:
+Use GPT-5.6 Luna and GPT-5.6 Sol with these defaults:
 
-- `scout`, medium effort: bounded read-only repository exploration;
-- `scout`, high effort: consequential synthesis, unfamiliar cross-subsystem
-  diagnosis, or evidence affecting architecture, security, schemas,
-  migrations, concurrency, or public interfaces;
-- `worker`, medium effort: normal bounded implementation;
-- `worker`, high effort: difficult cross-cutting or high-risk implementation;
-- `validator`, high effort: fresh independent validation.
+- routine `scout`: `gpt-5.6-luna` at high effort for bounded read-only
+  repository exploration;
+- consequential `scout`: `gpt-5.6-sol` at medium effort for consequential
+  synthesis, unfamiliar cross-subsystem diagnosis, or evidence affecting
+  architecture, security, schemas, migrations, concurrency, or public
+  interfaces;
+- routine `worker`: `gpt-5.6-luna` at high effort for normal bounded
+  implementation;
+- consequential `worker`: `gpt-5.6-sol` at medium effort for difficult
+  cross-cutting or high-risk implementation;
+- `validator`: `gpt-5.6-sol` at high effort for fresh independent validation.
 
 Retain the current lead model and effort. Prefer GPT-5.6 Sol at xhigh effort
 for a long-horizon mission lead, while leaving parent-session selection to the

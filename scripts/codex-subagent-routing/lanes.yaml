@@ -3,8 +3,8 @@ schema_version: 1
 lanes:
   - slug: codex-quality
     family: native
-    title: Native Codex Sol Lane
-    description_name: native Codex Sol
+    title: Native Codex Lane
+    description_name: native Codex
     selection_label: native Codex
     policy: direct
     default: true
