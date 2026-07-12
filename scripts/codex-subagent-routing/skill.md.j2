@@ -59,26 +59,38 @@ Follow the global subagent context-forking policy.
 
 ## Route Deliberately
 
+Shape before classifying. Use the smallest coherent assignment whose
+operational envelope preserves affected consumers, deployment dependencies,
+integration obligations, cumulative behavior, rollback constraints, and proof
+obligations.
+
+Gate worker readiness before routing. Mark a candidate `ready` only when its
+behavior, contract, bounded scope, material design, acceptance assertions, and
+credible proof plan are resolved. Otherwise mark it `not_ready` and keep it
+with the lead for shaping or issue a bounded scout. Only a `ready` candidate
+receives a lane, model, and `routine` or `consequential` routing class.
+
 Use a scout for substantial, objectively checkable retrieval that would
 pollute the lead context or produce reusable evidence. Explore directly when
 the relevant files are known, the task is small, or interpretation cannot be
 separated from architectural judgment.
 
 Route ordinary repository mapping and implementation reconnaissance through
-the selected lane. Route investigation that reconciles contradictory evidence,
-diagnoses an unknown cause across unfamiliar subsystems, shapes several
-feature contracts, or requires consequential judgment about architecture,
-security boundaries, production-data semantics, destructive migrations,
-concurrency, or externally consumed contracts through native Codex Sol at medium
-effort.
+the selected lane, including bounded evidence gathering that the lead will use
+for an important architecture, security, migration, schema, concurrency, or
+public-interface decision. Route a scout consequentially only when the
+investigation itself requires material contradiction reconciliation, nonlocal
+causal synthesis across behaviorally coupled boundaries, or irreducible
+cross-repository trust, production-data, or distributed-state analysis.
 
 Use a worker for one bounded implementation lane after the lead resolves the
-contract and material design decisions. Route difficult or high-risk work
-affecting security, migrations, concurrency, data integrity, schemas, or
-public interfaces through the selected lane's consequential worker mapping.
+contract and material design decisions. Do not classify by proximity to
+security, migrations, concurrency, data integrity, schemas, or public
+interfaces. Classify the semantic change, operational coupling, reversibility,
+blast radius, and available proof through the selected lane.
 
 {% if grok_lanes %}
-When a Grok lane is selected, classify each scout and worker assignment as
+When a Grok lane is selected, classify each scout and each `ready` worker as
 `routine` or `consequential` using that complete lane reference. Treat the
 classification as a routing attribute, not another role. Keep other lane
 mappings unchanged when those policies are selected directly.
@@ -96,8 +108,9 @@ boundaries, required evidence, and stop condition.
 
 When retrieval needs a budget, enumerate the maximum sources, files, queries,
 or evidence branches to inspect. Lane eligibility and escalation triggers are
-earlier hard stops; in particular, a material contradiction immediately stops
-a routine Grok scout for escalation.
+hard stops. A routine Grok scout that exhausts its budget or finds a material
+contradiction returns its evidence to the lead, whose reassessment selects the
+next routing class.
 
 Require observed facts with file, symbol, line, command, log, or source
 references; relevant patterns and validation commands; inferences separated
@@ -117,9 +130,8 @@ repository instructions, required proof, delivery boundary, stop conditions,
 and return shape.
 
 When implementation needs a budget, enumerate the maximum materially different
-approaches and required acceptance checks. Lane eligibility and escalation
-triggers are earlier hard stops, including a Grok lane's two-unsuccessful-
-approach and failed-proof boundaries.
+approaches and required acceptance checks. Use a Grok lane's unsuccessful-
+approach and failed-proof boundaries as stops for lead reassessment.
 
 Let the worker own implementation and tightly coupled tests. Require it to
 stop before changing the contract, architecture, public API, schema, migration

@@ -7,64 +7,105 @@ work. This policy selects an execution lane; it does not introduce new roles.
 ## Classify The Scout
 
 Record a routine scout when it has one explicit, bounded question, a clear stop
-condition, and an answer that direct file, line, command, log, or
-authoritative-source evidence can settle. The search may span a large
-repository or source set when the question and stop condition remain bounded.
+condition, a bounded search surface or budget, and an evidence-only return that
+direct file, line, command, log, or authoritative-source evidence can settle.
+The search may span a large repository or source set when the question and stop
+condition remain bounded.
 
-Record a consequential scout when it must reconcile contradictory evidence,
-diagnose an unknown cause across coupled subsystems, trace cross-repository
-dependencies or security and data flows, or gather evidence that determines
-architecture or another high-impact implementation approach.
+A scout may remain routine when the lead will use its findings to decide
+architecture, security, migrations, schemas, concurrency, production-data, or
+public behavior. The lead owns those decisions and verifies material evidence.
 
-A scout may remain routine when its purpose is to discover the applicable
-pattern; an existing pattern is not a prerequisite for bounded retrieval.
+Record a consequential scout only when the evidence task itself requires:
 
-## Classify The Worker
+- reconciling material contradictions that remain after a bounded routine
+  search;
+- nonlocal causal diagnosis across multiple behaviorally coupled boundaries;
+  or
+- synthesizing cross-repository trust, production-data, or distributed-state
+  flows that cannot be decomposed into bounded evidence questions.
 
-Record a routine worker when all four gates pass and no consequential trigger
-below applies:
+Classify bounded pattern discovery and bounded evidence gathering for a
+consequential worker decision as routine scouting.
 
-- the behavior, contract, and acceptance assertions are explicit;
-- the change has bounded ownership and scope, with no unresolved material
-  design decision;
-- failure has contained impact and the change is reasonably recoverable; and
+## Gate Worker Readiness
+
+Apply the main skill's worker-readiness gate before selecting a tier. Confirm
+that the operational envelope covers affected consumers, deployment
+dependencies, integration obligations, cumulative behavior, rollback, and
+proof. Expand the packet boundary when implementation, containment, recovery,
+or acceptance proof depends on adjacent work; otherwise preserve that
+dependency as routing evidence.
+
+## Classify The Ready Worker
+
+Record a ready worker as routine when:
+
+- ownership, scope, integration obligations, and affected consumers are
+  bounded;
+- failure has contained impact and ordinary revert or rollback is credible;
+- deployment does not require a coordinated high-risk transition; and
 - correctness has reliable, task-local proof through automated tests,
   deterministic commands, or clear visual or manual verification.
 
 Treat an established pattern, mechanical repetition, backward compatibility,
 and direct automated tests as strong confidence signals, not prerequisites.
 
-Record a consequential worker when any condition is true:
+Record a ready worker as consequential when implementation:
 
-- requirements involve ambiguity, product judgment, architecture, or a choice
-  among materially different approaches;
-- work requires coordinated changes across behaviorally coupled subsystems,
-  contracts, or consumers;
-- failure has broad blast radius or rollback is difficult;
-- concrete coupling requires coordinated state, ordering, cross-service calls,
-  shared contract consumers, or concurrency-sensitive behavior;
-- implementation changes a trust boundary or security-relevant behavior,
+- changes a trust boundary or security-relevant behavior,
   including authentication, authorization, session or token lifecycle,
   credential or secret handling, permissions, tenant isolation, cryptography,
   or validation at an exposed boundary;
-- the assignment materially affects externally consumed contracts,
-  production-data semantics, destructive or irreversible migrations, or
-  rollout-sensitive infrastructure;
-- correctness depends on production-only state, consequential concurrency or
-  performance behavior, or evidence that cannot be reproduced reliably within
-  the assignment; or
-- the acceptance assertions do not have clear, checkable proof.
+- changes material production-data semantics or integrity invariants whose
+  blast radius, recovery, or correctness cannot be contained and proved
+  task-locally;
+- performs destructive or irreversible production-data work;
+- makes a backward-incompatible externally consumed contract change;
+- requires coordinated rollout across independently deployed consumers;
+- changes a distributed-state, ordering, or concurrency invariant whose
+  correctness cannot be established with task-local proof;
+- has broad blast radius that cannot be contained by ordinary revert or
+  rollback; or
+- depends materially on production-only or otherwise non-reproducible evidence.
 
-Small net-new features, routine integration work, visual changes, and changes
-across multiple independent files may remain routine. Documentation, copy,
-fixtures, and mechanical refactors around security surfaces may remain routine
-when they leave security behavior unchanged. Test fixtures, local seed data,
-additive patterned APIs, backward-compatible migrations, and routine
-automation are not consequential by category; classify their ambiguity,
-coupling, impact, recoverability, and proof.
+A specifically named inability to establish containment may also justify
+consequential routing when it identifies the unknown operational boundary and
+explains why another bounded scout cannot settle it. Generic uncertainty is
+insufficient.
 
-Default uncertainty to `consequential`. Size alone does not determine the
-routing class.
+Treat the following as routine-compatible rather than as hard triggers:
+
+- a new feature, multiple files or modules, routine integration, or unfamiliar
+  code;
+- an additive patterned API or schema change;
+- a backward-compatible migration;
+- implementing an architecture or approach already resolved by the lead;
+- documentation, copy, fixtures, local seed data, visual changes, mechanical
+  refactors, routine automation, or adding and updating tests; or
+- downstream importance of the result.
+
+For every consequential classification, record:
+
+- `trigger`: the exact hard trigger above or `inability_to_bound`;
+- `evidence`: concrete repository, contract, or operational facts showing it
+  applies; and
+- `containment_failure`: why ordinary rollback and task-local proof are
+  insufficient.
+
+## Calibrate The Classification
+
+| Assignment | Result |
+| --- | --- |
+| Find every reader of one configuration key with file and line evidence. | Routine scout |
+| Locate the established handler pattern within a bounded search budget. | Routine scout |
+| Reconcile conflicting authorization behavior across independently deployed services. | Consequential scout |
+| Add an optional CLI flag following the existing parser, configuration, and test pattern. | Routine worker |
+| Add a backward-compatible response field with contract tests and no coordinated rollout. | Routine worker |
+| Change authorization semantics for tenant-scoped resources. | Consequential worker |
+| Rewrite an irreversible production dataset. | Consequential worker |
+| Improve onboarding without defined behavior or acceptance assertions. | `not_ready` worker candidate |
+| Redesign cache invalidation without a selected contract or credible proof plan. | `not_ready` worker candidate |
 
 ## Route The Tier
 
@@ -87,23 +128,29 @@ of silently changing lanes.
 
 ## Escalate On Evidence
 
-Promote a routine assignment to consequential before spawning when any
-consequential trigger is known. Promote a routine scout when it cannot settle
-the explicit question within its bounded search budget or encounters material
-contradictions. Promote a routine worker after two materially different
-unsuccessful approaches, concrete coupling evidence, failure to produce
-acceptance-aligned proof, or discovery of a high-consequence implication.
+Classify an assignment as consequential before spawning when a supported hard
+trigger or `inability_to_bound` and its required record are already known.
+During execution, stop and return to the lead when a scout exhausts its budget
+or encounters material contradictions, or when a worker reaches two materially
+different unsuccessful approaches, discovers concrete coupling, cannot
+produce acceptance-aligned proof, or discovers a high-consequence implication.
 
-Treat lead or validator findings as new routing evidence. Return bounded
-corrections to the same routine session only while every correction remains
-routine; when a correction triggers consequential classification, apply the
-escalation boundary below.
+Treat each stop as a lead reassessment boundary. Promote a scout only when its
+evidence now meets the consequential-scout definition. Reassess worker
+readiness after a failed approach or failed proof; keep the candidate
+`not_ready` when its design or proof plan is unresolved, and promote it only
+when `trigger`, `evidence`, and `containment_failure` are present. A worker
+remains `not_ready` when even a consequential scout cannot establish the
+required contract or operational envelope.
 
-Stop the routine assignment at that boundary and return its verified evidence.
-Give a fresh Sol-medium scout or Sol-high worker a compact handoff containing
-the contract, observations, attempted proof, changed files when applicable,
-and unresolved questions. Treat Grok self-checks as worker evidence; retain
-independent Sol-high validation.
+Treat lead or validator findings as new routing evidence. When reassessment
+returns `routine`, send only bounded routine corrections to the same session.
+When it returns `consequential`, stop the routine assignment and give a fresh
+Sol-medium scout or Sol-high worker a compact handoff containing the contract,
+observations, attempted proof, changed files when applicable, and unresolved
+questions. When it returns `not_ready`, stop the worker, preserve its evidence,
+and return the candidate to the lead for shaping. Treat Grok self-checks as
+worker evidence; retain independent Sol-high validation.
 
 
 ## Select And Verify The Model
