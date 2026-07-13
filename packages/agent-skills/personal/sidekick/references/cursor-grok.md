@@ -44,11 +44,12 @@ Use full Agent mode throughout the persistent chat. Enforce exploration-only,
 writable scope, judgment boundaries, and no-delegation requirements through
 each assignment packet.
 
-Capture `session_id` from the initial `system/init` event immediately and record
-the exact invoked model as `MODEL`. Observe completed assistant messages,
-tool-call start and completion events, errors, and the terminal `result`. Treat
-the terminal event's error state, subtype, process exit, and useful result as
-completion evidence. Keep thinking deltas out of the returned answer.
+Capture `session_id` from the initial `system/init` event immediately. Observe
+completed assistant messages, tool-call start and completion events, errors,
+and the terminal `result`. Treat the terminal event's error state, subtype,
+process exit, and useful result as completion evidence.
+Record the exact invoked model as `MODEL`. Keep thinking deltas out of the
+returned answer.
 
 ## Continue And Recover
 

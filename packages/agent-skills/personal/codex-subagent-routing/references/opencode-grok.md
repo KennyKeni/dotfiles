@@ -207,17 +207,33 @@ Recover a missing session ID by matching the unique title and repository.
 
 ## Continue And Recover
 
-Resume the recorded session with its exact model and agent, omitting `--fork`:
+Resume the recorded session with its exact model and agent, omitting `--fork`.
+For a read-only scout follow-up:
 
 ```bash
 MODEL="<exact-model-used>"
-AGENT="<explore-or-build>"
+AGENT=explore
 opencode run --dir "$REPO" \
   --session "$SESSION_ID" \
   --model "$MODEL" \
   --agent "$AGENT" \
   --file "$PROMPT_FILE" \
   --format json \
+  "Read the attached follow-up and remain within the original assignment."
+```
+
+For a writable worker follow-up:
+
+```bash
+MODEL="<exact-model-used>"
+AGENT=build
+opencode run --dir "$REPO" \
+  --session "$SESSION_ID" \
+  --model "$MODEL" \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --dangerously-skip-permissions \
   "Read the attached follow-up and remain within the original assignment."
 ```
 

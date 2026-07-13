@@ -103,17 +103,51 @@ Recover a missing session ID by matching the unique title and repository.
 
 ## Continue And Recover
 
-Resume the recorded session with its exact model and agent, omitting `--fork`:
+Resume the recorded session with its exact model and agent, omitting `--fork`.
+{% if consumer == "routing" %}
+For a read-only scout follow-up:
 
 ```bash
-{{ ("MODEL=" ~ execution.worker_model ~ "\nAGENT=build\n") if consumer == "sidekick" else "MODEL=\"<exact-model-used>\"\nAGENT=\"<explore-or-build>\"\n" }}opencode run --dir "$REPO" \
+MODEL="<exact-model-used>"
+AGENT=explore
+opencode run --dir "$REPO" \
   --session "$SESSION_ID" \
   --model "$MODEL" \
   --agent "$AGENT" \
   --file "$PROMPT_FILE" \
   --format json \
-{{ "  --dangerously-skip-permissions \\\n" if consumer == "sidekick" else "" }}  "Read the attached follow-up and remain within the original assignment."
+  "Read the attached follow-up and remain within the original assignment."
 ```
+
+For a writable worker follow-up:
+
+```bash
+MODEL="<exact-model-used>"
+AGENT=build
+opencode run --dir "$REPO" \
+  --session "$SESSION_ID" \
+  --model "$MODEL" \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --dangerously-skip-permissions \
+  "Read the attached follow-up and remain within the original assignment."
+```
+{% else %}
+
+```bash
+MODEL={{ execution.worker_model }}
+AGENT=build
+opencode run --dir "$REPO" \
+  --session "$SESSION_ID" \
+  --model "$MODEL" \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --dangerously-skip-permissions \
+  "Read the attached follow-up and remain within the original assignment."
+```
+{% endif %}
 
 Retain `--dangerously-skip-permissions` for every writable follow-up. Avoid bare
 `--continue` when several sessions may exist. Delete prompt files only after

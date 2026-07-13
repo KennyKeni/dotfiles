@@ -39,6 +39,7 @@ REFERENCES_DIR = SKILL_DIR / "references"
 SPEC_PATH = SOURCE_DIR / "setups.yaml"
 SETUP_TEMPLATE = "setup.md.j2"
 SKILL_TEMPLATE = "skill.md.j2"
+OPENAI_TEMPLATE = "openai.yaml.j2"
 COMMON_FIELDS = {"slug", "harness", "title", "selection_label", "default"}
 NATIVE_FIELDS = {
     "sidekick_model",
@@ -123,6 +124,7 @@ def render(setups: list[dict[str, Any]]) -> dict[Path, str]:
     )
     setup_template = environment.get_template(SETUP_TEMPLATE)
     skill_template = environment.get_template(SKILL_TEMPLATE)
+    openai_template = environment.get_template(OPENAI_TEMPLATE)
     outputs = {
         REFERENCES_DIR / f"{setup['slug']}.md": setup_template.render(
             setup=setup
@@ -134,6 +136,9 @@ def render(setups: list[dict[str, Any]]) -> dict[Path, str]:
     outputs[SKILL_DIR / "SKILL.md"] = (
         skill_template.render(setups=setups, default_setup=default_setup).rstrip()
         + "\n"
+    )
+    outputs[SKILL_DIR / "agents" / "openai.yaml"] = (
+        openai_template.render(default_setup=default_setup).rstrip() + "\n"
     )
     return outputs
 

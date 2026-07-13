@@ -49,7 +49,7 @@ Recover a missing session ID by matching the unique title and repository.
 
 ## Continue And Recover
 
-Resume the recorded session with its exact model and agent, omitting `--fork`:
+Resume the recorded session with its exact model and agent, omitting `--fork`.
 
 ```bash
 MODEL=xai/grok-4.5
