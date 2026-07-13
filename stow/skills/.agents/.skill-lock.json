@@ -309,9 +309,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/personal/codex-subagent-routing/SKILL.md",
-      "skillFolderHash": "ae4eb6171941f9c6140cd5a03a90ea2b6e764041",
+      "skillFolderHash": "7fbd6436ee9cc39f6f14395b7fef226ce8bad688",
       "installedAt": "2026-07-10T03:44:09.230Z",
-      "updatedAt": "2026-07-13T21:07:55.961Z"
+      "updatedAt": "2026-07-13T21:13:54.337Z"
     },
     "claude-subagent-routing": {
       "source": "KennyKeni/dotfiles",
@@ -358,9 +358,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "skillPath": "packages/agent-skills/personal/sidekick/SKILL.md",
-      "skillFolderHash": "fe34881aafa8189fbcc80ebf7a227bdf645868c0",
+      "skillFolderHash": "59e913046cda9d46443e1507c73604e567494d3d",
       "installedAt": "2026-07-13T20:45:46.194Z",
-      "updatedAt": "2026-07-13T21:07:56.978Z"
+      "updatedAt": "2026-07-13T21:13:55.006Z"
     }
   },
   "dismissed": {
