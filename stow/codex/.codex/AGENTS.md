@@ -16,14 +16,6 @@ This machine uses `mise` for runtime/tool version management. Prefer `mise`-mana
 All skills must be installed and tracked through `npx skills`. Never install
 skills manually.
 
-# Subagents
-
-Always specify `fork_turns: "none"` when spawning a subagent. Never omit
-`fork_turns`, because MultiAgent V2 defaults an omitted value to `"all"` and
-copies the parent's full conversation history. Use a small positive turn count
-only when essential recent context cannot be restated compactly, and explain
-the exception before spawning. Never use `fork_turns: "all"`.
-
 # Git-Excluded Instruction Files
 
 `AGENTS.md` and `CLAUDE.md` are globally git-excluded on this machine. If a repository should track one of these files, unexclude it on a per-repository basis.
@@ -37,3 +29,44 @@ Do not mention LLM or AI usage in comments, commit messages, PR descriptions, is
 # Cloudflare
 
 The `cf` command can be used to manage Cloudflare.
+
+# GitHub Comment Attachments
+
+Use the `drogers0/gh-image` GitHub CLI extension when an agent needs to upload
+an image or file to a GitHub issue or pull request comment. It creates native
+`github.com/user-attachments/...` URLs using the same upload flow as GitHub's
+web editor. Inline base64 `data:` image URLs do not work in GitHub Markdown.
+
+Install the extension when it is missing:
+
+```sh
+gh extension install drogers0/gh-image
+```
+
+Upload the attachment first, then include its returned Markdown in the comment:
+
+```sh
+image_markdown="$(gh image screenshot.png --repo OWNER/REPO)"
+gh issue comment ISSUE_NUMBER --repo OWNER/REPO --body "Screenshot:
+
+$image_markdown"
+```
+
+For pull requests:
+
+```sh
+gh pr comment PR_NUMBER --repo OWNER/REPO \
+  --body "$(gh image screenshot.png --repo OWNER/REPO)"
+```
+
+On first use, `gh-image` may trigger a macOS Keychain prompt to read the
+signed-in browser's cookie encryption key. Explain the prompt and wait for the
+user to approve it. Never print, log, commit, or expose `user_session`,
+`GH_SESSION_TOKEN`, or output from `gh image extract-token`. Prefer local
+browser-cookie authentication and never pass a session cookie with `--token`,
+because command arguments can appear in process listings.
+
+This extension uses GitHub's undocumented browser upload flow and may break.
+If it fails, report the failure and use GitHub's web comment editor, or ask
+before committing the image to a repository-hosted assets branch. Never
+silently upload files to a third-party host.
