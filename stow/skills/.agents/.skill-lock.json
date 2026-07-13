@@ -310,10 +310,11 @@
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
       "skillPath": "packages/agent-skills/personal/codex-subagent-routing/SKILL.md",
-      "skillFolderHash": "670a04722102cec5cf6b011713df6fc0542674d2",
+      "skillFolderHash": "7d4e058a6ff9ec8317d05864f4920cd44a7bdc96",
       "installedAt": "2026-07-10T03:44:09.230Z",
-      "updatedAt": "2026-07-12T21:41:33.772Z"
+      "updatedAt": "2026-07-13T05:55:24.349Z"
     },
     "claude-subagent-routing": {
       "source": "KennyKeni/dotfiles",
@@ -321,9 +322,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/personal/claude-subagent-routing/SKILL.md",
-      "skillFolderHash": "3904ea7bc8c908f1dbef5c5f5807259228e8e8b2",
+      "skillFolderHash": "96d55d9fbfd23ccac585480ca2a37dd58cb01bf4",
       "installedAt": "2026-07-11T02:19:21.673Z",
-      "updatedAt": "2026-07-11T02:19:21.673Z"
+      "updatedAt": "2026-07-13T05:55:25.578Z"
     },
     "grilling": {
       "source": "KennyKeni/dotfiles",
@@ -341,9 +342,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/personal/grok-first/SKILL.md",
-      "skillFolderHash": "7658879df61d82a44d257acde18919b1156600de",
+      "skillFolderHash": "4a2a6abfef2361ad1e5769b6c778c226378c1319",
       "installedAt": "2026-07-11T10:08:53.465Z",
-      "updatedAt": "2026-07-11T10:32:16.388Z"
+      "updatedAt": "2026-07-13T05:55:25.579Z"
     },
     "design-modular-backend": {
       "source": "KennyKeni/dotfiles",
