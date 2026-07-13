@@ -38,7 +38,7 @@ SKILL_DIR = REPOSITORY_DIR / "packages" / "agent-skills" / "personal" / "sidekic
 REFERENCES_DIR = SKILL_DIR / "references"
 SPEC_PATH = SOURCE_DIR / "setups.yaml"
 SETUP_TEMPLATE = "setup.md.j2"
-SKILL_TEMPLATE = "skill.md.j2"
+REGISTRY_TEMPLATE = "setups.md.j2"
 OPENAI_TEMPLATE = "openai.yaml.j2"
 COMMON_FIELDS = {"slug", "harness", "title", "selection_label", "default"}
 NATIVE_FIELDS = {
@@ -123,7 +123,7 @@ def render(setups: list[dict[str, Any]]) -> dict[Path, str]:
         lstrip_blocks=True,
     )
     setup_template = environment.get_template(SETUP_TEMPLATE)
-    skill_template = environment.get_template(SKILL_TEMPLATE)
+    registry_template = environment.get_template(REGISTRY_TEMPLATE)
     openai_template = environment.get_template(OPENAI_TEMPLATE)
     outputs = {
         REFERENCES_DIR / f"{setup['slug']}.md": setup_template.render(
@@ -133,8 +133,8 @@ def render(setups: list[dict[str, Any]]) -> dict[Path, str]:
         for setup in setups
     }
     default_setup = next(setup for setup in setups if setup["default"])
-    outputs[SKILL_DIR / "SKILL.md"] = (
-        skill_template.render(setups=setups, default_setup=default_setup).rstrip()
+    outputs[REFERENCES_DIR / "setups.md"] = (
+        registry_template.render(setups=setups, default_setup=default_setup).rstrip()
         + "\n"
     )
     outputs[SKILL_DIR / "agents" / "openai.yaml"] = (

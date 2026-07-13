@@ -3,7 +3,7 @@
 Use the current Codex session as the main agent and one persistent Cursor chat
 as the sidekick.
 
-## Select And Verify The Model
+## Verify
 
 Use `cursor-grok-4.5-high` for the persistent sidekick. Retain the
 current main agent's model and reasoning effort.
@@ -19,7 +19,7 @@ Keep the work in the main agent and report the limitation when Cursor is
 unavailable, the account is not authenticated, or the model is absent. Retain
 the exact model for focused follow-ups.
 
-## Invoke Cursor
+## Start
 
 Create a compact prompt file using the environment's approved file-writing
 mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use event-stream JSON
@@ -40,9 +40,15 @@ cursor-agent --print \
   < "$PROMPT_FILE"
 ```
 
+Run it in a supervised long-running execution session. Record that execution
+session and capture the Cursor `session_id` as `CHAT_ID` so the main agent can
+continue independent judgment work while Cursor executes.
+
 Use full Agent mode throughout the persistent chat. Enforce exploration-only,
 writable scope, judgment boundaries, and no-delegation requirements through
 each assignment packet.
+
+## Observe And Steer
 
 Capture `session_id` from the initial `system/init` event immediately. Observe
 completed assistant messages, tool-call start and completion events, errors,
@@ -51,7 +57,11 @@ process exit, and useful result as completion evidence.
 Record the exact invoked model as `MODEL`. Keep thinking deltas out of the
 returned answer.
 
-## Continue And Recover
+Do not open a second chat for a focused question. Let the active run return, or
+interrupt it only when blocked, then resume `CHAT_ID` with the answer and the
+remaining assignment.
+
+## Continue
 
 Resume a focused follow-up with the recorded chat ID, the same workspace, exact
 model, full permissions, and a focused prompt file:
@@ -74,6 +84,8 @@ Record the chat ID before deleting the prompt file. Recover a missing ID with
 Resume the same chat after a capacity error or interruption while its context
 remains trustworthy.
 
+## Stop And Recover
+
 For a permitted health check or recovery, inspect only the recorded run:
 
 ```bash
@@ -83,9 +95,11 @@ ps -axo pid,ppid,command | rg '[c]ursor-agent' || true
 Interrupt only the process created for that run and preserve the prompt and
 useful evidence until the chat is recoverable.
 
-When the chat cannot safely resume, end delegated execution, return the work to
-the main agent, and report that the requested pair is degraded. Preserve the
-one-sidekick invariant by leaving replacement to a new user invocation.
+When the chat cannot safely resume, return the work and useful evidence to the
+main agent. If replacement is worthwhile, start one new chat with the same
+model and a compact handoff, record its new `CHAT_ID`, and disclose that the
+cached sidekick context was lost.
 
-The setup is satisfied when every delegated unit uses this exact pair or the
-main agent has explicitly reported that the pair is unavailable or degraded.
+Use this adapter for the full sidekick lifecycle. Keep its recorded identifier
+until the task ends or the main agent explicitly replaces an unrecoverable
+session with the same requested setup.

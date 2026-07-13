@@ -22,5 +22,6 @@ session as the sidekick.
 {% include "sidekick-opencode-runtime.md.j2" %}
 {% endif %}
 
-The setup is satisfied when every delegated unit uses this exact pair or the
-main agent has explicitly reported that the pair is unavailable or degraded.
+Use this adapter for the full sidekick lifecycle. Keep its recorded identifier
+until the task ends or the main agent explicitly replaces an unrecoverable
+session with the same requested setup.

@@ -1,127 +1,86 @@
 ---
 name: sidekick
-description: Pair the current Codex lead with one persistent sidekick for coding work while the lead retains judgment and final review.
+description: Run a Fusion-style coding session with the current Codex session as the high-judgment main agent and a persistent lower-cost sidekick as a parallel executor. Use when the user explicitly invokes Sidekick for coding, refactoring, testing, or repository work and wants frontier judgment retained while execution-heavy work is delegated.
 ---
 
 # Sidekick
 
-Run one persistent two-agent pair. Keep the current user-facing session as the
-main agent and final judge. Delegate by default up to the judgment boundary.
+Run two fully capable agents with separate, persistent contexts. Keep the
+current user-facing session as the main agent. Use its intelligence sparingly
+for planning, ambiguity, consequential decisions, and final review. Delegate
+and monitor by default so the sidekick absorbs execution cost without replacing
+main-agent judgment.
 
-## Select The Setup
+## Load One Setup Adapter
 
-Use an explicitly requested setup. Otherwise use Luna Max.
-Before starting the sidekick, read the selected setup completely:
+Read [setups.md](references/setups.md), select an explicitly requested setup or
+its declared default, then read that adapter completely. Treat the adapter as
+the source of truth for model, start, observe, continue, stop, and recovery
+operations. Report an unavailable requested setup instead of silently changing
+models or harnesses.
 
-- Luna Max: read [luna-max.md](references/luna-max.md);
-- Grok 4.5 through OpenCode: read [opencode-grok.md](references/opencode-grok.md);
-- Grok 4.5 through Cursor: read [cursor-grok.md](references/cursor-grok.md).
+## Start Both Contexts Early
 
-Treat the setup reference as the single source of truth for model, reasoning
-effort, harness controls, and setup failure recovery. Keep the generic
-delegation lifecycle in this file. Report an unknown or unavailable requested
-setup rather than substituting another configuration.
+Start the sidekick near the beginning of the task with the largest immediately
+useful assignment. Do not use it as a one-shot question tool. Keep its task,
+chat, or session identifier and continue the same context across exploration,
+implementation, testing, and repair.
 
-## Work At The Judgment Boundary
+Give the sidekick a compact packet containing the user outcome, repository
+scope, resolved contract, constraints, writable ownership, required proof, and
+the decisions it must return to the main agent. Reconstruct only the context it
+needs; let it inspect the repository and build its own cached context.
 
-Keep planning, interpretation of ambiguity, architecture, product intent,
-material design decisions, ownership changes, final review, and completion
-judgment with the main agent.
+## Route At The Judgment Boundary
 
-Give the sidekick the largest immediately safe unit of execution. Favor code
-exploration, evidence gathering, implementation with a resolved contract,
-mechanical changes, tests, slow verification, lint repair, and focused fixes.
-Difficulty alone does not determine ownership: hard mechanical work belongs
-with the sidekick, while work whose deliverable is judgment belongs with the
-main agent.
+Route by what the work delivers, not by apparent difficulty.
 
-The main agent may implement directly when judgment is concentrated in the
-code or direct action is the smallest coherent move. Keep useful independent
-execution with the sidekick, such as gathering evidence or running verification.
+| Work unit | Owner |
+| --- | --- |
+| Bounded exploration with an evidence-shaped answer | Sidekick |
+| Mechanical or patterned implementation with resolved intent | Sidekick |
+| Slow tests, lint repair, broad cleanup, or repetitive edits | Sidekick |
+| Hard implementation that mostly reuses an established or upstream design | Sidekick |
+| Planning, ambiguous requirements, architecture, product or UX intent | Main |
+| Security, migration, public-contract, or irreversible decisions | Main |
+| Final interpretation of failures and acceptance of the result | Main |
 
-## Start One Persistent Sidekick
+For calibration: write a small judgment-bearing diff in the main agent and
+hand the expensive test suite to the sidekick; hand a broad mechanical removal
+to the sidekick; keep a subtle cross-team UI decision in the main agent; hand a
+hard integration to the sidekick when the design is already settled upstream.
 
-Start the selected setup once near the beginning of the task. Give it a compact
-assignment containing:
+## Work In Parallel
 
-- the user's outcome and the repository scope;
-- applicable repository instructions and verified facts;
-- the current contract, constraints, and non-goals;
-- the largest safe first assignment;
-- explicit file or module ownership for every writable assignment;
-- required proof and the expected return shape; and
-- boundaries that return decisions to the main agent.
+While the sidekick executes, keep main-agent actions minimal. Read only what is
+necessary to decide intent, resolve ambiguity, or review risk. Perform
+independent planning or judgment work when useful; otherwise observe through
+the adapter. Do not duplicate the sidekick's exploration or edit its active
+write scope.
 
-Reconstruct the minimum task context in the assignment. Require the sidekick to
-remain one layer deep and create no agents. Tell it that other work may already
-exist in the shared workspace, to preserve changes it does not own, and to
-accommodate concurrent edits rather than revert them. Repeat these ownership
-safeguards in every writable follow-up.
+At each question, evidence update, or return, choose one move:
 
-Choose the first assignment by current need: assign exploration when the main
-agent needs evidence, and assign implementation immediately when intent and the
-contract are already clear.
+- continue the same assignment when the contract still holds;
+- answer a bounded question and let the sidekick proceed;
+- reclaim the work when judgment, ambiguity, or consequential risk becomes the
+  deliverable;
+- resolve that decision in the main agent, then return the resulting mechanical
+  work to the same sidekick context; or
+- stop and recover the session through the adapter when its context or process
+  is no longer trustworthy.
 
-This step is complete when the configured sidekick is active with a bounded,
-useful assignment and the main agent knows which decisions remain its own.
+If the persistent session cannot recover, keep the work in the main agent or
+start one replacement with the same requested setup and a compact handoff when
+the remaining execution savings justify rebuilding context. Never hide the
+loss of context or silently substitute another model.
 
-## Route Responsibility During The Task
+## Review With The Main Agent
 
-Treat ownership as dynamic while retaining the same sidekick session. The main
-agent should take minimal actions, read only what it needs for decisions, and
-delegate and monitor by default.
+Require the sidekick to return changed files, proof run, observed results,
+unrun checks, deviations, and risks. Inspect the complete diff and repository
+state in the main agent. Make judgment-heavy corrections directly; send
+bounded execution corrections back to the retained sidekick context.
 
-Classify sidekick events before acting:
-
-- For a focused question within the active contract, answer through the
-  selected setup's focused-message or follow-up control and continue observing
-  the unfinished assignment.
-- For an intermediate status or evidence update, record what matters and
-  continue observing without issuing new work.
-- For evidence that invalidates the contract, scope, or judgment boundary,
-  stop the active assignment according to the selected setup and reclaim the
-  decision in the main agent.
-
-Only after a final return:
-
-1. Check whether its evidence preserves the contract and user intent.
-2. Resolve questions that cross the judgment boundary.
-3. Send the next bounded execution unit to the same sidekick session.
-4. Reclaim work when preserving intent or proving correctness now requires
-   main-agent judgment.
-
-Let the sidekick continue within the current contract when it merely needs a
-focused answer. Have it stop and return evidence when the contract, authorized
-scope, or material design changes; when an ambiguity affects user-visible
-behavior; or when it cannot produce acceptance-aligned proof. The main agent
-then decides, reshapes, implements, or returns a focused assignment to the same
-sidekick.
-
-Keep one writable owner for overlapping files at a time. Continue main-agent
-work only when it is independent of the sidekick's active write scope.
-
-This step is complete when every remaining task unit has an explicit owner and
-all material judgment has returned to the main agent.
-
-## Review And Converge
-
-Require each implementation handoff to identify files changed, assertions
-addressed, commands run, observed results, unrun checks, deviations, and risks.
-
-Have the main agent inspect the complete diff, repository state, and proof. Run
-only the additional checks needed to judge acceptance. Return bounded
-corrections to the same sidekick while its context remains current; handle a
-judgment-heavy correction in the main agent and use the sidekick for associated
-mechanical work or verification.
-
-Treat one correction handoff followed by main-agent review as one correction
-round. After two rounds, have the main agent reclaim or reshape the remaining
-work. A further round requires an explicit main-agent decision naming the
-unresolved blocker and why the retained sidekick context is still the best way
-to resolve it.
-
-Before final inspection, confirm the recorded sidekick has returned and has no
-active write assignment. Then inspect the final repository state and proof.
-Complete the task only when the main agent accepts the implementation against
-the user outcome, no unresolved blocker remains, and the final response reports
-the actual verification performed.
+Finish only after the sidekick has returned or stopped, the main agent accepts
+the result against the user's intent, and the final response reports the actual
+verification performed.
