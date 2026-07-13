@@ -6,7 +6,7 @@
 	excludesfile = /Users/keni/.config/git/ignore
 [credential "https://github.com"]
 	helper = 
-	helper = !/Users/keni/.local/share/mise/installs/gh/2.93.0/gh_2.93.0_macOS_arm64/bin/gh auth git-credential
+	helper = !/Users/keni/.local/share/mise/installs/gh/latest/gh_2.96.0_macOS_arm64/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/Users/keni/.local/share/mise/installs/gh/2.93.0/gh_2.93.0_macOS_arm64/bin/gh auth git-credential
+	helper = !/Users/keni/.local/share/mise/installs/gh/latest/gh_2.96.0_macOS_arm64/bin/gh auth git-credential

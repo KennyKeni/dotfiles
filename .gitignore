@@ -42,3 +42,4 @@ stow/claude/
 # intentionally tracks the global Codex instructions.
 !stow/codex/.codex/
 !stow/codex/.codex/AGENTS.md
+!stow/opencode/.config/opencode/AGENTS.md
