@@ -115,6 +115,7 @@ tasks:
           ["claude-subagent-routing", ["claude-code"]],
           ["codex-subagent-routing", ["codex"]],
           ["grok-first", ["claude-code"]],
+          ["sidekick", ["codex"]],
         ]);
         const bySourceAndAgents = new Map();
 
