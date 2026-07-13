@@ -26,18 +26,18 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/personal/edit-article/SKILL.md",
-      "skillFolderHash": "d3e748a6f03a951c46f4e3621a850346ede89a87",
+      "skillFolderHash": "19ce34c6f4afcb58788e8e525dbb80c79a45a4a0",
       "installedAt": "2026-07-03T20:57:50.185Z",
-      "updatedAt": "2026-07-03T20:59:07.131Z"
+      "updatedAt": "2026-07-13T20:45:53.404Z"
     },
     "obsidian-vault": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/personal/obsidian-vault/SKILL.md",
-      "skillFolderHash": "1e814d168a215762391895aee58f4de06c8e3b7f",
+      "skillFolderHash": "5fdd257588fefa400e8a0d505aac555a0b52311a",
       "installedAt": "2026-07-03T20:57:50.185Z",
-      "updatedAt": "2026-07-03T20:59:07.131Z"
+      "updatedAt": "2026-07-13T20:45:54.268Z"
     },
     "codex-first": {
       "source": "steipete/agent-scripts",
@@ -62,20 +62,18 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "8320e7b87f7b208f50ce165b1dd43d1e93c8e801",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
       "installedAt": "2026-07-08T05:05:08.185Z",
-      "updatedAt": "2026-07-08T05:05:08.185Z"
+      "updatedAt": "2026-07-13T20:45:55.009Z"
     },
     "teach": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/teach/SKILL.md",
-      "skillFolderHash": "3b6a4245e2aaeacb308ba6175ab3e7f2e43b0c47",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "15f8c86d39ef834e643d092733ca899b59049067",
       "installedAt": "2026-07-08T05:05:08.186Z",
-      "updatedAt": "2026-07-08T05:05:08.186Z"
+      "updatedAt": "2026-07-13T20:45:56.560Z"
     },
     "diagnose": {
       "source": "KennyKeni/dotfiles",
@@ -292,10 +290,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/writing-great-skills/SKILL.md",
-      "skillFolderHash": "c84411b360fad91b8756e60fa17fd5b5761422dd",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "81d36946d48842f90358d8af54e3cdcc141f8e01",
       "installedAt": "2026-07-08T20:38:38.293Z",
-      "updatedAt": "2026-07-08T20:38:38.293Z"
+      "updatedAt": "2026-07-13T20:45:57.254Z"
     },
     "goal-prompt-template": {
       "source": "KennyKeni/dotfiles",
@@ -355,6 +352,15 @@
       "skillFolderHash": "d62f7ae8bd7df44e75b1f349da1b7eaa7dc149cc",
       "installedAt": "2026-07-11T23:36:34.686Z",
       "updatedAt": "2026-07-12T00:47:49.836Z"
+    },
+    "sidekick": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "skillPath": "packages/agent-skills/personal/sidekick/SKILL.md",
+      "skillFolderHash": "646c9e529fb6f3d0cbe4a02238ea99912ec06396",
+      "installedAt": "2026-07-13T20:45:46.194Z",
+      "updatedAt": "2026-07-13T20:45:46.194Z"
     }
   },
   "dismissed": {
