@@ -1,4 +1,3 @@
-{% if consumer == "routing" %}
 Use this lane for default Codex delegation and for every architecturally
 consequential scout, difficult or high-risk worker, and formal validator.
 
@@ -60,35 +59,3 @@ worker with the native follow-up control only while its context remains
 trustworthy. Preserve an interrupted initial validator's useful evidence and
 replace it with a fresh pass; resume a validator only for bounded delta
 revalidation. Replace or close any task whose context is no longer reliable.
-{% else %}
-## Configure The Pair
-
-- Main model: inherit the current session's model.
-- Main reasoning effort: inherit the current session's reasoning effort.
-- Sidekick model: `{{ execution.sidekick_model }}`.
-- Sidekick reasoning effort: `{{ execution.reasoning_effort }}`.
-- Sidekick agent type: `{{ execution.agent_type }}`.
-- Sidekick task name: `{{ execution.task_name }}`.
-- Context fork: `{{ execution.context_fork }}`.
-
-Choose these values explicitly when spawning. If the model or effort is
-unavailable, keep the work in the main agent and report that the requested
-setup could not be established.
-
-## Keep The Sidekick Persistent
-
-Use the native subagent controls. Spawn only one sidekick for the task and
-record its task identifier. Use mailbox waiting to observe it, focused messages
-to answer an active question, and follow-up tasks to reactivate it with the
-next bounded unit after a return.
-
-Retain the same task, model, and effort for exploration, implementation,
-testing, and correction phases. Route responsibility back to the main agent at
-the judgment boundaries in the main skill, then return executable work to this
-same sidekick when appropriate.
-
-Interrupt only this sidekick when it crosses an assignment boundary or its
-context is no longer trustworthy. Preserve its useful evidence, end delegated
-execution, and return the remaining work to the main agent. Report that the
-requested pair is degraded rather than creating a replacement session.
-{% endif %}

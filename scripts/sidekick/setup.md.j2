@@ -13,16 +13,13 @@ session as the sidekick.
 
 {% if setup.family == "native" %}
 {% set execution = setup %}
-{% set consumer = "sidekick" %}
-{% include "native-runtime.md.j2" %}
+{% include "sidekick-native-runtime.md.j2" %}
 {% elif setup.family == "cursor" %}
 {% set execution = setup %}
-{% set consumer = "sidekick" %}
-{% include "cursor-runtime.md.j2" %}
+{% include "sidekick-cursor-runtime.md.j2" %}
 {% else %}
 {% set execution = setup %}
-{% set consumer = "sidekick" %}
-{% include "opencode-runtime.md.j2" %}
+{% include "sidekick-opencode-runtime.md.j2" %}
 {% endif %}
 
 The setup is satisfied when every delegated unit uses this exact pair or the

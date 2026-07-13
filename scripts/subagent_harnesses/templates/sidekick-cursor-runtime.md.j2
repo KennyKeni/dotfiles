@@ -1,25 +1,13 @@
+{% import "components/cursor-commands.md.j2" as cursor_commands %}
 ## Select And Verify The Model
 
-{% if consumer == "routing" %}
-{% if execution.model_mode == "shared" %}
-Use `{{ execution.scout_model }}` for every routine scout and worker session in
-this lane.
-{% else %}
-Use `{{ execution.scout_model }}` for routine scouts and `{{ execution.worker_model }}`
-for routine workers.
-{% endif %}
-{% else %}
 Use `{{ execution.worker_model }}` for the persistent sidekick. Retain the
 current main agent's model and reasoning effort.
-{% endif %}
 Do not substitute a `fast` variant. Verify the installed CLI, authentication,
 and model once before the first Cursor assignment in the current context:
 
 ```bash
-cursor-agent status
-{% for verification in execution.model_verifications %}
-cursor-agent models | rg -x '{{ verification.id | replace(".", "\\.") }} - {{ verification.label_pattern }}'
-{% endfor %}
+{{ cursor_commands.verify(execution.model_verifications) }}
 ```
 
 Keep the work in the main agent and report the limitation when Cursor is
@@ -34,65 +22,21 @@ for writable or long-running work so the lead can supervise meaningful progress.
 Regular `stream-json` emits completed messages, tool activity, errors, and a
 final result; omit partial-output mode, which duplicates the completed response.
 
-{% if consumer == "routing" %}
-Worker invocation:
-
-```bash
-cursor-agent --print \
-  --workspace "$REPO" \
-  --model {{ execution.worker_model }} \
-  --output-format stream-json \
-  --trust \
-  --force \
-  < "$PROMPT_FILE"
-```
-
-Scout invocation:
-
-```bash
-cursor-agent --print \
-  --workspace "$REPO" \
-  --model {{ execution.scout_model }} \
-  --output-format json \
-  --trust \
-  --force \
-  < "$PROMPT_FILE"
-```
-
-Run scouts in full Agent mode and enforce their evidence-only boundary in the
-assignment. Give workers the main skill's bounded change surface and
-no-delegation boundary.
-{% else %}
 Start the sidekick:
 
 ```bash
 MODEL={{ execution.worker_model }}
-cursor-agent --print \
-  --workspace "$REPO" \
-  --model "$MODEL" \
-  --output-format stream-json \
-  --trust \
-  --force \
-  < "$PROMPT_FILE"
+{{ cursor_commands.start('"$MODEL"', "stream-json") }}
 ```
 
 Use full Agent mode throughout the persistent chat. Enforce exploration-only,
 writable scope, judgment boundaries, and no-delegation requirements through
 each assignment packet.
-{% endif %}
 
-{% if consumer == "routing" %}
-For a worker's `stream-json`, capture `session_id` from the initial `system/init`
-event immediately. Observe completed assistant messages, tool-call start and
-completion events, errors, and the terminal `result`. For a scout's `json`,
-parse the single terminal JSON object instead: record its `session_id` and use
-its error, subtype, process exit, and result fields as completion evidence.
-{% else %}
 Capture `session_id` from the initial `system/init` event immediately. Observe
 completed assistant messages, tool-call start and completion events, errors,
 and the terminal `result`. Treat the terminal event's error state, subtype,
 process exit, and useful result as completion evidence.
-{% endif %}
 Record the exact invoked model as `MODEL`. Keep thinking deltas out of the
 returned answer.
 
@@ -102,14 +46,8 @@ Resume a focused follow-up with the recorded chat ID, the same workspace, exact
 model, full permissions, and a focused prompt file:
 
 ```bash
-{{ ("MODEL=" ~ execution.worker_model ~ "\n") if consumer == "sidekick" else "MODEL=\"<exact-model-used>\"\n" }}cursor-agent --print \
-  --resume "$CHAT_ID" \
-  --workspace "$REPO" \
-  --model "$MODEL" \
-  --output-format stream-json \
-  --trust \
-  --force \
-  < "$PROMPT_FILE"
+MODEL={{ execution.worker_model }}
+{{ cursor_commands.resume('"$MODEL"') }}
 ```
 
 Record the chat ID before deleting the prompt file. Recover a missing ID with
@@ -121,17 +59,12 @@ remains trustworthy.
 For a permitted health check or recovery, inspect only the recorded run:
 
 ```bash
-ps -axo pid,ppid,command | rg '[c]ursor-agent' || true
+{{ cursor_commands.inspect_process() }}
 ```
 
 Interrupt only the process created for that run and preserve the prompt and
 useful evidence until the chat is recoverable.
 
-{% if consumer == "routing" %}
-Replace the chat only when it cannot resume or its context is no longer
-trustworthy.
-{% else %}
 When the chat cannot safely resume, end delegated execution, return the work to
 the main agent, and report that the requested pair is degraded. Preserve the
 one-sidekick invariant by leaving replacement to a new user invocation.
-{% endif %}

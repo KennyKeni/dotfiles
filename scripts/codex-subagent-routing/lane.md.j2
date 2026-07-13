@@ -156,22 +156,11 @@ worker evidence; retain independent Sol-high validation.
 {% endif %}
 {% if lane.family == "native" %}
 {% set execution = lane %}
-{% set consumer = "routing" %}
-{% include "native-runtime.md.j2" %}
+{% include "routing-native-runtime.md.j2" %}
 {% elif lane.family == "cursor" %}
 {% set execution = lane %}
-{% set consumer = "routing" %}
-{% include "cursor-runtime.md.j2" %}
+{% include "routing-cursor-runtime.md.j2" %}
 {% else %}
-{% if lane.variant == "ollama" %}
-Use this lower-cost lane only for eligible `scout` and `worker` assignments.
-Use native Codex Sol for every formal validator. When the main skill classifies
-requested work as architecturally consequential or high-risk, return the
-ineligible assignment to the lead; use Sol only when the user or active mission
-authorizes that fallback.
-
-{% endif %}
 {% set execution = lane %}
-{% set consumer = "routing" %}
-{% include "opencode-runtime.md.j2" %}
+{% include "routing-opencode-runtime.md.j2" %}
 {% endif %}

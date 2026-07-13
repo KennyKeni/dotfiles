@@ -1,32 +1,48 @@
-# OpenCode Ollama Lane
-
+{% import "components/opencode-commands.md.j2" as opencode_commands %}
+{% if execution.variant == "ollama" %}
 Use this lower-cost lane only for eligible `scout` and `worker` assignments.
 Use native Codex Sol for every formal validator. When the main skill classifies
 requested work as architecturally consequential or high-risk, return the
 ineligible assignment to the lead; use Sol only when the user or active mission
 authorizes that fallback.
 
+{% endif -%}
+{{ "\n" if execution.variant == "grok" else "" -}}
 ## Select And Verify The Model
 
+{% if execution.variant == "grok" %}
+{% if execution.model_mode == "shared" %}
+Use `{{ execution.scout_model }}` for every routine scout and worker session in this
+lane.
+{% else %}
+Use `{{ execution.scout_model }}` for routine scouts and `{{ execution.worker_model }}`
+for routine workers.
+{% endif %}
+Never substitute a `fast` variant. Refresh and verify the configured model or
+models once before the first Grok assignment in the current context:
+
+```bash
+{{ opencode_commands.verify(execution.models_to_verify) }}
+```
+
+Keep the work in Codex or report the limitation when the model is unavailable
+or lacks a required capability. Retain the exact model for focused follow-ups.
+{% else %}
 Choose one model before starting a session:
 
-- `ollama-cloud/glm-5.2` for text and code retrieval, implementation, and the
-  largest text-only contexts;
-- `ollama-cloud/kimi-k2.7-code` when the assignment requires image input;
-- `ollama-cloud/minimax-m3` when the assignment requires video input or
-  image-plus-text context beyond Kimi's capacity.
+{{ execution.model_choices_markdown }}
 
 Retain the selected exact model for focused follow-ups. Refresh and verify it
 once before the first assignment in the current context:
 
 ```bash
-MODEL=ollama-cloud/glm-5.2 # Set the selected exact model ID.
-opencode models --refresh >/dev/null
-opencode models | rg -Fx "$MODEL"
+{{ execution.model_variable }}={{ execution.model_default }} # Set the selected exact model ID.
+{{ opencode_commands.verify_selected(execution.model_variable) }}
 ```
 
 Choose another listed model only when its routing criteria apply. Otherwise
 keep the work in Codex or report the limitation.
+{% endif %}
 
 ## Invoke OpenCode
 
@@ -34,31 +50,18 @@ Verify `opencode agent list` shows both `explore (primary)` and `build
 (primary)`. Use `--agent explore` for scouts and `--agent build` for workers.
 
 Create a compact prompt file using the environment's approved file-writing
-mechanism. Set `REPO`, `MODEL`, and `PROMPT_FILE` before invocation.
+mechanism. Set `REPO`{% if execution.variant == "ollama" %}, `{{ execution.model_variable }}`,{% endif %} and `PROMPT_FILE` {% if execution.variant == "grok" %}to absolute paths{% else %}before invocation{% endif %}.
 
 Worker invocation:
 
 ```bash
-opencode run --dir "$REPO" \
-  --model "$MODEL" \
-  --agent build \
-  --file "$PROMPT_FILE" \
-  --format json \
-  --dangerously-skip-permissions \
-  --title "ollama worker: <bounded-task>" \
-  "Read the attached assignment and complete only that worker scope."
+{{ opencode_commands.start('"$' ~ execution.model_variable ~ '"' if execution.variant == "ollama" else execution.worker_model, "build", execution.title_prefix ~ " worker: <bounded-task>", "Read the attached assignment and complete only that worker scope.", writable=true) }}
 ```
 
 Scout invocation:
 
 ```bash
-opencode run --dir "$REPO" \
-  --model "$MODEL" \
-  --agent explore \
-  --file "$PROMPT_FILE" \
-  --format json \
-  --title "ollama scout: <bounded-question>" \
-  "Read the attached assignment and return evidence only. Do not edit files."
+{{ opencode_commands.start('"$' ~ execution.model_variable ~ '"' if execution.variant == "ollama" else execution.scout_model, "explore", execution.title_prefix ~ " scout: <bounded-question>", "Read the attached assignment and return evidence only. Do not edit files.") }}
 ```
 
 Give every run a unique title. Read the completed run output and record its
@@ -81,17 +84,12 @@ the repository untouched during supervision.
 ## Continue And Clean Up
 
 Resume with the recorded session ID and a focused follow-up file. Set `AGENT`
-to the original session's exact `explore` or `build` value. Use the same model
-and agent, and omit `--fork` so the existing session continues:
+to the original session's exact `explore` or `build` value. {% if execution.variant == "grok" %}Set `MODEL` to its
+exact model. Omit `--fork` so the existing session continues{% else %}Use the same model
+and agent, and omit `--fork` so the existing session continues{% endif %}:
 
 ```bash
-opencode run --dir "$REPO" \
-  --session "$SESSION_ID" \
-  --model "$MODEL" \
-  --agent "$AGENT" \
-  --file "$PROMPT_FILE" \
-  --format json \
-  "Read the attached follow-up and remain within the original assignment."
+{{ opencode_commands.resume('"$MODEL"', '"$AGENT"', "Read the attached follow-up and remain within the original assignment.") }}
 ```
 
 For a worker follow-up, retain `--dangerously-skip-permissions`. Avoid bare
@@ -102,14 +100,14 @@ If the session ID was not recorded before interruption, recover it by matching
 the run's unique title and repository in:
 
 ```bash
-opencode session list --format json --max-count 20
+{{ opencode_commands.list_sessions() }}
 ```
 
 When the main event loop permits a lane-health check or recovery, inspect the
 recorded run's process:
 
 ```bash
-ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
+{{ opencode_commands.inspect_process() }}
 ```
 
 Interrupt only the leftover process created by the delegated run. Preserve the
