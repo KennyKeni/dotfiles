@@ -111,9 +111,9 @@ For every consequential classification, record:
 
 Use these mappings:
 
-- routine `scout`: this lane with `grok-4.5-xhigh`;
+- routine `scout`: this lane with `cursor-grok-4.5-high`;
 - consequential `scout`: native Codex Sol at medium effort;
-- routine `worker`: this lane with `grok-4.5-xhigh`;
+- routine `worker`: this lane with `cursor-grok-4.5-high`;
 - consequential `worker`: native Codex Sol at high effort;
 - every `validator`: fresh native Codex Sol at high effort.
 
@@ -154,15 +154,15 @@ worker evidence; retain independent Sol-high validation.
 
 ## Select And Verify The Model
 
-Use `grok-4.5-xhigh` for every routine scout and worker session in this
+Use `cursor-grok-4.5-high` for every routine scout and worker session in this
 lane.
-Do not substitute `grok-4.5-fast-xhigh` or another `fast` variant. Verify the
+Do not substitute `cursor-grok-4.5-high-fast` or another `fast` variant. Verify the
 installed CLI, authentication, and model once before the first Cursor
 assignment in the current context:
 
 ```bash
 cursor-agent status
-cursor-agent models | rg -x 'grok-4\.5-xhigh - Cursor Grok 4\.5'
+cursor-agent models | rg -x 'cursor-grok-4\.5-high - Cursor Grok 4\.5'
 ```
 
 Keep the work in Codex or report the limitation when Cursor is unavailable,
@@ -185,7 +185,7 @@ Worker invocation:
 ```bash
 cursor-agent --print \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format stream-json \
   --trust \
   --force \
@@ -197,7 +197,7 @@ Scout invocation:
 ```bash
 cursor-agent --print \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format json \
   --trust \
   --force \

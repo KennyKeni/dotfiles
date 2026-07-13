@@ -43,7 +43,7 @@ Use Cursor by default. Honor an explicit Cursor or OpenCode request. Keep
 focused follow-ups in the same harness and session; do not switch harnesses
 mid-task.
 
-Choose Cursor when its subscription-backed `grok-4.5-xhigh` model is available,
+Choose Cursor when its subscription-backed `cursor-grok-4.5-high` model is available,
 especially for implementation that benefits from a resumable chat ID and
 workspace-aware agent execution. Choose OpenCode when Cursor is unavailable or
 the user explicitly wants a terminal-native OpenCode session using
@@ -59,7 +59,7 @@ Verify the installed CLI, authentication, and exact model:
 
 ```bash
 cursor-agent status
-cursor-agent models | rg -x 'grok-4\.5-xhigh - Cursor Grok 4\.5'
+cursor-agent models | rg -x 'cursor-grok-4\.5-high - Cursor Grok 4\.5'
 ```
 
 Prompt via temp file, never inline quoting. Set `REPO` and `PROMPT_FILE` to
@@ -71,14 +71,14 @@ PROMPT_FILE=$(mktemp); cat >"$PROMPT_FILE" <<'EOF'
 EOF
 cursor-agent --print \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format json \
   --trust \
   --force \
   < "$PROMPT_FILE"
 ```
 
-- Pin `grok-4.5-xhigh`; never substitute a `fast` variant.
+- Pin `cursor-grok-4.5-high`; never substitute a `fast` variant.
 - Use full Agent mode with `--force` for implementation and exploration.
   Enforce read-only exploration through the prompt, not reduced permissions.
 - Read the completed JSON object and record its `session_id` before deleting
@@ -94,7 +94,7 @@ Resume with the recorded chat ID, same workspace, model, and permissions:
 cursor-agent --print \
   --resume "$CHAT_ID" \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format json \
   --trust \
   --force \

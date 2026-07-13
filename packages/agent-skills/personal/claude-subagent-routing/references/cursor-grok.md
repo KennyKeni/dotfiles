@@ -8,14 +8,14 @@ active mission authorizes that fallback.
 
 ## Select And Verify The Model
 
-Use `grok-4.5-xhigh` for every session in this lane. Never substitute
-`grok-4.5-fast-xhigh` or another `fast` variant. Verify the installed CLI,
+Use `cursor-grok-4.5-high` for every session in this lane. Never substitute
+`cursor-grok-4.5-high-fast` or another `fast` variant. Verify the installed CLI,
 authentication, and model once before the first Cursor assignment in the
 current context:
 
 ```bash
 cursor-agent status
-cursor-agent models | rg -x 'grok-4\.5-xhigh - Cursor Grok 4\.5'
+cursor-agent models | rg -x 'cursor-grok-4\.5-high - Cursor Grok 4\.5'
 ```
 
 Keep the work in Codex or report the limitation when Cursor is unavailable,
@@ -36,7 +36,7 @@ Worker invocation:
 ```bash
 cursor-agent --print \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format json \
   --trust \
   --force \
@@ -48,7 +48,7 @@ Scout invocation:
 ```bash
 cursor-agent --print \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format json \
   --trust \
   --force \
@@ -70,7 +70,7 @@ model, full permissions, and a focused prompt file:
 cursor-agent --print \
   --resume "$CHAT_ID" \
   --workspace "$REPO" \
-  --model grok-4.5-xhigh \
+  --model cursor-grok-4.5-high \
   --output-format json \
   --trust \
   --force \

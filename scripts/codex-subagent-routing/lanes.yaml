@@ -19,9 +19,9 @@ lanes:
     default: false
     external: true
     models:
-      shared: grok-4.5-xhigh
+      shared: cursor-grok-4.5-high
     model_label_patterns:
-      grok-4.5-xhigh: Cursor Grok 4\.5
+      cursor-grok-4.5-high: Cursor Grok 4\.5
 
   - slug: opencode-grok
     family: opencode
