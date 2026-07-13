@@ -152,29 +152,27 @@ questions. When it returns `not_ready`, stop the worker, preserve its evidence,
 and return the candidate to the lead for shaping. Treat Grok self-checks as
 worker evidence; retain independent Sol-high validation.
 
-
 ## Select And Verify The Model
 
-Use `xai/grok-4.5` for every routine scout and worker session in this
-lane.
-Never substitute a `fast` variant. Refresh and verify the configured model or
-models once before the first Grok assignment in the current context:
+Use `xai/grok-4.5` for every routine scout and worker session in
+this lane.
+Do not substitute a `fast` variant.
+Refresh and verify the configured model once before the first assignment in
+the current context:
 
 ```bash
 opencode models --refresh >/dev/null
 opencode models | rg -x 'xai/grok-4\.5'
 ```
 
-Keep the work in Codex or report the limitation when the model is unavailable
-or lacks a required capability. Retain the exact model for focused follow-ups.
+Keep the work in the main agent and report the limitation when the model or a
+required capability is unavailable. Retain the exact model for follow-ups.
 
 ## Invoke OpenCode
 
-Verify `opencode agent list` shows both `explore (primary)` and `build
-(primary)`. Use `--agent explore` for scouts and `--agent build` for workers.
-
+Verify `opencode agent list` includes `build (primary)` and `explore (primary)`.
 Create a compact prompt file using the environment's approved file-writing
-mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths.
+mechanism. Set `REPO`, `MODEL`, `AGENT`, and `PROMPT_FILE` before invocation.
 
 Worker invocation:
 
@@ -201,30 +199,19 @@ opencode run --dir "$REPO" \
   "Read the attached assignment and return evidence only. Do not edit files."
 ```
 
-Give every run a unique title. Read the completed run output and record its
-exact `sessionID` from the first JSON event before deleting the prompt file. In
-OpenCode 1.17, `--format json` is a newline-delimited event stream rather than a
-single final object. A successful run emits `step_start`, completed `tool_use`,
-`text`, and `step_finish` events. Treat `step_finish` with `reason: "stop"` plus
-a zero process exit as normal completion. Treat a top-level `error` event and a
-nonzero exit as failure; use its status and retryability to distinguish a
-terminal provider/account error from a resumable interruption. If no event
-exposes a session ID, recover it by matching the unique title and repository as
-described below; do not rely on the most recent session implicitly.
+Give every run a unique title. Record the exact `sessionID` from the first JSON
+event before deleting the prompt file. Treat `step_finish` with `reason: "stop"`
+and a zero process exit as completion. Treat a top-level `error` event or
+nonzero exit as failure, preserving any useful result and retryability evidence.
+Recover a missing session ID by matching the unique title and repository.
 
-Apply the main skill's event loop. Observe the newline-delimited event stream
-through `step_start`, completed `tool_use`, `text`, `step_finish`, and error
-events. After several minutes without an expected event, the main event loop
-permits one process-liveness inspection for the current quiet episode. Leave
-the repository untouched during supervision.
+## Continue And Recover
 
-## Continue And Clean Up
-
-Resume with the recorded session ID and a focused follow-up file. Set `AGENT`
-to the original session's exact `explore` or `build` value. Set `MODEL` to its
-exact model. Omit `--fork` so the existing session continues:
+Resume the recorded session with its exact model and agent, omitting `--fork`:
 
 ```bash
+MODEL="<exact-model-used>"
+AGENT="<explore-or-build>"
 opencode run --dir "$REPO" \
   --session "$SESSION_ID" \
   --model "$MODEL" \
@@ -234,26 +221,22 @@ opencode run --dir "$REPO" \
   "Read the attached follow-up and remain within the original assignment."
 ```
 
-For a worker follow-up, retain `--dangerously-skip-permissions`. Avoid bare
-`--continue` when several sessions may exist. Delete each prompt file after
-the invocation completes and its session ID and useful result are preserved.
-
-If the session ID was not recorded before interruption, recover it by matching
-the run's unique title and repository in:
+Retain `--dangerously-skip-permissions` for every writable follow-up. Avoid bare
+`--continue` when several sessions may exist. Delete prompt files only after
+the session ID and useful result are preserved. Recover an unrecorded ID with:
 
 ```bash
 opencode session list --format json --max-count 20
 ```
 
-When the main event loop permits a lane-health check or recovery, inspect the
-recorded run's process:
+For a permitted health check or recovery, inspect only the recorded run:
 
 ```bash
 ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
 ```
 
-Interrupt only the leftover process created by the delegated run. Preserve the
-prompt file until the interrupted run's session ID and useful evidence are
-recovered. Then resume that exact session with the full follow-up invocation
-above. Delete or replace the session only when it cannot resume or its context
-is no longer trustworthy.
+Interrupt only the process created for that run and preserve its prompt and
+useful evidence until the session is recoverable.
+
+Delete or replace the session only when it cannot resume or its context is no
+longer trustworthy.

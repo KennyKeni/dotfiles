@@ -154,31 +154,27 @@ worker evidence; retain independent Sol-high validation.
 
 ## Select And Verify The Model
 
-Use `cursor-grok-4.5-high` for every routine scout and worker session in this
-lane.
-Do not substitute `cursor-grok-4.5-high-fast` or another `fast` variant. Verify the
-installed CLI, authentication, and model once before the first Cursor
-assignment in the current context:
+Use `cursor-grok-4.5-high` for every routine scout and worker session in
+this lane.
+Do not substitute a `fast` variant. Verify the installed CLI, authentication,
+and model once before the first Cursor assignment in the current context:
 
 ```bash
 cursor-agent status
 cursor-agent models | rg -x 'cursor-grok-4\.5-high - Cursor Grok 4\.5'
 ```
 
-Keep the work in Codex or report the limitation when Cursor is unavailable,
-the account is not authenticated, or the model is absent. Retain the exact
-model for focused follow-ups.
+Keep the work in the main agent and report the limitation when Cursor is
+unavailable, the account is not authenticated, or the model is absent. Retain
+the exact model for focused follow-ups.
 
 ## Invoke Cursor
 
 Create a compact prompt file using the environment's approved file-writing
-mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use single-result
-JSON for short probes and scouts. Use event-stream JSON for long workers so the
-lead can supervise meaningful progress without polling the process. Never add
-`--stream-partial-output`; regular `stream-json` already emits thinking
-progress, completed assistant messages, tool activity, errors, and a final
-result, while partial output adds token-sized assistant fragments and duplicates
-the completed response.
+mechanism. Set `REPO` and `PROMPT_FILE` to absolute paths. Use event-stream JSON
+for writable or long-running work so the lead can supervise meaningful progress.
+Regular `stream-json` emits completed messages, tool activity, errors, and a
+final result; omit partial-output mode, which duplicates the completed response.
 
 Worker invocation:
 
@@ -204,32 +200,23 @@ cursor-agent --print \
   < "$PROMPT_FILE"
 ```
 
-Run scouts in full Agent mode with `--force` so repository, shell, web, and
-other available tools are not permission-constrained. Enforce the scout's
-evidence-only and no-edit boundaries in its assignment rather than through
-Cursor mode permissions. Give workers the main skill's bounded change surface
-and no-delegation boundary.
+Run scouts in full Agent mode and enforce their evidence-only boundary in the
+assignment. Give workers the main skill's bounded change surface and
+no-delegation boundary.
 
-For `stream-json`, capture `session_id` from the initial `system/init` event
-immediately; do not wait for the final result. Observe completed assistant
-messages, `tool_call` start/completion, errors, and the terminal `result` event.
-Treat the terminal event's `is_error`, subtype, process exit, and useful result
-as the completion evidence. Do not reconstruct the answer from thinking deltas.
+Capture `session_id` from the initial `system/init` event immediately and record
+the exact invoked model as `MODEL`. Observe completed assistant messages,
+tool-call start and completion events, errors, and the terminal `result`. Treat
+the terminal event's error state, subtype, process exit, and useful result as
+completion evidence. Keep thinking deltas out of the returned answer.
 
-Apply the main skill's event loop. Observe `stream-json` through its completed
-assistant messages, `tool_call` start and completion events, errors, and
-terminal `result` event. Single-result `json` may remain quiet until its
-terminal result. After several minutes without an expected stream event, the
-main event loop permits one process-liveness inspection for the current quiet
-episode. Leave the workspace untouched during supervision.
+## Continue And Recover
 
-## Continue And Clean Up
-
-Resume a focused follow-up with the recorded chat ID, the same workspace,
-full permissions, and a focused prompt file. Set `MODEL` to the exact model
-used by the original scout or worker:
+Resume a focused follow-up with the recorded chat ID, the same workspace, exact
+model, full permissions, and a focused prompt file:
 
 ```bash
+MODEL="<exact-model-used>"
 cursor-agent --print \
   --resume "$CHAT_ID" \
   --workspace "$REPO" \
@@ -240,26 +227,20 @@ cursor-agent --print \
   < "$PROMPT_FILE"
 ```
 
-Use `--force` for both scouts and workers. Avoid bare `--continue` when several
-chats may exist. Delete each prompt file after the invocation completes and its
-chat ID and useful result are preserved. If the chat ID was not recorded before
-an interruption, use `cursor-agent ls` interactively and match the repository
-and assignment context; Cursor does not provide a reliable headless chat-list
-interface.
+Record the chat ID before deleting the prompt file. Recover a missing ID with
+`cursor-agent ls` by matching the repository and assignment context. Keep
+`stream-json` for long follow-ups; `json` is suitable for short follow-ups.
+Resume the same chat after a capacity error or interruption while its context
+remains trustworthy.
 
-Keep `stream-json` for a follow-up to a long worker; `json` remains suitable for
-a short follow-up. Resume the same chat after a capacity error or interruption
-when its context remains trustworthy.
-
-When the main event loop permits a lane-health check or recovery, inspect the
-recorded run's process:
+For a permitted health check or recovery, inspect only the recorded run:
 
 ```bash
 ps -axo pid,ppid,command | rg '[c]ursor-agent' || true
 ```
 
-Interrupt only the leftover process created by the delegated run. Preserve the
-prompt file until the interrupted run's chat ID and useful evidence are
-recovered. Then resume that exact chat with the full follow-up invocation above.
+Interrupt only the process created for that run and preserve the prompt and
+useful evidence until the chat is recoverable.
+
 Replace the chat only when it cannot resume or its context is no longer
 trustworthy.

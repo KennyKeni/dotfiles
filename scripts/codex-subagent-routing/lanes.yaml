@@ -2,7 +2,7 @@ schema_version: 1
 
 lanes:
   - slug: codex-quality
-    family: native
+    harness: native-codex
     title: Native Codex Lane
     description_name: native Codex
     selection_label: native Codex
@@ -11,48 +11,28 @@ lanes:
     external: false
 
   - slug: cursor-grok
-    family: cursor
+    harness: cursor-grok-4-5
     title: Cursor Grok Lane
     description_name: Cursor/Grok
     selection_label: Grok through Cursor
     policy: grok
     default: false
     external: true
-    models:
-      shared: cursor-grok-4.5-high
-    model_label_patterns:
-      cursor-grok-4.5-high: Cursor Grok 4\.5
 
   - slug: opencode-grok
-    family: opencode
-    variant: grok
+    harness: opencode-grok-4-5
     title: OpenCode Grok Lane
     description_name: OpenCode/Grok
     selection_label: xAI through OpenCode
     policy: grok
     default: false
     external: true
-    models:
-      shared: xai/grok-4.5
-    title_prefix: grok
 
   - slug: opencode-ollama
-    family: opencode
-    variant: ollama
+    harness: opencode-ollama
     title: OpenCode Ollama Lane
     description_name: OpenCode/Ollama
     selection_label: Ollama Cloud through OpenCode
     policy: direct
     default: false
     external: true
-    title_prefix: ollama
-    models:
-      capability:
-        default: ollama-cloud/glm-5.2
-        variable: MODEL
-        choices_markdown: |-
-          - `ollama-cloud/glm-5.2` for text and code retrieval, implementation, and the
-            largest text-only contexts;
-          - `ollama-cloud/kimi-k2.7-code` when the assignment requires image input;
-          - `ollama-cloud/minimax-m3` when the assignment requires video input or
-            image-plus-text context beyond Kimi's capacity.

@@ -23,6 +23,17 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 SOURCE_DIR = Path(__file__).resolve().parent
 REPOSITORY_DIR = SOURCE_DIR.parent.parent
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(REPOSITORY_DIR / "scripts"))
+
+from subagent_harnesses.catalog import (  # noqa: E402
+    CatalogError,
+    TEMPLATE_DIR,
+    load_harnesses,
+    resolve_harness,
+)
+
+
 SKILL_DIR = (
     REPOSITORY_DIR / "packages" / "agent-skills" / "personal" / "codex-subagent-routing"
 )
@@ -30,25 +41,15 @@ REFERENCES_DIR = SKILL_DIR / "references"
 SPEC_PATH = SOURCE_DIR / "lanes.yaml"
 TEMPLATE_NAME = "lane.md.j2"
 SKILL_TEMPLATE_NAME = "skill.md.j2"
-ALLOWED_FAMILIES = {"native", "cursor", "opencode"}
 COMMON_FIELDS = {
     "slug",
-    "family",
+    "harness",
     "title",
-    "models",
     "description_name",
     "selection_label",
     "policy",
     "default",
     "external",
-}
-FAMILY_FIELDS = {
-    "native": set(),
-    "cursor": {"model_label_patterns"},
-    "opencode": {
-        "variant",
-        "title_prefix",
-    },
 }
 
 
@@ -57,7 +58,9 @@ class SpecError(ValueError):
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate the routing skill and lane references.")
+    parser = argparse.ArgumentParser(
+        description="Generate the routing skill and lane references."
+    )
     parser.add_argument(
         "--check",
         action="store_true",
@@ -73,100 +76,33 @@ def load_lanes() -> list[dict[str, Any]]:
     if document.get("schema_version") != 1:
         raise SpecError("lanes.yaml must declare schema_version: 1")
 
-    lanes = document.get("lanes")
-    if not isinstance(lanes, list) or not lanes:
+    raw_lanes = document.get("lanes")
+    if not isinstance(raw_lanes, list) or not raw_lanes:
         raise SpecError("lanes.yaml must contain a non-empty lanes list")
 
-    required = {
-        "slug",
-        "family",
-        "title",
-        "description_name",
-        "selection_label",
-        "policy",
-        "default",
-        "external",
-    }
+    harnesses = load_harnesses()
+    required = COMMON_FIELDS
     seen: set[str] = set()
-    for index, lane in enumerate(lanes):
-        if not isinstance(lane, dict):
+    lanes: list[dict[str, Any]] = []
+    for index, raw in enumerate(raw_lanes):
+        if not isinstance(raw, dict):
             raise SpecError(f"lane {index} must be a mapping")
-        missing = required - lane.keys()
+        missing = required - raw.keys()
         if missing:
             raise SpecError(f"lane {index} is missing: {', '.join(sorted(missing))}")
+        unknown = raw.keys() - COMMON_FIELDS
+        if unknown:
+            raise SpecError(
+                f"unknown fields for lane {index}: {', '.join(sorted(unknown))}"
+            )
 
-        slug = lane["slug"]
+        slug = raw["slug"]
         if not isinstance(slug, str) or not slug.replace("-", "").isalnum():
             raise SpecError(f"invalid lane slug: {slug!r}")
         if slug in seen:
             raise SpecError(f"duplicate lane slug: {slug}")
         seen.add(slug)
-
-        family = lane["family"]
-        if family not in ALLOWED_FAMILIES:
-            raise SpecError(f"unsupported family for {slug}: {family!r}")
-        unknown = lane.keys() - COMMON_FIELDS - FAMILY_FIELDS[family]
-        if unknown:
-            raise SpecError(f"unknown fields for {slug}: {', '.join(sorted(unknown))}")
-        if family != "native" and "models" not in lane:
-            raise SpecError(f"{slug} must define models")
-        if family == "opencode" and "title_prefix" not in lane:
-            raise SpecError(f"{slug} must define title_prefix")
-        if family == "opencode" and lane.get("variant") not in {"grok", "ollama"}:
-            raise SpecError(f"{slug} must define variant as grok or ollama")
-
-        if family == "native":
-            continue
-
-        models = lane["models"]
-        if not isinstance(models, dict):
-            raise SpecError(f"{slug} models must be a mapping")
-        model_keys = set(models)
-        if model_keys == {"shared"}:
-            lane["model_mode"] = "shared"
-            lane["scout_model"] = models["shared"]
-            lane["worker_model"] = models["shared"]
-        elif model_keys == {"scout", "worker"}:
-            lane["model_mode"] = "tiered"
-            lane["scout_model"] = models["scout"]
-            lane["worker_model"] = models["worker"]
-        elif model_keys == {"capability"} and lane.get("variant") == "ollama":
-            capability = models["capability"]
-            capability_fields = {"default", "variable", "choices_markdown"}
-            if not isinstance(capability, dict) or set(capability) != capability_fields:
-                raise SpecError(
-                    f"{slug} capability models must define exactly: "
-                    f"{', '.join(sorted(capability_fields))}"
-                )
-            lane["model_mode"] = "capability"
-            lane["model_default"] = capability["default"]
-            lane["model_variable"] = capability["variable"]
-            lane["model_choices_markdown"] = capability["choices_markdown"]
-        else:
-            raise SpecError(
-                f"{slug} models must use shared, scout+worker, or Ollama capability mode"
-            )
-
-        if lane["model_mode"] in {"shared", "tiered"}:
-            model_ids = [lane["scout_model"], lane["worker_model"]]
-            if not all(isinstance(model_id, str) and model_id for model_id in model_ids):
-                raise SpecError(f"{slug} model IDs must be non-empty strings")
-            lane["models_to_verify"] = list(dict.fromkeys(model_ids))
-
-        if family == "cursor":
-            patterns = lane.get("model_label_patterns")
-            if not isinstance(patterns, dict):
-                raise SpecError(f"{slug} must define model_label_patterns")
-            missing_patterns = set(lane["models_to_verify"]) - patterns.keys()
-            if missing_patterns:
-                raise SpecError(
-                    f"{slug} is missing Cursor label patterns for: "
-                    f"{', '.join(sorted(missing_patterns))}"
-                )
-            lane["model_verifications"] = [
-                {"id": model_id, "label_pattern": patterns[model_id]}
-                for model_id in lane["models_to_verify"]
-            ]
+        lanes.append(resolve_harness(raw, harnesses, record_name=f"lane {slug}"))
 
     defaults = [lane for lane in lanes if lane["default"] is True]
     if len(defaults) != 1:
@@ -186,7 +122,7 @@ def human_join(values: list[str]) -> str:
 
 def render(lanes: list[dict[str, Any]]) -> dict[Path, str]:
     environment = Environment(
-        loader=FileSystemLoader(SOURCE_DIR),
+        loader=FileSystemLoader([SOURCE_DIR, TEMPLATE_DIR]),
         undefined=StrictUndefined,
         autoescape=False,
         keep_trailing_newline=True,
@@ -232,11 +168,7 @@ def check(outputs: dict[Path, str]) -> int:
 
 def unexpected_references(outputs: dict[Path, str]) -> list[Path]:
     expected_paths = set(outputs)
-    return [
-        path
-        for path in REFERENCES_DIR.glob("*.md")
-        if path not in expected_paths
-    ]
+    return [path for path in REFERENCES_DIR.glob("*.md") if path not in expected_paths]
 
 
 def write_atomic(path: Path, content: str) -> bool:
@@ -267,7 +199,7 @@ def main() -> int:
     args = parse_args()
     try:
         outputs = render(load_lanes())
-    except (OSError, SpecError, yaml.YAMLError) as error:
+    except (OSError, SpecError, CatalogError, yaml.YAMLError) as error:
         print(f"routing skill generation failed: {error}", file=sys.stderr)
         return 2
 

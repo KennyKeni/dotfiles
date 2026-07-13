@@ -1,0 +1,29 @@
+# {{ setup.title }} Setup
+
+{% if setup.family == "native" %}
+Use the current Codex session as the main agent and one persistent native Codex
+subagent as the sidekick.
+{% elif setup.family == "cursor" %}
+Use the current Codex session as the main agent and one persistent Cursor chat
+as the sidekick.
+{% else %}
+Use the current Codex session as the main agent and one persistent OpenCode
+session as the sidekick.
+{% endif %}
+
+{% if setup.family == "native" %}
+{% set execution = setup %}
+{% set consumer = "sidekick" %}
+{% include "native-runtime.md.j2" %}
+{% elif setup.family == "cursor" %}
+{% set execution = setup %}
+{% set consumer = "sidekick" %}
+{% include "cursor-runtime.md.j2" %}
+{% else %}
+{% set execution = setup %}
+{% set consumer = "sidekick" %}
+{% include "opencode-runtime.md.j2" %}
+{% endif %}
+
+The setup is satisfied when every delegated unit uses this exact pair or the
+main agent has explicitly reported that the pair is unavailable or degraded.

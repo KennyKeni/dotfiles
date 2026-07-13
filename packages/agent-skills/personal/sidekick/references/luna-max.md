@@ -1,7 +1,7 @@
 # Luna Max Setup
 
-Use the current Codex session as the main agent and one native Luna subagent as
-the persistent sidekick.
+Use the current Codex session as the main agent and one persistent native Codex
+subagent as the sidekick.
 
 ## Configure The Pair
 
@@ -13,7 +13,7 @@ the persistent sidekick.
 - Sidekick task name: `sidekick`.
 - Context fork: `none`.
 
-Choose these values explicitly when spawning. If Luna or max effort is
+Choose these values explicitly when spawning. If the model or effort is
 unavailable, keep the work in the main agent and report that the requested
 setup could not be established.
 
@@ -35,4 +35,4 @@ execution, and return the remaining work to the main agent. Report that the
 requested pair is degraded rather than creating a replacement session.
 
 The setup is satisfied when every delegated unit uses this exact pair or the
-main agent has explicitly reported that the pair is unavailable.
+main agent has explicitly reported that the pair is unavailable or degraded.

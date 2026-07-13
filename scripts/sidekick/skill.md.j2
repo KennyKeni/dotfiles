@@ -10,12 +10,12 @@ main agent and final judge. Delegate by default up to the judgment boundary.
 
 ## Select The Setup
 
-Use an explicitly requested setup. Otherwise use Luna Max.
+Use an explicitly requested setup. Otherwise use {{ default_setup.title }}.
 Before starting the sidekick, read the selected setup completely:
 
-- Luna Max: read [luna-max.md](references/luna-max.md);
-- Grok 4.5 through OpenCode: read [opencode-grok.md](references/opencode-grok.md);
-- Grok 4.5 through Cursor: read [cursor-grok.md](references/cursor-grok.md).
+{% for setup in setups %}
+- {{ setup.selection_label }}: read [{{ setup.slug }}.md](references/{{ setup.slug }}.md){{ "." if loop.last else ";" }}
+{% endfor %}
 
 Treat the setup reference as the single source of truth for model, reasoning
 effort, harness controls, and setup failure recovery. Keep the generic

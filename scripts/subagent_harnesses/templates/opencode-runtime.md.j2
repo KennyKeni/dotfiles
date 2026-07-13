@@ -1,0 +1,142 @@
+## Select And Verify The Model
+
+{% if execution.variant == "grok" %}
+{% if consumer == "routing" %}
+{% if execution.model_mode == "shared" %}
+Use `{{ execution.scout_model }}` for every routine scout and worker session in
+this lane.
+{% else %}
+Use `{{ execution.scout_model }}` for routine scouts and `{{ execution.worker_model }}`
+for routine workers.
+{% endif %}
+{% else %}
+Use `{{ execution.worker_model }}` for the persistent sidekick. Retain the
+current main agent's model and reasoning effort.
+{% endif %}
+Do not substitute a `fast` variant.
+Refresh and verify the configured model once before the first assignment in
+the current context:
+
+```bash
+opencode models --refresh >/dev/null
+{% for model in execution.models_to_verify %}
+opencode models | rg -x '{{ model | replace(".", "\\.") }}'
+{% endfor %}
+```
+{% else %}
+Choose one model before starting a session:
+
+{{ execution.model_choices_markdown }}
+
+Retain the selected exact model for focused follow-ups. Refresh and verify it:
+
+```bash
+{{ execution.model_variable }}={{ execution.model_default }} # Set the selected exact model ID.
+opencode models --refresh >/dev/null
+opencode models | rg -Fx "${{ execution.model_variable }}"
+```
+
+Choose another listed model only when its routing criteria apply.
+{% endif %}
+
+Keep the work in the main agent and report the limitation when the model or a
+required capability is unavailable. Retain the exact model for follow-ups.
+
+## Invoke OpenCode
+
+{% if consumer == "routing" %}
+Verify `opencode agent list` includes `build (primary)` and `explore (primary)`.
+{% else %}
+Verify `opencode agent list` includes `build (primary)`.
+{% endif %}
+Create a compact prompt file using the environment's approved file-writing
+mechanism. Set `REPO`, `MODEL`, `AGENT`, and `PROMPT_FILE` before invocation.
+
+{% if consumer == "routing" %}
+Worker invocation:
+
+```bash
+opencode run --dir "$REPO" \
+  --model {% if execution.variant == "ollama" %}"$MODEL"{% else %}{{ execution.worker_model }}{% endif %} \
+  --agent build \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --dangerously-skip-permissions \
+  --title "{{ execution.title_prefix }} worker: <bounded-task>" \
+  "Read the attached assignment and complete only that worker scope."
+```
+
+Scout invocation:
+
+```bash
+opencode run --dir "$REPO" \
+  --model {% if execution.variant == "ollama" %}"$MODEL"{% else %}{{ execution.scout_model }}{% endif %} \
+  --agent explore \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --title "{{ execution.title_prefix }} scout: <bounded-question>" \
+  "Read the attached assignment and return evidence only. Do not edit files."
+```
+{% else %}
+Start the sidekick in the build agent so the same session can explore, edit,
+test, and repair:
+
+```bash
+MODEL={{ execution.worker_model }}
+AGENT=build
+opencode run --dir "$REPO" \
+  --model "$MODEL" \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+  --dangerously-skip-permissions \
+  --title "sidekick: <bounded-task>" \
+  "Read the attached assignment and remain the persistent sidekick for this task."
+```
+{% endif %}
+
+Give every run a unique title. Record the exact `sessionID` from the first JSON
+event before deleting the prompt file. Treat `step_finish` with `reason: "stop"`
+and a zero process exit as completion. Treat a top-level `error` event or
+nonzero exit as failure, preserving any useful result and retryability evidence.
+Recover a missing session ID by matching the unique title and repository.
+
+## Continue And Recover
+
+Resume the recorded session with its exact model and agent, omitting `--fork`:
+
+```bash
+{{ ("MODEL=" ~ execution.worker_model ~ "\nAGENT=build\n") if consumer == "sidekick" else "MODEL=\"<exact-model-used>\"\nAGENT=\"<explore-or-build>\"\n" }}opencode run --dir "$REPO" \
+  --session "$SESSION_ID" \
+  --model "$MODEL" \
+  --agent "$AGENT" \
+  --file "$PROMPT_FILE" \
+  --format json \
+{{ "  --dangerously-skip-permissions \\\n" if consumer == "sidekick" else "" }}  "Read the attached follow-up and remain within the original assignment."
+```
+
+Retain `--dangerously-skip-permissions` for every writable follow-up. Avoid bare
+`--continue` when several sessions may exist. Delete prompt files only after
+the session ID and useful result are preserved. Recover an unrecorded ID with:
+
+```bash
+opencode session list --format json --max-count 20
+```
+
+For a permitted health check or recovery, inspect only the recorded run:
+
+```bash
+ps -axo pid,ppid,command | rg '[o]pencode|[b]un.*opencode' || true
+```
+
+Interrupt only the process created for that run and preserve its prompt and
+useful evidence until the session is recoverable.
+
+{% if consumer == "routing" %}
+Delete or replace the session only when it cannot resume or its context is no
+longer trustworthy.
+{% else %}
+When the session cannot safely resume, end delegated execution, return the work
+to the main agent, and report that the requested pair is degraded. Preserve the
+one-sidekick invariant by leaving replacement to a new user invocation.
+{% endif %}
