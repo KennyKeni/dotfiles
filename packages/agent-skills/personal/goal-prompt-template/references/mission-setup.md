@@ -183,22 +183,42 @@ domain-specific work remains with the appropriate owner.
 
 ## Handle Gaps and Scope Changes
 
-At mission setup, record in durable state the authorized issue tracker,
-umbrella issue when one exists, whether tracker relationships define mission
-topology, and which issue and relationship mutations the lead may perform.
+At mission setup, record the authorized tracker, umbrella, whether relationships
+define mission topology, and permitted issue and relationship mutations. For
+tracker-backed missions likely to surface work, establish issue-creation and
+relationship-mutation authority up front.
 
-For each evidenced gap, have the lead check for duplicates and choose a
-disposition. Subagents may propose new issues; only the lead publishes them.
+For each evidenced gap, have the lead check duplicates and choose a disposition
+against the selected issue's acceptance contract. Subagents may identify and
+shape gaps; only the lead publishes tracker issues and applies authorized
+required relationships.
 
-When authorized, create a tracker-native sub-issue when the work directly
-contributes to the umbrella goal, completion denominator, or delivery boundary.
-Create an independent issue when it is out of scope, cross-cutting, reusable,
-or has a different owner or lifecycle. Link related independent issues without
-adding them to the umbrella denominator.
+- Absorb a gap into the selected issue only when it is already within that
+  issue's contract and does not warrant an independent ownership or validation
+  boundary.
+- When material separate work is required for the selected issue's acceptance,
+  publish it within the mission topology. Make it a sibling when an umbrella
+  exists, add a native dependency showing that the selected issue is blocked by
+  it, and continue independent unblocked work. Create children beneath the
+  selected issue only after approval reshapes that issue into a non-executable
+  aggregate and amends its contract, topology, and denominator.
+- When separate work contributes to the mission but is not required for the
+  selected issue's acceptance, publish it as a non-blocking mission follow-up.
+  Add it beneath an existing umbrella, link it from the selected issue, and
+  complete that issue against its unchanged contract without a dependency.
+- Publish actionable work outside the mission as an independent related issue
+  outside the umbrella and mission completion denominator. Cross-cutting scope,
+  reuse, or a different owner or lifecycle may support this disposition but
+  cannot remove work required by the acceptance contract.
+- For a duplicate or non-actionable observation, link the existing issue or
+  record the non-actionable disposition; do not create another issue.
 
-When publication is unauthorized, report a ready-to-file proposal. Include
-evidence, scope and non-scope, acceptance criteria, ownership, dependencies,
-and blocker-or-follow-up status.
+If publication is unauthorized or unavailable, record the discovery in durable
+state as `pending-publication`. If only a required relationship mutation is
+unauthorized or unavailable, record it as `pending-relationship`. Keep the
+selected issue blocked whenever the pending work is required for its acceptance.
+Report the constraint and preserve evidence, scope and non-scope, acceptance
+criteria, ownership, dependencies, and blocker-or-follow-up status.
 
 When implementation fails an assertion, mark the implementation and affected
 stage failed. When evidence shows that an assertion itself is invalid or
@@ -208,6 +228,3 @@ denominator.
 
 When a discovery is new scope outside the original contract, record it
 separately without silently changing the original denominator.
-
-Do not force every observation into a new issue. Use duplicate links,
-non-actionable notes, or explicit non-gap dispositions when appropriate.

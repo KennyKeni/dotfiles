@@ -80,13 +80,18 @@ Have the lead, not the validator, classify each finding:
   contract or correctness and security requirements, duplicate findings, or
   unrelated pre-existing scope.
 
-Allow the lead to dismiss unsupported or non-blocking findings. Require the
-user or designated project owner to waive a validated blocker or material
-accepted risk. A validator finding does not amend the contract, create new
-scope, or automatically trigger implementation or another review.
+Allow the lead to dismiss unsupported, duplicate, or non-actionable findings.
+A non-blocking actionable finding still requires a follow-up disposition.
+Require the user or designated project owner to waive a validated blocker or
+material accepted risk. Findings do not amend the contract, create scope, or
+automatically trigger implementation or review.
 
-For completion purposes, a recorded follow-up disposition resolves a verified
-non-blocking finding. Create an external issue only when authorized.
+A linked tracker follow-up resolves a verified non-blocking actionable finding.
+When publication or a required relationship mutation is unauthorized or
+unavailable, `pending-publication` or `pending-relationship` may resolve the
+selected work item's local completion only when the finding is outside its
+acceptance contract and the constraint is reported. Neither state resolves a
+stage or mission denominator containing the discovered work.
 
 Assign material fixes to an implementation owner while keeping validators
 independent from their requested fixes.
