@@ -111,11 +111,15 @@ tasks:
         }
 
         const defaultAgents = ["codex", "claude-code", "zed"];
+        const claudeOnlySkills = [
+          "claude-subagent-routing",
+          "codex-first",
+          "grok-first",
+        ];
+        const codexOnlySkills = ["codex-subagent-routing", "sidekick"];
         const skillAgentOverrides = new Map([
-          ["claude-subagent-routing", ["claude-code"]],
-          ["codex-subagent-routing", ["codex"]],
-          ["grok-first", ["claude-code"]],
-          ["sidekick", ["codex"]],
+          ...claudeOnlySkills.map((skillName) => [skillName, ["claude-code"]]),
+          ...codexOnlySkills.map((skillName) => [skillName, ["codex"]]),
         ]);
         const bySourceAndAgents = new Map();
 
@@ -131,7 +135,37 @@ tasks:
 
         let exitCode = 0;
 
+        const harnessSpecificSkills = [
+          ...claudeOnlySkills,
+          ...codexOnlySkills,
+        ].filter((skillName) => lock.skills?.[skillName]?.source);
+
+        if (harnessSpecificSkills.length > 0) {
+          console.log(
+            `Removing stale harness placements for ${harnessSpecificSkills.join(", ")}`,
+          );
+
+          const result = spawnSync(
+            "npx",
+            [
+              "-y",
+              "skills@latest",
+              "remove",
+              ...harnessSpecificSkills,
+              "-g",
+              "-y",
+            ],
+            { stdio: "inherit" },
+          );
+
+          if (result.status !== 0) {
+            exitCode = result.status ?? 1;
+          }
+        }
+
         for (const { source, agents, skillNames } of bySourceAndAgents.values()) {
+          if (exitCode !== 0) break;
+
           const sortedSkills = skillNames.sort();
           console.log(
             `Restoring ${sortedSkills.length} skill(s) from ${source} to ${agents.join(", ")}`,

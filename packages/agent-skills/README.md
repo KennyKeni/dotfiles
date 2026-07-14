@@ -16,8 +16,11 @@ the native global lock, prefer:
 task skills:restore-global
 ```
 
-The restore task installs skills for Codex, Claude Code, and Zed by default and
-preserves local per-skill agent overrides for harness-specific skills.
+The restore task installs shared skills for Codex, Claude Code, and Zed by
+default. Before restoring, it removes stale copies of harness-specific skills,
+then installs Claude-only skills (`claude-subagent-routing`, `codex-first`, and
+`grok-first`) only for Claude Code and Codex-only skills
+(`codex-subagent-routing` and `sidekick`) only for Codex.
 
 For a fresh install of the goal-prompt template:
 
