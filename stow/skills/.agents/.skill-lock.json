@@ -294,15 +294,6 @@
       "installedAt": "2026-07-08T20:38:38.293Z",
       "updatedAt": "2026-07-13T20:45:57.254Z"
     },
-    "goal-prompt-template": {
-      "source": "KennyKeni/dotfiles",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
-      "skillPath": "packages/agent-skills/personal/goal-prompt-template/SKILL.md",
-      "skillFolderHash": "86830e4bbc146bbd0d23f4c5ab6c8943c108e937",
-      "installedAt": "2026-07-10T00:15:12.019Z",
-      "updatedAt": "2026-07-13T03:21:30.404Z"
-    },
     "codex-subagent-routing": {
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
@@ -361,6 +352,16 @@
       "skillFolderHash": "20f439916d5eb77729c54ea9d902689a7f06d6f4",
       "installedAt": "2026-07-13T20:45:46.194Z",
       "updatedAt": "2026-07-15T15:05:03.435Z"
+    },
+    "deliver-project": {
+      "source": "KennyKeni/dotfiles",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
+      "skillPath": "packages/agent-skills/personal/deliver-project/SKILL.md",
+      "skillFolderHash": "642b514789f0f9c73b270a6e0340a0555d35b797",
+      "installedAt": "2026-07-15T15:17:14.011Z",
+      "updatedAt": "2026-07-15T15:17:14.011Z"
     }
   },
   "dismissed": {
