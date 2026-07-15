@@ -17,9 +17,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/design-an-interface/SKILL.md",
-      "skillFolderHash": "96f81790cec52ac9f936160ae777871576b180f9",
+      "skillFolderHash": "91a3b251dedd01c6578953ee2a114da91e5c6038",
       "installedAt": "2026-07-03T20:57:50.183Z",
-      "updatedAt": "2026-07-11T10:04:24.618Z"
+      "updatedAt": "2026-07-15T18:58:55.537Z"
     },
     "edit-article": {
       "source": "mattpocock/skills",
@@ -81,9 +81,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/diagnose/SKILL.md",
-      "skillFolderHash": "2faa7ccdf1761afa3e5753a232987eee44d28b43",
+      "skillFolderHash": "f995417954b9cf4fa717c49a30cd30688758b180",
       "installedAt": "2026-07-08T19:22:09.957Z",
-      "updatedAt": "2026-07-12T00:47:35.847Z"
+      "updatedAt": "2026-07-15T18:58:58.437Z"
     },
     "grill-with-docs": {
       "source": "KennyKeni/dotfiles",
@@ -91,9 +91,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/grill-with-docs/SKILL.md",
-      "skillFolderHash": "5cfc11a0df41ba0fa957001dcd15056c775fb51a",
+      "skillFolderHash": "d47bca78a50e7f7e0f2cfe3a1d1bf6499e8a49fc",
       "installedAt": "2026-07-08T19:22:09.958Z",
-      "updatedAt": "2026-07-12T00:47:36.864Z"
+      "updatedAt": "2026-07-15T18:59:00.531Z"
     },
     "handoff": {
       "source": "KennyKeni/dotfiles",
@@ -101,9 +101,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/handoff/SKILL.md",
-      "skillFolderHash": "9fb230d13dac4f8699a747ee0ddeabbc13fe1718",
+      "skillFolderHash": "396377b572e1803741f7a955ba6b385ee4183e75",
       "installedAt": "2026-07-08T19:22:09.959Z",
-      "updatedAt": "2026-07-12T00:47:37.748Z"
+      "updatedAt": "2026-07-15T18:59:03.638Z"
     },
     "improve-codebase-architecture": {
       "source": "KennyKeni/dotfiles",
@@ -111,9 +111,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/improve-codebase-architecture/SKILL.md",
-      "skillFolderHash": "dd7aca2c4acef4c4096e501738a19af96fbea251",
+      "skillFolderHash": "5bcdbbca7941feb18939a0c39ccfbcfb1e73d339",
       "installedAt": "2026-07-08T19:22:09.959Z",
-      "updatedAt": "2026-07-12T00:47:38.755Z"
+      "updatedAt": "2026-07-15T18:59:06.691Z"
     },
     "migrate-to-shoehorn": {
       "source": "KennyKeni/dotfiles",
@@ -121,9 +121,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/migrate-to-shoehorn/SKILL.md",
-      "skillFolderHash": "383d6b432c1cd1a71e443ec7e3e4b17a8adda236",
+      "skillFolderHash": "f32479ce480a8b5efbd4bf02b4d7699c0d07f4c3",
       "installedAt": "2026-07-08T19:22:09.959Z",
-      "updatedAt": "2026-07-08T19:22:09.959Z"
+      "updatedAt": "2026-07-15T18:59:09.475Z"
     },
     "prototype": {
       "source": "KennyKeni/dotfiles",
@@ -131,9 +131,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/prototype/SKILL.md",
-      "skillFolderHash": "703e8306bd63050e255a0fd64c16db989db2dc08",
+      "skillFolderHash": "7309c90a13a3adb34d1e8ac2856405134dccc650",
       "installedAt": "2026-07-08T19:22:09.959Z",
-      "updatedAt": "2026-07-12T00:47:39.936Z"
+      "updatedAt": "2026-07-15T18:59:16.505Z"
     },
     "qa": {
       "source": "KennyKeni/dotfiles",
@@ -141,9 +141,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/qa/SKILL.md",
-      "skillFolderHash": "373a8a6db54608938684353ddcedb6678becf76d",
+      "skillFolderHash": "55e546e45bc75570ef5beb428e66f37ec459d637c6684ec98afcc0b82077489f",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-12T00:47:40.868Z"
+      "updatedAt": "2026-07-15T18:59:29.400Z"
     },
     "request-refactor-plan": {
       "source": "KennyKeni/dotfiles",
@@ -151,9 +151,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/request-refactor-plan/SKILL.md",
-      "skillFolderHash": "222740814991813b0327660f1a8d3cab354d3d57",
+      "skillFolderHash": "a9c1012f2644c2cb2ad452ed7a3b495eea3efa22",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-12T00:47:41.778Z"
+      "updatedAt": "2026-07-15T19:00:20.143Z"
     },
     "review": {
       "source": "KennyKeni/dotfiles",
@@ -161,9 +161,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/review/SKILL.md",
-      "skillFolderHash": "72ced2283506c6444ab55a7454b6ef2d8e4c2c22",
+      "skillFolderHash": "44ebd6557c7bdc29df48eb6e03a897c9415bef2a",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-12T00:47:42.690Z"
+      "updatedAt": "2026-07-15T19:00:21.398Z"
     },
     "scaffold-exercises": {
       "source": "KennyKeni/dotfiles",
@@ -171,9 +171,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/scaffold-exercises/SKILL.md",
-      "skillFolderHash": "1b01692dc1f3cb8a02a4f776d761737bf0f8cf02",
+      "skillFolderHash": "8c4b0f3e605be6517cced42345a9d261650943f8",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-08T19:22:09.960Z"
+      "updatedAt": "2026-07-15T19:00:23.625Z"
     },
     "setup-matt-pocock-skills": {
       "source": "KennyKeni/dotfiles",
@@ -181,9 +181,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/setup-matt-pocock-skills/SKILL.md",
-      "skillFolderHash": "d4a1bc0f293ea184f320b4e22f6c0c5b97e19f9b",
+      "skillFolderHash": "cd7388da03d66d089b753bb3ed6d50a35295a914",
       "installedAt": "2026-07-08T19:22:09.960Z",
-      "updatedAt": "2026-07-12T00:47:43.526Z"
+      "updatedAt": "2026-07-15T19:00:25.163Z"
     },
     "setup-pre-commit": {
       "source": "KennyKeni/dotfiles",
@@ -191,9 +191,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/setup-pre-commit/SKILL.md",
-      "skillFolderHash": "58d15d490a33a0ebf2e8f67cca998daee6080493",
+      "skillFolderHash": "a518c01d3fa066522c7792d29aff595718524971",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-08T19:22:09.961Z"
+      "updatedAt": "2026-07-15T19:00:26.673Z"
     },
     "tdd": {
       "source": "KennyKeni/dotfiles",
@@ -201,9 +201,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/tdd/SKILL.md",
-      "skillFolderHash": "7dba3a07bc56e0bf76d155d9f34fb4c3e8ae50f5",
+      "skillFolderHash": "be479721d3ce1428ff50d06c59f748103e155b7e",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-12T00:47:44.489Z"
+      "updatedAt": "2026-07-15T19:00:29.233Z"
     },
     "to-issues": {
       "source": "KennyKeni/dotfiles",
@@ -211,9 +211,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/to-issues/SKILL.md",
-      "skillFolderHash": "f6e6ced783a3598fc1d6af09d39353b63f1bd3a7",
+      "skillFolderHash": "ec171d8497e62c33cffff61060285fea8c3a1dcf",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-12T00:47:45.190Z"
+      "updatedAt": "2026-07-15T19:00:31.781Z"
     },
     "to-prd": {
       "source": "KennyKeni/dotfiles",
@@ -221,9 +221,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/to-prd/SKILL.md",
-      "skillFolderHash": "81689d1fa6d842a2c2fdf1f010b88cadee1287bb",
+      "skillFolderHash": "40bdca1214b94d48c31a89a713e0a39c1af37cd3",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-12T00:47:46.273Z"
+      "updatedAt": "2026-07-15T19:00:33.484Z"
     },
     "triage": {
       "source": "KennyKeni/dotfiles",
@@ -231,9 +231,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/triage/SKILL.md",
-      "skillFolderHash": "76f00a773e8f5f4fd253d726a4d139e40d6adb4d",
+      "skillFolderHash": "78b6b3b2a877d19837823e8ac12f6bcabafd1552",
       "installedAt": "2026-07-08T19:22:09.961Z",
-      "updatedAt": "2026-07-12T00:47:47.002Z"
+      "updatedAt": "2026-07-15T19:00:35.478Z"
     },
     "ubiquitous-language": {
       "source": "KennyKeni/dotfiles",
@@ -241,9 +241,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/ubiquitous-language/SKILL.md",
-      "skillFolderHash": "0321d1e6b59dc68d03137df2d5c6f09bb9b0f6bc",
+      "skillFolderHash": "597302fe48610e782be76a63b390d08fc910d110",
       "installedAt": "2026-07-08T19:22:09.962Z",
-      "updatedAt": "2026-07-08T19:22:09.962Z"
+      "updatedAt": "2026-07-15T19:00:47.679Z"
     },
     "writing-beats": {
       "source": "KennyKeni/dotfiles",
@@ -251,9 +251,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/writing-beats/SKILL.md",
-      "skillFolderHash": "7c4a385b59228a0f4360cf7a827800505c30a8d6",
+      "skillFolderHash": "f348dc059a7892886a3ef056f8a61d5b792b9626",
       "installedAt": "2026-07-08T19:22:09.962Z",
-      "updatedAt": "2026-07-08T19:22:09.962Z"
+      "updatedAt": "2026-07-15T19:00:52.260Z"
     },
     "writing-fragments": {
       "source": "KennyKeni/dotfiles",
@@ -261,9 +261,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/writing-fragments/SKILL.md",
-      "skillFolderHash": "8396e049a07ea3269d3a42d740d544e75c4cc9be",
+      "skillFolderHash": "4313e9b697f10786542f80afd3f1be395c56f3e3",
       "installedAt": "2026-07-08T19:22:09.962Z",
-      "updatedAt": "2026-07-08T19:22:09.962Z"
+      "updatedAt": "2026-07-15T19:00:59.319Z"
     },
     "writing-shape": {
       "source": "KennyKeni/dotfiles",
@@ -271,9 +271,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/writing-shape/SKILL.md",
-      "skillFolderHash": "c41152b1c6831cb1a563e9f14359f73a712cbfb4",
+      "skillFolderHash": "f55ce24727bc38f125c97311d27dc7b814d16097",
       "installedAt": "2026-07-08T19:22:09.962Z",
-      "updatedAt": "2026-07-08T19:22:09.962Z"
+      "updatedAt": "2026-07-15T19:01:01.687Z"
     },
     "zoom-out": {
       "source": "KennyKeni/dotfiles",
@@ -281,9 +281,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/zoom-out/SKILL.md",
-      "skillFolderHash": "53b54a5dd9474f297780d5780e126244b1bf5571",
+      "skillFolderHash": "2cee64908f0646a37fd3e7520a4c61cde3851b87",
       "installedAt": "2026-07-08T19:22:09.963Z",
-      "updatedAt": "2026-07-12T00:47:47.783Z"
+      "updatedAt": "2026-07-15T19:01:03.883Z"
     },
     "writing-great-skills": {
       "source": "mattpocock/skills",
@@ -320,9 +320,9 @@
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "ref": "main",
       "skillPath": "packages/agent-skills/forks/grilling/SKILL.md",
-      "skillFolderHash": "710270d11c37329c22a0f4a38fec0d9c6dedf639",
+      "skillFolderHash": "6b294c3a17f29c5e7b84818a7ef5ca0d890065e6",
       "installedAt": "2026-07-11T09:41:59.479Z",
-      "updatedAt": "2026-07-11T10:04:24.619Z"
+      "updatedAt": "2026-07-15T19:01:06.493Z"
     },
     "grok-first": {
       "source": "KennyKeni/dotfiles",
