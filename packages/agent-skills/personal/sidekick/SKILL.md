@@ -19,12 +19,27 @@ the source of truth for model, start, observe, continue, stop, and recovery
 operations. Report an unavailable requested setup instead of silently changing
 models or harnesses.
 
+## Defer To Active Orchestration
+
+When a goal, mission, or other orchestration workflow is active, let it decide
+whether and when delegation is justified. Let that workflow own contracts,
+decomposition, concurrency, validation cadence, durable state, and completion
+criteria. Apply Sidekick only as the execution policy for bounded assignments
+the workflow authorizes; do not start the pair when it selects direct execution
+without delegation.
+
+Pass a compact assignment rather than the full orchestration template or
+mission history. Reuse the persistent sidekick only while the workflow permits
+and its context remains relevant. Never use the retained sidekick as a required
+fresh validator; create an independent validator when the active workflow
+requires one.
+
 ## Start Both Contexts Early
 
-Start the sidekick near the beginning of the task with the largest immediately
-useful assignment. Do not use it as a one-shot question tool. Keep its task,
-chat, or session identifier and continue the same context across exploration,
-implementation, testing, and repair.
+When delegation is authorized, start the sidekick near the beginning of the
+task with the largest immediately useful assignment. Do not use it as a
+one-shot question tool. Keep its task, chat, or session identifier and continue
+the same context across exploration, implementation, testing, and repair.
 
 Give the sidekick a compact packet containing the user outcome, repository
 scope, resolved contract, constraints, writable ownership, required proof, and
