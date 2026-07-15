@@ -348,10 +348,11 @@
       "source": "KennyKeni/dotfiles",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
+      "ref": "main",
       "skillPath": "packages/agent-skills/personal/sidekick/SKILL.md",
-      "skillFolderHash": "20f439916d5eb77729c54ea9d902689a7f06d6f4",
+      "skillFolderHash": "574636243b6c2b937de117e1ee1c26ee26a7b16a",
       "installedAt": "2026-07-13T20:45:46.194Z",
-      "updatedAt": "2026-07-15T15:05:03.435Z"
+      "updatedAt": "2026-07-15T16:19:36.691Z"
     },
     "deliver-project": {
       "source": "KennyKeni/dotfiles",
