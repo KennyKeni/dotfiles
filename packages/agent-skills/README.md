@@ -22,13 +22,13 @@ then installs Claude-only skills (`claude-subagent-routing`, `codex-first`, and
 `grok-first`) only for Claude Code and Codex-only skills
 (`codex-subagent-routing` and `sidekick`) only for Codex.
 
-For a fresh install of the goal-prompt template:
+For a fresh install of Deliver Project:
 
 ```sh
 npx -y skills@latest add https://github.com/KennyKeni/dotfiles/tree/main/packages/agent-skills \
   -g --copy --full-depth \
   -a codex claude-code zed \
-  -s goal-prompt-template \
+  -s deliver-project \
   -y
 
 task skills:restore-global

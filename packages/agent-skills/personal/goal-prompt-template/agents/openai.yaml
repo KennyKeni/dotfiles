@@ -1,6 +1,0 @@
-interface:
-  display_name: "Goal Prompt Template"
-  short_description: "Long-horizon project execution"
-  default_prompt: "Use $goal-prompt-template to execute this long-running software project: <paste project context>."
-policy:
-  allow_implicit_invocation: false

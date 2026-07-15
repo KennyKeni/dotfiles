@@ -1,9 +1,9 @@
 ---
-name: goal-prompt-template
-description: Run explicitly invoked long-horizon software projects through a validation-first, compaction-resilient workflow with durable state, bounded scout, worker, and validator delegation, issue and PR boundaries, and evidence-based completion. Use only when the user explicitly invokes $goal-prompt-template or asks to apply the goal prompt template.
+name: deliver-project
+description: Deliver explicitly invoked software projects through a validation-first, compaction-resilient workflow with durable state, bounded scout, worker, and validator delegation, issue and PR boundaries, and evidence-based completion. Use only when the user explicitly invokes $deliver-project or asks to deliver a project with this workflow.
 ---
 
-# Goal Prompt Template
+# Deliver Project
 
 Apply this workflow only when explicitly invoked. Treat invocation text as the
 project goal, scope, constraints, and initial context.
