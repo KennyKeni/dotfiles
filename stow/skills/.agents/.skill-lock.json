@@ -44,9 +44,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/steipete/agent-scripts.git",
       "skillPath": "skills/codex-first/SKILL.md",
-      "skillFolderHash": "39ff80c3dbc1d797682b5b0ff01f3b1a63bcbbb3",
+      "skillFolderHash": "9672bea29fc8ca3f524a46e71a929bdd4dd63314",
       "installedAt": "2026-07-08T04:52:56.972Z",
-      "updatedAt": "2026-07-11T01:28:59.134Z"
+      "updatedAt": "2026-07-15T15:05:04.536Z"
     },
     "browser-use": {
       "source": "browser-use/browser-use",
@@ -358,9 +358,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/dotfiles.git",
       "skillPath": "packages/agent-skills/personal/sidekick/SKILL.md",
-      "skillFolderHash": "8d16d8dde2b6afe71f4557ab86df7874da619c47",
+      "skillFolderHash": "20f439916d5eb77729c54ea9d902689a7f06d6f4",
       "installedAt": "2026-07-13T20:45:46.194Z",
-      "updatedAt": "2026-07-13T22:06:46.320Z"
+      "updatedAt": "2026-07-15T15:05:03.435Z"
     }
   },
   "dismissed": {
