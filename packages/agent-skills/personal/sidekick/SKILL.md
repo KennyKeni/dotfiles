@@ -73,6 +73,10 @@ independent planning or judgment work when useful; otherwise observe through
 the adapter. Do not duplicate the sidekick's exploration or edit its active
 write scope.
 
+Use a normal return and the adapter's continuation operation for planned phase
+transitions. Reserve interruption for active work that must stop before it can
+return normally.
+
 At each question, evidence update, or return, choose one move:
 
 - continue the same assignment when the contract still holds;
@@ -90,6 +94,11 @@ the remaining execution savings justify rebuilding context. Never hide the
 loss of context or silently substitute another model.
 
 ## Review With The Main Agent
+
+Keep the retained sidekick available through acceptance review. Treat each
+review finding as a new work unit and route it through the same judgment
+boundary as the original work. The agent that discovers or specifies a
+correction does not automatically own its execution.
 
 Require the sidekick to return changed files, proof run, observed results,
 unrun checks, deviations, and risks. Inspect the complete diff and repository

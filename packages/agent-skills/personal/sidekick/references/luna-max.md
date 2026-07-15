@@ -43,7 +43,8 @@ not issue a second assignment while it is still running.
 
 After a final return, use `followup_task` with the same target for the next
 execution unit. This reactivates the retained context; do not spawn a fresh
-agent for each phase.
+agent for each phase. Use this normal return-and-continue path for planned phase
+transitions; do not interrupt an assignment merely to move to its next phase.
 
 Retain the same task, model, and effort for exploration, implementation,
 testing, and correction phases. Route responsibility back to the main agent at
@@ -53,8 +54,9 @@ same sidekick when appropriate.
 ## Stop And Recover
 
 Use `list_agents` only for a justified liveness check. Use `interrupt_agent`
-with `target: SIDEKICK_TARGET` when the assignment must stop or the context is
-no longer trustworthy. Preserve its useful evidence before reassigning work.
+with `target: SIDEKICK_TARGET` only when active work must stop before it can
+return normally or the context is no longer trustworthy. Preserve its useful
+evidence before reassigning work.
 
 If the task cannot resume and a replacement is worthwhile, call `spawn_agent`
 once with the same configuration and a compact handoff of accepted facts,
