@@ -6,7 +6,8 @@ or are personal skills that only live here.
 
 ## Layout
 
-- `forks/`: externally-originated skills with local edits or restore concerns.
+- `forks/`: externally-originated skills with local edits or restore concerns,
+  namespaced with the `keni-` prefix.
 - `personal/`: personal skills authored for this setup.
 
 Install them from GitHub, not from a local path. For an existing machine with
