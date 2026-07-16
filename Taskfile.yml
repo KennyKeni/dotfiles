@@ -33,7 +33,6 @@ tasks:
         fi
 
         mise install
-        task hooks:install
         task link
         task pnpm:globals
         BASH
@@ -204,53 +203,6 @@ tasks:
         process.exit(exitCode);
         NODE
         BASH
-
-  skills:routing:generate:
-    desc: Generate the Codex subagent routing skill and lane references.
-    cmds:
-      - >-
-        uv run --script
-        {{.TASKFILE_DIR}}/scripts/codex-subagent-routing/generate_references.py
-
-  skills:routing:check:
-    desc: Check that generated Codex subagent routing files are current.
-    cmds:
-      - >-
-        uv run --script
-        {{.TASKFILE_DIR}}/scripts/codex-subagent-routing/generate_references.py
-        --check
-
-  skills:sidekick:generate:
-    desc: Generate the Sidekick skill and setup references.
-    cmds:
-      - >-
-        uv run --script
-        {{.TASKFILE_DIR}}/scripts/sidekick/generate_references.py
-
-  skills:sidekick:check:
-    desc: Check that generated Sidekick files are current.
-    cmds:
-      - >-
-        uv run --script
-        {{.TASKFILE_DIR}}/scripts/sidekick/generate_references.py
-        --check
-
-  skills:subagents:generate:
-    desc: Generate every declarative subagent skill.
-    deps:
-      - skills:routing:generate
-      - skills:sidekick:generate
-
-  skills:subagents:check:
-    desc: Check every declarative subagent skill.
-    deps:
-      - skills:routing:check
-      - skills:sidekick:check
-
-  hooks:install:
-    desc: Install repository Git hooks with Lefthook.
-    cmds:
-      - mise exec -- lefthook install pre-commit
 
   _stow:
     internal: true

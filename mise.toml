@@ -1,4 +1,3 @@
 [tools]
 gh = "latest"
-lefthook = "latest"
 task = "3.50.0"
