@@ -11,95 +11,50 @@
       "installedAt": "2026-06-16T20:54:29.605Z",
       "updatedAt": "2026-07-03T20:59:06.088Z"
     },
-    "edit-article": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/personal/edit-article/SKILL.md",
-      "skillFolderHash": "19ce34c6f4afcb58788e8e525dbb80c79a45a4a0",
-      "installedAt": "2026-07-03T20:57:50.185Z",
-      "updatedAt": "2026-07-13T20:45:53.404Z"
-    },
-    "obsidian-vault": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/personal/obsidian-vault/SKILL.md",
-      "skillFolderHash": "5fdd257588fefa400e8a0d505aac555a0b52311a",
-      "installedAt": "2026-07-03T20:57:50.185Z",
-      "updatedAt": "2026-07-13T20:45:54.268Z"
-    },
     "codex-first": {
       "source": "steipete/agent-scripts",
       "sourceType": "github",
       "sourceUrl": "https://github.com/steipete/agent-scripts.git",
       "skillPath": "skills/codex-first/SKILL.md",
-      "skillFolderHash": "9672bea29fc8ca3f524a46e71a929bdd4dd63314",
+      "skillFolderHash": "690bf16f6a2ad421e250c7473ad5382d162b9bbd",
       "installedAt": "2026-07-08T04:52:56.972Z",
-      "updatedAt": "2026-07-15T15:05:04.536Z"
+      "updatedAt": "2026-07-20T04:24:37.147Z"
     },
     "browser-use": {
       "source": "browser-use/browser-use",
       "sourceType": "github",
       "sourceUrl": "https://github.com/browser-use/browser-use.git",
       "skillPath": "skills/browser-use/SKILL.md",
-      "skillFolderHash": "a17c161a4da00b65bd0807bf7fea1b884ef9a465",
+      "skillFolderHash": "8223949e261a6c483fd7f9d2824e2dc098ce1341",
       "installedAt": "2026-07-08T04:59:57.858Z",
-      "updatedAt": "2026-07-08T04:59:57.858Z"
-    },
-    "grill-me": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
-      "installedAt": "2026-07-08T05:05:08.185Z",
-      "updatedAt": "2026-07-13T20:45:55.009Z"
-    },
-    "teach": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/teach/SKILL.md",
-      "skillFolderHash": "15f8c86d39ef834e643d092733ca899b59049067",
-      "installedAt": "2026-07-08T05:05:08.186Z",
-      "updatedAt": "2026-07-13T20:45:56.560Z"
-    },
-    "writing-great-skills": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/writing-great-skills/SKILL.md",
-      "skillFolderHash": "81d36946d48842f90358d8af54e3cdcc141f8e01",
-      "installedAt": "2026-07-08T20:38:38.293Z",
-      "updatedAt": "2026-07-13T20:45:57.254Z"
+      "updatedAt": "2026-07-20T04:24:39.960Z"
     },
     "codex-subagent-routing": {
       "source": "KennyKeni/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/skills.git",
       "skillPath": "skills/personal/codex-subagent-routing/SKILL.md",
-      "skillFolderHash": "7d4e058a6ff9ec8317d05864f4920cd44a7bdc96",
+      "skillFolderHash": "ef169492b9ad94ee5ad9062c2e49c1849a4cbc8a",
       "installedAt": "2026-07-10T03:44:09.230Z",
-      "updatedAt": "2026-07-16T15:06:40.602Z"
+      "updatedAt": "2026-07-20T04:24:42.066Z"
     },
     "claude-subagent-routing": {
       "source": "KennyKeni/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/skills.git",
       "skillPath": "skills/personal/claude-subagent-routing/SKILL.md",
-      "skillFolderHash": "96d55d9fbfd23ccac585480ca2a37dd58cb01bf4",
+      "skillFolderHash": "9d2fad746a92ab9a3ff48f08e2893edd619325c2",
       "installedAt": "2026-07-11T02:19:21.673Z",
-      "updatedAt": "2026-07-16T15:06:38.040Z"
+      "updatedAt": "2026-07-20T04:24:44.136Z"
     },
     "grok-first": {
       "source": "KennyKeni/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/skills.git",
       "skillPath": "skills/personal/grok-first/SKILL.md",
-      "skillFolderHash": "4a2a6abfef2361ad1e5769b6c778c226378c1319",
+      "skillFolderHash": "b297c5dc2d8aa2a43926c28e7981d684e7382c9b",
       "installedAt": "2026-07-11T10:08:53.465Z",
-      "updatedAt": "2026-07-16T15:06:38.044Z"
+      "updatedAt": "2026-07-19T09:31:33.562Z"
     },
     "design-modular-backend": {
       "source": "KennyKeni/skills",
@@ -110,15 +65,6 @@
       "installedAt": "2026-07-11T23:36:34.686Z",
       "updatedAt": "2026-07-16T15:06:08.432Z"
     },
-    "sidekick": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/personal/sidekick/SKILL.md",
-      "skillFolderHash": "574636243b6c2b937de117e1ee1c26ee26a7b16a",
-      "installedAt": "2026-07-13T20:45:46.194Z",
-      "updatedAt": "2026-07-16T15:06:40.604Z"
-    },
     "deliver-project": {
       "source": "KennyKeni/skills",
       "sourceType": "github",
@@ -128,212 +74,113 @@
       "installedAt": "2026-07-15T15:17:14.011Z",
       "updatedAt": "2026-07-16T15:06:33.125Z"
     },
-    "keni-design-an-interface": {
-      "source": "KennyKeni/skills",
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-design-an-interface/SKILL.md",
-      "skillFolderHash": "5771b2bf1cdae0b428738b2b3916ee83df99b0ed",
-      "installedAt": "2026-07-16T00:22:56.881Z",
-      "updatedAt": "2026-07-16T15:06:33.101Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "skillFolderHash": "5fdcdeedf2d0c73b3ecb1da0a464dd885590f8d6",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.871Z",
+      "updatedAt": "2026-07-16T15:28:04.871Z"
     },
-    "keni-diagnose": {
-      "source": "KennyKeni/skills",
+    "improve-codebase-architecture": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-diagnose/SKILL.md",
-      "skillFolderHash": "d63b28cea4b2d112f5a06a5771b65dee3fbf3443",
-      "installedAt": "2026-07-16T00:22:56.883Z",
-      "updatedAt": "2026-07-16T15:06:33.104Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
+      "skillFolderHash": "bce229692e60dff3462e49bc5e774e83bef348e6",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.871Z",
+      "updatedAt": "2026-07-16T15:28:04.871Z"
     },
-    "keni-grill-with-docs": {
-      "source": "KennyKeni/skills",
+    "setup-matt-pocock-skills": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-grill-with-docs/SKILL.md",
-      "skillFolderHash": "8eb7d2480ad3106242d4fc1dad6e68003be8ca4c",
-      "installedAt": "2026-07-16T00:22:56.884Z",
-      "updatedAt": "2026-07-16T15:06:33.104Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
+      "skillFolderHash": "634cf9b010bca5701642aca736dce899822f08f7",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.872Z",
+      "updatedAt": "2026-07-16T15:28:04.872Z"
     },
-    "keni-grilling": {
-      "source": "KennyKeni/skills",
+    "tdd": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-grilling/SKILL.md",
-      "skillFolderHash": "6078dcbe917886535021403077881f6191cc1bac",
-      "installedAt": "2026-07-16T00:22:56.884Z",
-      "updatedAt": "2026-07-16T15:06:33.106Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/tdd/SKILL.md",
+      "skillFolderHash": "0a727bd358b855cbcc1c35cfff21ef31f9ffb8de",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.872Z",
+      "updatedAt": "2026-07-16T15:28:04.872Z"
     },
-    "keni-handoff": {
-      "source": "KennyKeni/skills",
+    "to-spec": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-handoff/SKILL.md",
-      "skillFolderHash": "7daa8432329ec8a073ce4e2a792c7d83ed195c05",
-      "installedAt": "2026-07-16T00:22:56.885Z",
-      "updatedAt": "2026-07-16T15:06:33.107Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/to-spec/SKILL.md",
+      "skillFolderHash": "bf698b96b5d8798d110d9872e32b9310728555b0",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.872Z",
+      "updatedAt": "2026-07-16T15:28:04.872Z"
     },
-    "keni-improve-codebase-architecture": {
-      "source": "KennyKeni/skills",
+    "to-tickets": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-improve-codebase-architecture/SKILL.md",
-      "skillFolderHash": "837cb91c50b4b3a852a8976f45f351286f99c1bc",
-      "installedAt": "2026-07-16T00:22:56.885Z",
-      "updatedAt": "2026-07-16T15:06:33.108Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/to-tickets/SKILL.md",
+      "skillFolderHash": "5467d7a37ef365ed43ebe6eb466d6e952be881b8",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.872Z",
+      "updatedAt": "2026-07-16T15:28:04.872Z"
     },
-    "keni-migrate-to-shoehorn": {
-      "source": "KennyKeni/skills",
+    "triage": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-migrate-to-shoehorn/SKILL.md",
-      "skillFolderHash": "baf50f8c6ca0d7a8282addf40f37a225a0c391c1",
-      "installedAt": "2026-07-16T00:22:56.885Z",
-      "updatedAt": "2026-07-16T15:06:33.109Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/triage/SKILL.md",
+      "skillFolderHash": "258364be8354f726bf4080077cd92d86d08c69eb",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-16T15:28:04.873Z",
+      "updatedAt": "2026-07-16T15:28:04.873Z"
     },
-    "keni-prototype": {
-      "source": "KennyKeni/skills",
+    "grill-me": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-prototype/SKILL.md",
-      "skillFolderHash": "a0d01d7180eabe0579dd035d5440d9a330e1ed2d",
-      "installedAt": "2026-07-16T00:22:56.886Z",
-      "updatedAt": "2026-07-16T15:06:33.110Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-18T04:37:49.155Z",
+      "updatedAt": "2026-07-18T04:37:49.155Z"
     },
-    "keni-qa": {
-      "source": "KennyKeni/skills",
+    "grilling": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-qa/SKILL.md",
-      "skillFolderHash": "6ae3c4697be459c32264190ed1b30180d309441f",
-      "installedAt": "2026-07-16T00:22:56.886Z",
-      "updatedAt": "2026-07-16T15:06:33.111Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "skillFolderHash": "10b0db61f9b3869243db8a1a0ee84f862139b94e",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-18T04:37:49.160Z",
+      "updatedAt": "2026-07-18T04:37:49.160Z"
     },
-    "keni-request-refactor-plan": {
+    "claude-sidekick": {
       "source": "KennyKeni/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-request-refactor-plan/SKILL.md",
-      "skillFolderHash": "47e72c1e8ba497cfe2511420f1e667162f2c9c6e",
-      "installedAt": "2026-07-16T00:22:56.887Z",
-      "updatedAt": "2026-07-16T15:06:33.112Z"
+      "skillPath": "skills/personal/claude-sidekick/SKILL.md",
+      "skillFolderHash": "730ca60ec78a49ea54b7ab6970beda94370a420d",
+      "installedAt": "2026-07-20T04:29:47.558Z",
+      "updatedAt": "2026-07-20T04:29:47.558Z"
     },
-    "keni-review": {
+    "codex-sidekick": {
       "source": "KennyKeni/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-review/SKILL.md",
-      "skillFolderHash": "fc81594ccee5939fb773c89f6d049fe2d5e0829f",
-      "installedAt": "2026-07-16T00:22:56.887Z",
-      "updatedAt": "2026-07-16T15:06:33.114Z"
-    },
-    "keni-scaffold-exercises": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-scaffold-exercises/SKILL.md",
-      "skillFolderHash": "1ae2896644ab4ee69500cf097dc3fcd0ced19c6b",
-      "installedAt": "2026-07-16T00:22:56.887Z",
-      "updatedAt": "2026-07-16T15:06:33.114Z"
-    },
-    "keni-setup-matt-pocock-skills": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-setup-matt-pocock-skills/SKILL.md",
-      "skillFolderHash": "9b95edac2b8c6707634eda270a010c7feacd7b44",
-      "installedAt": "2026-07-16T00:22:56.888Z",
-      "updatedAt": "2026-07-16T15:06:33.115Z"
-    },
-    "keni-setup-pre-commit": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-setup-pre-commit/SKILL.md",
-      "skillFolderHash": "76eba1ccd47f73bc83594780a1384ff933b7243a",
-      "installedAt": "2026-07-16T00:22:56.888Z",
-      "updatedAt": "2026-07-16T15:06:33.116Z"
-    },
-    "keni-tdd": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-tdd/SKILL.md",
-      "skillFolderHash": "92d2209ed0ec29982dfca0677e47682ba80da9ce",
-      "installedAt": "2026-07-16T00:22:56.888Z",
-      "updatedAt": "2026-07-16T15:06:33.116Z"
-    },
-    "keni-to-issues": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-to-issues/SKILL.md",
-      "skillFolderHash": "2121726ffca00aa172393f6c2f39087115042c85",
-      "installedAt": "2026-07-16T00:22:56.889Z",
-      "updatedAt": "2026-07-16T15:06:33.117Z"
-    },
-    "keni-to-prd": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-to-prd/SKILL.md",
-      "skillFolderHash": "431198e4a91cba95959307c97bede170efe7fb87",
-      "installedAt": "2026-07-16T00:22:56.889Z",
-      "updatedAt": "2026-07-16T15:06:33.117Z"
-    },
-    "keni-triage": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-triage/SKILL.md",
-      "skillFolderHash": "71cbc1b71addc008c40d7cf10d11506b957b2b2c",
-      "installedAt": "2026-07-16T00:22:56.889Z",
-      "updatedAt": "2026-07-16T15:06:33.118Z"
-    },
-    "keni-ubiquitous-language": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-ubiquitous-language/SKILL.md",
-      "skillFolderHash": "2af1fb37d460d327374d31aa41ea787e9577e18a",
-      "installedAt": "2026-07-16T00:22:56.890Z",
-      "updatedAt": "2026-07-16T15:06:33.119Z"
-    },
-    "keni-writing-beats": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-writing-beats/SKILL.md",
-      "skillFolderHash": "16784c7cd7efa713c406cd9d1d27a27e2dfa40ee",
-      "installedAt": "2026-07-16T00:22:56.890Z",
-      "updatedAt": "2026-07-16T15:06:33.120Z"
-    },
-    "keni-writing-fragments": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-writing-fragments/SKILL.md",
-      "skillFolderHash": "1fb2914689ff8f4b0175df2cd0a4a8ad3d9df1d2",
-      "installedAt": "2026-07-16T00:22:56.891Z",
-      "updatedAt": "2026-07-16T15:06:33.121Z"
-    },
-    "keni-writing-shape": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-writing-shape/SKILL.md",
-      "skillFolderHash": "7ea717fdb93973f2d35c2bf8ccf3b4b8902ca0ed",
-      "installedAt": "2026-07-16T00:22:56.891Z",
-      "updatedAt": "2026-07-16T15:06:33.124Z"
-    },
-    "keni-zoom-out": {
-      "source": "KennyKeni/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/KennyKeni/skills.git",
-      "skillPath": "skills/forks/keni-zoom-out/SKILL.md",
-      "skillFolderHash": "101a9f26d59a0cc910636dd6076840704d8bc392",
-      "installedAt": "2026-07-16T00:22:56.891Z",
-      "updatedAt": "2026-07-16T15:06:33.125Z"
+      "skillPath": "skills/personal/codex-sidekick/SKILL.md",
+      "skillFolderHash": "61d00449eabda8f29604787c4cf4a1e73a65da3d",
+      "installedAt": "2026-07-20T04:29:50.002Z",
+      "updatedAt": "2026-07-20T04:29:50.002Z"
     }
   },
   "dismissed": {

@@ -1,8 +1,27 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "agent": {
-    "explore": {
-      "mode": "primary"
+  "provider": {
+    "alibaba-token-plan": {
+      "models": {
+        "qwen3.8-max-preview": {
+          "name": "Qwen3.8 Max Preview",
+          "family": "qwen",
+          "release_date": "2026-07-19",
+          "status": "beta",
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "attachment": false,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          }
+        }
+      }
     }
   }
 }

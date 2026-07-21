@@ -5,6 +5,7 @@ mise.local.toml
 # Personal in-repo scratch space
 .local/
 .scratch/
+.worktrees/
 
 # Agent instruction files
 AGENTS.md
