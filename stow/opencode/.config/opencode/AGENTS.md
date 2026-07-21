@@ -1,1 +1,1 @@
-../../../codex/.codex/AGENTS.md
+../../../../../skills/global/AGENTS.md
